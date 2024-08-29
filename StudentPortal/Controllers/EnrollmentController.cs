@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentPortal.Data;
-using System.Runtime.CompilerServices;
 
 namespace StudentPortal.Controllers
 {
@@ -20,7 +19,7 @@ namespace StudentPortal.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Search(string idnumber)
+		public async Task<IActionResult> Entry(string idnumber)
 		{
 			if (string.IsNullOrWhiteSpace(idnumber))
 			{
@@ -28,14 +27,17 @@ namespace StudentPortal.Controllers
 			}
 
 			// Search for the student using the provided ID number
-			var student = await DBContext.Student
-				.FirstOrDefaultAsync(s => s.StudID.ToString() == idnumber);
+			var student = await DBContext.Student.FirstOrDefaultAsync(s => s.StudID.ToString() == idnumber);
 
 			if (student == null)
 			{
 				// Optionally return an error or notification to the user
 				ViewBag.Message = "Student not found.";
 				return View();
+			}
+			else
+			{
+				ViewBag.Message = "Student found.";
 			}
 
 			// Pass the found student to the view
