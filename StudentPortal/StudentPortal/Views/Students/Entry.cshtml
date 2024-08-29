@@ -1,0 +1,85 @@
+﻿@{
+	ViewData["Title"] = "Student Entry";
+}
+
+@model StudentPortal.Models.StudentsViewModel
+
+<h1>Student Entry</h1>
+
+<form method="post" id="form">
+	<div class="mt-3">
+		<label class="form-label">ID Number</label>
+		<input type="text" class="form-control" asp-for="StudID" placeholder="Enter Id Number" required />
+	</div>
+
+	<div class="mt-3">
+		<label class="form-label">First Name</label>
+		<input type="text" class="form-control" asp-for="StudFName" placeholder="Enter First Name" maxlength="15" required />
+	</div>
+
+	<div class="mt-3">
+		<label class="form-label">Middle Name</label>
+		<input type="text" class="form-control" asp-for="StudMName" placeholder="Enter Middle Name" maxlength="15" />
+	</div>
+
+	<div class="mt-3">
+		<label class="form-label">Last Name</label>
+		<input type="text" class="form-control" asp-for="StudLName" placeholder="Enter Last Name" maxlength="15" required />
+	</div>
+
+	<div class="mt-3">
+		<label class="form-label">Course</label>
+		<input type="text" class="form-control" asp-for="StudCourse" placeholder="Enter Course" maxlength="10" required />
+	</div>
+
+	<div class="mt-3">
+		<label class="form-label">Year</label>
+		<input type="number" class="form-control" asp-for="StudYear" placeholder="Enter Year" required />
+	</div>
+
+	<div class="mt-3">
+		<label class="form-label">Remarks</label>
+		<select id="remarks" class="form-select" asp-for="StudRemarks">
+			<option value="Shiftee">Shiftee</option>
+			<option value="Transferee">Transferee</option>
+			<option value="New">New</option>
+			<option value="Old">Old</option>
+			<option value="Cross-Enrollee">Cross-Enrollee</option>
+			<option value="Returnee">Returnee</option>
+		</select>
+	</div>
+
+	<div class="mt-3">
+		<button type="submit" class="btn btn-primary">Save</button>
+		<button type="button" class="btn btn-danger" onclick="clearForm()">Cancel</button>
+	</div>
+
+</form>
+
+<script>
+	$(document).ready(function () {
+		$('#form').submit(function (e) {
+			e.preventDefault(); // Prevent the default form submit
+
+			// Perform AJAX form submission
+			$.ajax({
+				type: 'POST',
+				url: '@Url.Action("Entry", "Students")', // Adjust to your action
+				data: $(this).serialize(), // Serialize form data
+				success: function (response) {
+					// Handle success
+					clearForm(); // Clear the form on success
+					alert('Form submitted successfully!');
+				},
+				error: function () {
+					// Handle error
+					alert('There was an error submitting the form.');
+				}
+			});
+		});
+	});
+
+	function clearForm() {
+		document.getElementById("form").reset();
+	}
+</script>
