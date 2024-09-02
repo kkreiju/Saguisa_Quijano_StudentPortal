@@ -21,10 +21,6 @@ namespace StudentPortal.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Entry(string idnumber)
 		{
-			if (string.IsNullOrWhiteSpace(idnumber))
-			{
-				return View();  // Optionally return a validation error
-			}
 
 			// Search for the student using the provided ID number
 			var student = await DBContext.Student.FirstOrDefaultAsync(s => s.StudID.ToString() == idnumber);

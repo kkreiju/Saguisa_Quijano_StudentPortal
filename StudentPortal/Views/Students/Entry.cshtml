@@ -6,10 +6,23 @@
 
 <h1>Student Entry</h1>
 
+@if (ViewBag.Message == "Student is already registered.")
+{
+	<div class="alert alert-danger mt-3">
+		<p class="my-0">@ViewBag.Message</p>
+	</div>
+}
+else if (ViewBag.Message == "Student added.")
+{
+	<div class="alert alert-success mt-3">
+		<p class="my-0">@ViewBag.Message</p>
+	</div>
+}
+
 <form method="post" id="form">
 	<div class="mt-3">
 		<label class="form-label">ID Number</label>
-		<input type="text" class="form-control" asp-for="StudID" placeholder="Enter Id Number" required />
+		<input type="number" class="form-control" asp-for="StudID" name="idnumber" placeholder="Enter Id Number" required />
 	</div>
 
 	<div class="mt-3">
@@ -57,28 +70,6 @@
 </form>
 
 <script>
-	$(document).ready(function () {
-		$('#form').submit(function (e) {
-			e.preventDefault(); // Prevent the default form submit
-
-			// Perform AJAX form submission
-			$.ajax({
-				type: 'POST',
-				url: '@Url.Action("Entry", "Students")', // Adjust to your action
-				data: $(this).serialize(), // Serialize form data
-				success: function (response) {
-					// Handle success
-					clearForm(); // Clear the form on success
-					alert('Form submitted successfully!');
-				},
-				error: function () {
-					// Handle error
-					alert('There was an error submitting the form.');
-				}
-			});
-		});
-	});
-
 	function clearForm() {
 		document.getElementById("form").reset();
 	}

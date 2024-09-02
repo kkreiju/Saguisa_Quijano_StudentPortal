@@ -23,44 +23,58 @@ namespace StudentPortal.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Entry(StudentsViewModel viewModel)
+		public async Task<IActionResult> Entry(StudentsViewModel viewModel, string idnumber)
 		{
-			using(var transaction = await DBContext.Database.BeginTransactionAsync())
+
+			// Search for the student using the provided ID number
+			var studIdNumber = await DBContext.Student.FirstOrDefaultAsync(s => s.StudID.ToString() == idnumber);
+
+			if (studIdNumber != null)
 			{
-				try
+				// Optionally return an error or notification to the user
+				ViewBag.Message = "Student is already registered.";
+				return View();
+			}
+			else
+			{
+				using (var transaction = await DBContext.Database.BeginTransactionAsync())
 				{
-					await DBContext.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Student ON");
-
-					var student = new Students
+					try
 					{
-						StudID = viewModel.StudID,
-						StudLName = viewModel.StudLName,
-						StudFName = viewModel.StudFName,
-						StudMName = viewModel.StudMName,
-						StudCourse = viewModel.StudCourse,
-						StudYear = viewModel.StudYear,
-						StudRemarks = viewModel.StudRemarks,
-						StudStatus = "AC"
-					};
+						await DBContext.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Student ON");
 
-					await DBContext.Student.AddAsync(student);
-					await DBContext.SaveChangesAsync();
+						var student = new Students
+						{
+							StudID = Convert.ToInt32(idnumber),
+							StudLName = viewModel.StudLName,
+							StudFName = viewModel.StudFName,
+							StudMName = viewModel.StudMName,
+							StudCourse = viewModel.StudCourse,
+							StudYear = viewModel.StudYear,
+							StudRemarks = viewModel.StudRemarks,
+							StudStatus = "AC"
+						};
 
-					await DBContext.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Student OFF");
+						await DBContext.Student.AddAsync(student);
+						await DBContext.SaveChangesAsync();
 
-					await transaction.CommitAsync();
+						await DBContext.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Student OFF");
 
-					if (ModelState.IsValid)
-					{
-						ModelState.Clear();
-						return View(new StudentsViewModel());
+						await transaction.CommitAsync();
+
+						if (ModelState.IsValid)
+						{
+							ModelState.Clear();
+							ViewBag.Message = "Student added.";
+							return View(new StudentsViewModel());
+						}
+
 					}
-
-				}
-				catch (Exception ex)
-				{
-					await transaction.RollbackAsync();
-					throw;
+					catch (Exception ex)
+					{
+						await transaction.RollbackAsync();
+						throw;
+					}
 				}
 			}
 
