@@ -10,6 +10,17 @@ namespace StudentPortal.Data
 
         }
 
-        public DbSet<Students> Student { get; set; }
-    }
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<Students>();
+			modelBuilder.Entity<Subjects>().HasKey(x => new
+			{
+				x.SubjCode, x.SubjCourseCode
+			});
+
+		}
+
+		public DbSet<Students> Student { get; set; }
+		public DbSet<Subjects> Subject { get; set; }
+	}
 }
