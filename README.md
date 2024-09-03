@@ -1,6 +1,6 @@
 # ELDNET 1 Final Project
 
-**Arjay Nino Saguisa - Backend**
+**Arjay Nino Saguisa - Backend**<br>
 **John Reddick Quijano - Frontend**
 
 
