@@ -46,10 +46,10 @@ namespace StudentPortal.Controllers
 						var student = new Students
 						{
 							StudID = Convert.ToInt32(idnumber),
-							StudLName = viewModel.StudLName,
-							StudFName = viewModel.StudFName,
-							StudMName = viewModel.StudMName,
-							StudCourse = viewModel.StudCourse,
+							StudLName = viewModel.StudLName.ToUpper(),
+							StudFName = viewModel.StudFName.ToUpper(),
+							StudMName = viewModel.StudMName.ToUpper(),
+							StudCourse = viewModel.StudCourse.ToUpper(),
 							StudYear = viewModel.StudYear,
 							StudRemarks = viewModel.StudRemarks,
 							StudStatus = "AC"

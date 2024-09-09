@@ -17,10 +17,15 @@ namespace StudentPortal.Data
 			{
 				x.SubjCode, x.SubjCourseCode
 			});
-
+			modelBuilder.Entity<SubjectsPreq>().HasKey(x => new
+			{
+				x.SPSubjCode,
+				x.SPSubjPreCode
+			});
 		}
 
 		public DbSet<Students> Student { get; set; }
 		public DbSet<Subjects> Subject { get; set; }
+		public DbSet<SubjectsPreq> SubjectPreq { get; set; }
 	}
 }

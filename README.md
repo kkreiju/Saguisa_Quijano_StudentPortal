@@ -11,7 +11,10 @@
  - Frontend Designs
  - Enrollment Entry continuation
  - Subject Entry continuation
+	 -  there is an existing code for this which is working. but refer to the search bug.
 
 ### Bugs
-
-- Migration Composite Key in Subject table (needs to be manually configurated in SSMS to change its primary keys)
+**Subject Entry**
+- Adds a new data when clicking search button if fields are complete
+- Redundancy of returning Entry View when clicking search button
+- Spaghetti Code (?) too many if else blocks
