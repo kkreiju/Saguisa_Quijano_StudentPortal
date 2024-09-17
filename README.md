@@ -8,7 +8,7 @@
 
 ### To be implemented
 
- - Frontend Designs
+ - Frontend Designs (by thursday, sept 20)
  - Enrollment Entry continuation
  - Subject Entry continuation
 

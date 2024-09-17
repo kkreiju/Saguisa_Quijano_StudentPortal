@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - StudentPortal</title>
     <link rel="icon" href="~/uc.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/StudentPortal.styles.css" asp-append-version="true" />
@@ -23,8 +26,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Students" asp-action="Entry">Students</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Students</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-controller="Students" asp-action="Entry">Entry</a>
+                                <a class="dropdown-item" asp-controller="Students" asp-action="List">List</a>
+                                <a class="dropdown-item" asp-controller="Students" asp-action="Edit">Edit</a>
+                                <a class="dropdown-item" asp-controller="Students" asp-action="Delete">Delete</a>
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Enrollment" asp-action="Entry">Enrollment</a>

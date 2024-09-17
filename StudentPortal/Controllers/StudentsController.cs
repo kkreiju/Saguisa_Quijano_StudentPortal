@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentPortal.Data;
 using StudentPortal.Models;
 using StudentPortal.Models.Entities;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 
 namespace StudentPortal.Controllers
@@ -46,10 +47,10 @@ namespace StudentPortal.Controllers
 						var student = new Students
 						{
 							StudID = Convert.ToInt32(idnumber),
-							StudLName = viewModel.StudLName,
-							StudFName = viewModel.StudFName,
-							StudMName = viewModel.StudMName,
-							StudCourse = viewModel.StudCourse,
+							StudLName = viewModel.StudLName.ToUpper(),
+							StudFName = viewModel.StudFName.ToUpper(),
+							StudMName = viewModel.StudMName.ToUpper(),
+							StudCourse = viewModel.StudCourse.ToUpper(),
 							StudYear = viewModel.StudYear,
 							StudRemarks = viewModel.StudRemarks,
 							StudStatus = "AC"
@@ -79,6 +80,105 @@ namespace StudentPortal.Controllers
 			}
 
 			return View();
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> List()
+		{
+			var students = await DBContext.Student.ToListAsync();
+
+			return View(students);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Edit(int? idnumber1)
+		{
+			if (idnumber1 == null)
+			{
+				// When there is no ID submitted (initial load), do nothing
+				ViewBag.SearchPerformed = false; // No search was performed yet
+				return View();
+			}
+
+			var id = await DBContext.Student.FindAsync(idnumber1);
+
+			if (id != null)
+			{
+				return View(id);
+			}
+			else
+			{
+				ViewBag.Search = true;
+				ViewBag.Message = "ID Not Found.";
+				return View();
+			}
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Edit(Students viewModel, string idnumber2)
+		{
+			var student = await DBContext.Student.FindAsync(Convert.ToInt32(idnumber2));
+
+			if (student is not null)
+			{
+				student.StudLName = viewModel.StudLName.ToUpper();
+				student.StudFName = viewModel.StudFName.ToUpper();
+				student.StudMName = viewModel.StudMName.ToUpper();
+				student.StudCourse = viewModel.StudCourse.ToUpper();
+				student.StudYear = viewModel.StudYear;
+				student.StudRemarks = viewModel.StudRemarks;
+
+				DBContext.Student.Update(student);
+
+				await DBContext.SaveChangesAsync();
+			}
+
+			return RedirectToAction("List", "Students");
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Delete (int? idnumber1)
+		{
+			if (idnumber1 == null)
+			{
+				// When there is no ID submitted (initial load), do nothing
+				ViewBag.SearchPerformed = false; // No search was performed yet
+				return View();
+			}
+
+			var id = await DBContext.Student.FindAsync(idnumber1);
+
+			if (id != null)
+			{
+				return View(id);
+			}
+			else
+			{
+				ViewBag.Search = true;
+				ViewBag.Message = "ID Not Found.";
+				return View();
+			}
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Delete(Students viewModel, string idnumber2)
+		{
+            // Define the SQL command with a parameter placeholder
+            var sqlCommand = "DELETE FROM Student WHERE StudID = {0}";
+
+            // Execute the command with the specified parameter value
+            int affectedRows = await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, idnumber2);
+
+            if (affectedRows > 0)
+            {
+                // If rows were affected, the deletion was successful
+                return RedirectToAction("List", "Students"); // Redirect or take any other action
+            }
+            else
+            {
+                // Handle the case when no rows were affected (e.g., ID not found)
+                return NotFound(); // Or some other appropriate response
+            }
 		}
 	}
 }
