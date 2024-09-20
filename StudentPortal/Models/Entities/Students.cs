@@ -7,13 +7,13 @@ namespace StudentPortal.Models.Entities
         [Key]
         public int? StudID { get; set; }
 
-        [StringLength(15)]
+        [StringLength(20)]
         public string StudLName { get; set; }
 
-        [StringLength(15)]
+        [StringLength(20)]
         public string StudFName { get; set; }
 
-        [StringLength(15)]
+        [StringLength(20)]
         public string StudMName { get; set; }
 
         [StringLength(10)]
@@ -25,7 +25,7 @@ namespace StudentPortal.Models.Entities
         public string StudRemarks { get; set; }
 
         [StringLength(2)]
-        public string? StudStatus { get; set; }
+        public string StudStatus { get; set; }
 
     }
 }

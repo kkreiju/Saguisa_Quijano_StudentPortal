@@ -12,8 +12,8 @@ using StudentPortal.Data;
 namespace StudentPortal.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20240902051624_nullable primary key")]
-    partial class nullableprimarykey
+    [Migration("20240920160121_First")]
+    partial class First
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,15 +76,14 @@ namespace StudentPortal.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
+                    b.Property<string>("SubjCourseCode")
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
                     b.Property<string>("SubjCategory")
                         .IsRequired()
                         .HasMaxLength(3)
                         .HasColumnType("nvarchar(3)");
-
-                    b.Property<string>("SubjCourseCode")
-                        .IsRequired()
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
 
                     b.Property<string>("SubjCurrCode")
                         .IsRequired()
@@ -107,7 +106,7 @@ namespace StudentPortal.Migrations
                     b.Property<float?>("SubjUnits")
                         .HasColumnType("real");
 
-                    b.HasKey("SubjCode");
+                    b.HasKey("SubjCode", "SubjCourseCode");
 
                     b.ToTable("Subject");
                 });
