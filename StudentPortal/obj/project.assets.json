@@ -4106,19 +4106,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\arjay\\.nuget\\packages\\": {}
+    "C:\\Users\\blais\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\StudentPortal.csproj",
+      "projectUniqueName": "C:\\Users\\blais\\Desktop\\Saguisa_Quijano_StudentPortal-unstable\\StudentPortal\\StudentPortal.csproj",
       "projectName": "StudentPortal",
-      "projectPath": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\StudentPortal.csproj",
-      "packagesPath": "C:\\Users\\arjay\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\obj\\",
+      "projectPath": "C:\\Users\\blais\\Desktop\\Saguisa_Quijano_StudentPortal-unstable\\StudentPortal\\StudentPortal.csproj",
+      "packagesPath": "C:\\Users\\blais\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\blais\\Desktop\\Saguisa_Quijano_StudentPortal-unstable\\StudentPortal\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\arjay\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\blais\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4126,6 +4126,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -4183,7 +4184,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
