@@ -1,0 +1,38 @@
+﻿@{
+	ViewData["Title"] = "Subject List";
+}
+
+@model List<StudentPortal.Models.Entities.Subjects>
+
+<h1>Subject List</h1>
+
+@if (Model.Count == 0)
+{
+    <p>No Subjects registered.</p>
+}
+else
+{
+    <table class="table table-responsive table-bordered table-light shadow-lg mt-3">
+        <thead>
+            <tr>
+                <th scope="col">Subject Code</th>
+                <th scope="col">Description</th>
+                <th scope="col">Units</th>
+                <th scope="col">Course</th>
+                <th scope="col">Co/Pre</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var subject in Model)
+            {
+                <tr>
+                    <th scope="row">@subject.SubjCode</th>
+                    <td>@subject.SubjDesc</td>
+                    <td>@subject.SubjUnits</td>
+                    <td>@subject.SubjCourseCode</td>
+                    <td>@subject.SubjRequisite</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

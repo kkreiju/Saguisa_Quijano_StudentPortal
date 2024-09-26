@@ -4,20 +4,9 @@
 
 @model StudentPortal.Models.SubjectsViewModel
 
-<h1>Subject Information</h1>
+<h1>Subject Entry</h1>
 
-<!--
-	i need to clean the parts of subjectcontroller, and this entry
-
-	the migration of including composite keys are now complete but the problem is, it will violate the primary key 1
-		i somehow need to fix this in order not to see the error page.
-
-		fix: manually change the design of the dbo.Student in SSMS
-
-	i also need to add requisite information connected with the first form
--->
-
-@if (ViewBag.Message == "Subject Code is already registered.")
+@if (ViewBag.Message != null && ViewBag.Message.Contains("registered"))
 {
 	<div class="alert alert-danger mt-3">
 		<p class="my-0">@ViewBag.Message</p>
@@ -33,48 +22,71 @@ else if (ViewBag.Message == "Subject added.")
 <form method="post" id="form">
 	<div class="mt-3">
 		<label class="form-label">Subject Code</label>
+<<<<<<< Updated upstream
 		<input type="text" style="text-transform: uppercase;" id="code" class="form-control" name="subjectcode" asp-for="SubjCode" required />
+=======
+		<input type="text" style="text-transform: uppercase;" class="form-control shadow-lg" name="subjectcode" asp-for="SubjCode" required />
+>>>>>>> Stashed changes
 	</div>
 
 	<div class="mt-3">
 		<label class="form-label">Description</label>
+<<<<<<< Updated upstream
 		<input type="text" style="text-transform: uppercase;" class="form-control" name="subjdesc" asp-for="SubjDesc" required />
+=======
+		<input type="text" style="text-transform: uppercase;" class="form-control shadow-lg" name="subjdesc" asp-for="SubjDesc" required />
+>>>>>>> Stashed changes
 	</div>
 
 	<div class="mt-3">
 		<label class="form-label">Units</label>
+<<<<<<< Updated upstream
 		<input type="number" class="form-control" name="subjunits" asp-for="SubjUnits" required />
+=======
+		<input type="number" class="form-control shadow-lg" name="subjunits" asp-for="SubjUnits" required />
+>>>>>>> Stashed changes
 	</div>
 
-	<div class="mt-3">
-		<label class="form-label">Offering</label>
-		<select id="offering" class="form-select" name="subjregofrng" asp-for="SubjRegOfrng">
-			<option value="1">First Semester</option>
-			<option value="2">Second Semester</option>
-			<option value="3">Summer</option>
-		</select>
-	</div>
+	<div class="row">
+		<div class="col mt-3">
+			<label class="form-label">Offering</label>
+			<select id="offering" class="form-select shadow-lg" name="subjregofrng" asp-for="SubjRegOfrng">
+				<option value="1">First Semester</option>
+				<option value="2">Second Semester</option>
+				<option value="3">Summer</option>
+			</select>
+		</div>
 
-	<div class="mt-3">
-		<label class="form-label">Category</label>
-		<select id="category" class="form-select" name="subjcategory" asp-for="SubjCategory">
-			<option value="LEC">Lecture</option>
-			<option value="LAB">Laboratory</option>
-		</select>
-	</div>
+		<div class="col mt-3">
+			<label class="form-label">Category</label>
+			<select id="category" class="form-select shadow-lg" name="subjcategory" asp-for="SubjCategory">
+				<option value="LEC">Lecture</option>
+				<option value="LAB">Laboratory</option>
+			</select>
+		</div>
 
-	<div class="mt-3">
-		<label class="form-label">Course Code</label>
-		<select id="coursecode" name="coursecode" class="form-select" asp-for="SubjCourseCode">
-			<option value="BSIT">BSIT</option>
-			<option value="BSIS">BSIS</option>
-			<option value="BSN">BSN</option>
-		</select>
+		<div class="col mt-3">
+			<label class="form-label">Course Code</label>
+			<select id="coursecode" name="coursecode" class="form-select shadow-lg" asp-for="SubjCourseCode">
+				<option value="BSIT">BSIT</option>
+				<option value="BSIS">BSIS</option>
+				<option value="BSN">BSN</option>
+			</select>
+		</div>
 	</div>
 
 	<div class="mt-3">
 		<label class="form-label">Curriculum Year</label>
+<<<<<<< Updated upstream
 		<input type="text" class="form-control" name="subjcurrcode" asp-for="SubjCurrCode" required />
+=======
+		<input type="text" style="text-transform: uppercase;" class="form-control shadow-lg" name="subjcurrcode" asp-for="SubjCurrCode" required />
+	</div>
+
+	<div class="mt-3">
+		<label class="form-label">Requisite</label>
+		<input type="text" style="text-transform: uppercase;" class="form-control shadow-lg" name="subjrequisite" asp-for="SubjRequisite" />
+>>>>>>> Stashed changes
 	</div>
 
 	<h1 class="mt-3">Requisite Information</h1>

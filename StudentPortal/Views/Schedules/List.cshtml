@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Schedule List";
+}
+
+@model List<StudentPortal.Models.Entities.Schedules>
+
+<h1>Schedule List</h1>
+
+@if (Model.Count == 0)
+{
+    <p>No Subjects registered.</p>
+}
+else
+{
+    <table class="table table-responsive table-bordered table-light shadow-lg mt-3">
+        <thead>
+            <tr>
+                <th scope="col">EDP Code</th>
+                <th scope="col">Subject Code</th>
+                <th scope="col">Time</th>
+                <th scope="col">Days</th>
+                <th scope="col">Room</th>
+                <th scope="col">Category</th>
+                <th scope="col">Section</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var schedule in Model)
+            {
+                var time = @schedule.StartTime + " - " + schedule.EndTime;
+                var status = schedule.Status;
+                <tr>
+                    <th scope="row">@schedule.EDPCode</th>
+                    <td>@schedule.SubjCode</td>
+                    <td>@time</td>
+                    <td>@schedule.Days</td>
+                    <td>@schedule.Room</td>
+                    <td>@schedule.Category</td>
+                    <td>@schedule.Section</td>
+                    @if(status == "AC")
+                    {
+                        <td class="bg-success">Active</td>
+                    }
+                    else if(status == "IN")
+                    {
+                        <td class="bg-danger">Inactive</td>
+                    }
+                        
+                </tr>
+            }
+        </tbody>
+    </table>
+}
