@@ -22,19 +22,13 @@ namespace StudentPortal.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Entry(SubjectsViewModel viewModel, string subjectcode, string coursecode, string reqsubjectcode, string requisitetype)
+		public async Task<IActionResult> Entry(SubjectsViewModel viewModel, string subjectcode, string coursecode)
 		{
 			var subjCode = await DBContext.Subject.FirstOrDefaultAsync(s => s.SubjCode.ToString() == subjectcode);
-<<<<<<< Updated upstream
-			var primarykey1 = "";
-			var primarykey2 = "";
-
-=======
 			var primarykey1 = string.Empty;
 			var primarykey2 = string.Empty;
 
 			// If there are row/s in the database
->>>>>>> Stashed changes
 			if (subjCode != null)
 			{
 				primarykey1 = subjCode.SubjCode;
@@ -46,43 +40,6 @@ namespace StudentPortal.Controllers
 				// Optionally return an error or notification to the user
 				ViewBag.Message = subjectcode + " is already registered on course " + coursecode + ".";
 				return View();
-			}
-			else if(subjectcode == null || viewModel.SubjDesc == null ||
-				viewModel.SubjUnits == null || viewModel.SubjCurrCode == null)
-			{
-				if(reqsubjectcode == null)
-				{
-					return View();
-				}
-				using (var transaction = await DBContext.Database.BeginTransactionAsync())
-				{
-					var subject = await DBContext.Subject.FirstOrDefaultAsync(s => s.SubjCode.ToString().ToUpper() == reqsubjectcode.ToUpper());
-
-					if (subject != null)
-					{
-						ViewBag.SubjCode = subject.SubjCode;
-						ViewBag.SubjDesc = subject.SubjDesc;
-						ViewBag.SubjUnits = subject.SubjUnits;
-					}
-
-					var requisite = await DBContext.SubjectPreq.FirstOrDefaultAsync(s => s.SPSubjCode.ToString().ToUpper() == reqsubjectcode.ToUpper());
-
-					if (requisite != null)
-					{
-						ViewBag.SubjCategory = requisite.SPSubjPreCode;
-					}
-
-					if (subject == null && requisite == null)
-					{
-						ViewBag.RequisiteInfo = "Requisite null.";
-					}
-					else
-					{
-						ViewBag.RequisiteInfo = "Requisite not null.";
-					}
-
-					return View(new SubjectsViewModel());
-				}
 			}
 			else
 			{
@@ -105,61 +62,19 @@ namespace StudentPortal.Controllers
 
 						await DBContext.Subject.AddAsync(subject);
 						await DBContext.SaveChangesAsync();
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
-
 
 						await transaction.CommitAsync();
 
 						ViewBag.Message = "Subject added.";
 
-						CheckRequisite(subjectcode, reqsubjectcode, requisitetype);
-
 
 						ModelState.Clear();
 						return View(new SubjectsViewModel());
-<<<<<<< Updated upstream
 					}
 					catch (Exception ex)
 					{
 						transaction.Rollback();
 						return View(new SubjectsViewModel());
-					}
-				}
-			}
-		}
-
-		private async void CheckRequisite(string subjectcode, string reqsubjectcode, string requisitetype)
-		{
-			if (reqsubjectcode != null && requisitetype != null)
-			{
-				using (var transaction = await DBContext.Database.BeginTransactionAsync())
-				{
-					try
-					{
-
-						var subjectpreq = new SubjectsPreq
-						{
-							SPSubjCode = subjectcode,
-							SPSubjPreCode = reqsubjectcode,
-							SPSubjCategory = requisitetype
-						};
-
-						await DBContext.SubjectPreq.AddAsync(subjectpreq);
-						await DBContext.SaveChangesAsync();
-
-
-						await transaction.CommitAsync();
-
-=======
->>>>>>> Stashed changes
-					}
-					catch (Exception ex)
-					{
-						await transaction.RollbackAsync();
-						throw;
 					}
 				}
 			}

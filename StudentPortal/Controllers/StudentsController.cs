@@ -77,8 +77,6 @@ namespace StudentPortal.Controllers
 				}
 			}
 		}
-<<<<<<< Updated upstream
-=======
 
 		[HttpGet]
 		public async Task<IActionResult> List()
@@ -176,6 +174,5 @@ namespace StudentPortal.Controllers
                 return NotFound();
             }
 		}
->>>>>>> Stashed changes
 	}
 }

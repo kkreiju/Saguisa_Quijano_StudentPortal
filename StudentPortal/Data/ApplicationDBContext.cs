@@ -17,23 +17,11 @@ namespace StudentPortal.Data
 			{
 				x.SubjCode, x.SubjCourseCode
 			});
-<<<<<<< Updated upstream
-			modelBuilder.Entity<SubjectsPreq>().HasKey(x => new
-			{
-				x.SPSubjCode,
-				x.SPSubjPreCode
-			});
-=======
 			modelBuilder.Entity<Schedules>();
->>>>>>> Stashed changes
 		}
 
 		public DbSet<Students> Student { get; set; }
 		public DbSet<Subjects> Subject { get; set; }
-<<<<<<< Updated upstream
-		public DbSet<SubjectsPreq> SubjectPreq { get; set; }
-=======
 		public DbSet<Schedules> Schedule { get; set; }
->>>>>>> Stashed changes
 	}
 }
