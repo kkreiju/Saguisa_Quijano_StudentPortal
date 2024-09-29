@@ -186,5 +186,48 @@ namespace StudentPortal.Controllers
 
 			return RedirectToAction("List", "Schedules");
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> Delete(int? edpcode)
+		{
+			if (edpcode == null)
+			{
+				// When there is no EDP Code submitted (initial load), do nothing
+				ViewBag.SearchPerformed = false; // No search was performed yet
+				return View();
+			}
+
+			var edp = await DBContext.Schedule.FindAsync(edpcode);
+
+			if (edp != null)
+			{
+				return View(edp);
+			}
+			else
+			{
+				ViewBag.Search = true;
+				ViewBag.Message = "EDP Code Not Found.";
+				return View();
+			}
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Delete(Students viewModel, int? edpcode)
+		{
+			// Define the SQL command with a parameter placeholder
+			var sqlCommand = "DELETE FROM Schedule WHERE EDPCode = {0}";
+
+			// Execute the command with the specified parameter value
+			int affectedRows = await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, edpcode);
+
+			if (affectedRows > 0)
+			{
+				return RedirectToAction("List", "Schedules");
+			}
+			else
+			{
+				return NotFound();
+			}
+		}
 	}
 }
