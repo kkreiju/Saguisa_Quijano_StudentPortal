@@ -17,10 +17,11 @@ namespace StudentPortal.Data
 			{
 				x.SubjCode, x.SubjCourseCode
 			});
-
+			modelBuilder.Entity<Schedules>();
 		}
 
 		public DbSet<Students> Student { get; set; }
 		public DbSet<Subjects> Subject { get; set; }
+		public DbSet<Schedules> Schedule { get; set; }
 	}
 }

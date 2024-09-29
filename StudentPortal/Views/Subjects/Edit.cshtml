@@ -1,0 +1,102 @@
+﻿@{
+	ViewData["Title"] = "Subject Edit";
+}
+
+@model StudentPortal.Models.Entities.Subjects
+
+<h1>Subject Edit</h1>
+
+@if (Model is null)
+{
+	@if (ViewBag.Message == "Subject Not Found." && ViewBag.Search == true)
+	{
+		<div class="alert alert-danger mt-2">
+			<p class="my-0">@ViewBag.Message</p>
+		</div>
+	}
+	<form action="/Students/Edit" method="get" id="search">
+		<div class="row">
+			<div class="col mt-3">
+				<label class="form-label">Subject Code</label>
+				<input type="text" class="form-control shadow-lg" name="subjectcode" id="subjectcode" required />
+			</div>
+			<div class="col mt-3">
+				<label class="form-label">Course Code</label>
+				<input type="text" class="form-control shadow-lg" name="coursecode" id="coursecode" required />
+			</div>
+		</div>
+		
+		
+		<button onclick="search()" class="btn btn-primary mt-2">Search</button>
+	</form>
+}
+else
+{
+
+	<form method="post">
+		<div class="mt-3">
+			<label class="form-label">Subject Code</label>
+			<input type="text" class="form-control shadow-lg" name="subjectcode" asp-for="SubjCode" readonly />
+		</div>
+
+		<div class="mt-3">
+			<label class="form-label">Description</label>
+			<input type="text" style="text-transform: uppercase;" class="form-control shadow-lg" name="subjdesc" asp-for="SubjDesc" required />
+		</div>
+
+		<div class="mt-3">
+			<label class="form-label">Units</label>
+			<input type="number" class="form-control shadow-lg" name="subjunits" asp-for="SubjUnits" required />
+		</div>
+
+		<div class="row">
+			<div class="col mt-3">
+				<label class="form-label">Offering</label>
+				<select id="offering" class="form-select shadow-lg" name="subjregofrng" asp-for="SubjRegOfrng">
+					<option value="1">First Semester</option>
+					<option value="2">Second Semester</option>
+					<option value="3">Summer</option>
+				</select>
+			</div>
+
+			<div class="col mt-3">
+				<label class="form-label">Category</label>
+				<select id="category" class="form-select shadow-lg" name="subjcategory" asp-for="SubjCategory">
+					<option value="LEC">Lecture</option>
+					<option value="LAB">Laboratory</option>
+				</select>
+			</div>
+
+			<div class="col mt-3">
+				<label class="form-label">Course Code</label>
+				<input type="text" class="form-control shadow-lg" name="subjectcode" asp-for="SubjCourseCode" readonly />
+			</div>
+		</div>
+
+		<div class="mt-3">
+			<label class="form-label">Curriculum Year</label>
+			<input type="text" style="text-transform: uppercase;" class="form-control shadow-lg" name="subjcurrcode" asp-for="SubjCurrCode" required />
+		</div>
+
+		<div class="mt-3">
+			<label class="form-label">Requisite</label>
+			<input type="text" style="text-transform: uppercase;" class="form-control shadow-lg" name="subjrequisite" asp-for="SubjRequisite" />
+		</div>
+
+		<div class="mt-3">
+			<button type="submit" class="btn btn-primary">Save</button>
+		</div>
+
+	</form>
+}
+
+<script>
+	function search() {
+		document.getElementById('search').addEventListener('submit', function (event) {
+			var subjectcode = document.getElementById('subjectcode').value;
+			var coursecode = document.getElementById('coursecode').value;
+
+			this.action = "/Subjects/Edit/" + encodeURIComponent(subjectcode) + "&" + encodeURIComponent(coursecode);
+		});
+	}
+</script>

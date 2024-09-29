@@ -26,5 +26,8 @@ namespace StudentPortal.Models
 
 		[StringLength(10)]
 		public string SubjCurrCode { get; set; }
-	}
+
+        [StringLength(20)]
+        public string? SubjRequisite { get; set; }
+    }
 }

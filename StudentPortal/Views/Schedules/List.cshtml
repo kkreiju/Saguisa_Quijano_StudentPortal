@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Schedule List";
+}
+
+@model StudentPortal.Models.ScheduleAndSubjectViewModel
+
+<h1>Schedule List</h1>
+
+@if (Model.Schedules.Count == 0)
+{
+    <p>No Schedules registered.</p>
+}
+else
+{
+    <table class="table table-responsive table-bordered table-light shadow-lg mt-3">
+        <thead>
+            <tr>
+                <th scope="col">EDP Code</th>
+                <th scope="col">Subject Code</th>
+                <th scope="col">Time</th>
+                <th scope="col">Days</th>
+                <th scope="col">Room</th>
+                <th scope="col">Category</th>
+                <th scope="col">Course</th>
+                <th scope="col">Section</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Schedules.Count; i++)
+            {
+                var schedule = Model.Schedules[i];
+                var subject = Model.Subjects[i]; // Get corresponding subject
+
+                var time = schedule.StartTime + " - " + schedule.EndTime;
+                var status = schedule.Status;
+                <tr>
+                    <th scope="row">@schedule.EDPCode</th>
+                    <td>@subject.SubjCode</td> <!-- Subject Code from Subjects -->
+                    <td>@time</td>
+                    <td>@schedule.Days</td>
+                    <td>@schedule.Room</td>
+                    <td>@subject.SubjCategory</td> <!-- Category from Subjects -->
+                    <td>@schedule.Course</td> 
+                    <td>@schedule.Section</td>
+                    @if (status == "AC")
+                    {
+                        <td class="bg-success">Active</td>
+                    }
+                    else if (status == "IN")
+                    {
+                        <td class="bg-danger">Inactive</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - StudentPortal</title>
-    <link rel="icon" href="~/uc.ico">
+    <link rel="icon" href="~/pics/uc.ico">
 
     <!--FONTS-->
 
@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Autour+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Ysabeau+SC:wght@1..1000&display=swap" rel="stylesheet">
 
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -24,7 +24,7 @@
     <header>
         <nav class="navbar bg-color4 navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3">
             <div class="container-fluid">
-				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img style="height: 30px; margin-right: 10px;" src="~/uc-logo-bg.png" />UC Student Portal</a>
+				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img style="height: 30px; margin-right: 10px;" src="~/pics/uc-logo-bg.png" />UC Student Portal</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -37,17 +37,56 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Students</a>
                             <div class="dropdown-menu bg-color1">
-                                <a class="dropdown-item" asp-controller="Students" asp-action="Entry">Entry</a>
-                                <a class="dropdown-item" asp-controller="Students" asp-action="List">List</a>
-                                <a class="dropdown-item" asp-controller="Students" asp-action="Edit">Edit</a>
-                                <a class="dropdown-item" asp-controller="Students" asp-action="Delete">Delete</a>
+                                <a class="dropdown-item" asp-controller="Students" asp-action="Entry">
+                                    <i class="bi bi-person-add me-2"></i>Entry
+                                </a>
+                                <a class="dropdown-item" asp-controller="Students" asp-action="List">
+                                    <i class="bi bi-people me-2"></i>List
+                                </a>
+                                <a class="dropdown-item" asp-controller="Students" asp-action="Edit">
+                                    <i class="bi bi-person-gear me-2"></i>Edit
+                                </a>
+                                <a class="dropdown-item" asp-controller="Students" asp-action="Delete">
+                                    <i class="bi bi-person-slash me-2"></i>Delete
+                                </a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Subjects</a>
+                            <div class="dropdown-menu bg-color1">
+                                <a class="dropdown-item" asp-controller="Subjects" asp-action="Entry">
+                                    <i class="bi bi-clipboard-plus me-2"></i>Entry
+                                </a>
+                                <a class="dropdown-item" asp-controller="Subjects" asp-action="List">
+                                    <i class="bi bi-list-nested me-2"></i>List
+                                </a>
+                                <a class="dropdown-item" asp-controller="Subjects" asp-action="Edit">
+                                    <i class="bi bi-brush me-2"></i>Edit
+                                </a>
+                                <a class="dropdown-item" asp-controller="Subjects" asp-action="Delete">
+                                    <i class="bi bi-clipboard-x me-2"></i>Delete
+                                </a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Schedules</a>
+                            <div class="dropdown-menu bg-color1">
+                                <a class="dropdown-item" asp-controller="Schedules" asp-action="Entry">
+                                    <i class="bi bi-clipboard-plus me-2"></i>Entry
+                                </a>
+                                <a class="dropdown-item" asp-controller="Schedules" asp-action="List">
+                                    <i class="bi bi-list-nested me-2"></i>List
+                                </a>
+                                <a class="dropdown-item" asp-controller="Schedules" asp-action="Edit">
+                                    <i class="bi bi-brush me-2"></i>Edit
+                                </a>
+                                <a class="dropdown-item" asp-controller="Subjects" asp-action="Delete">
+                                    <i class="bi bi-clipboard-x me-2"></i>Delete
+                                </a>
                             </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Enrollment" asp-action="Entry">Enrollment</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Subjects" asp-action="Entry">Subjects</a>
                         </li>
                     </ul>
                 </div>

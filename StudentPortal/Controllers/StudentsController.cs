@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using StudentPortal.Data;
 using StudentPortal.Models;
 using StudentPortal.Models.Entities;
-using System.Numerics;
 using System.Runtime.CompilerServices;
 
 namespace StudentPortal.Controllers
@@ -38,10 +37,12 @@ namespace StudentPortal.Controllers
 			}
 			else
 			{
+				// Transaction is used associated to IDENTITY INSERT query
 				using (var transaction = await DBContext.Database.BeginTransactionAsync())
 				{
 					try
 					{
+						// To write values in primary key StudID
 						await DBContext.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Student ON");
 
 						var student = new Students
@@ -63,12 +64,9 @@ namespace StudentPortal.Controllers
 
 						await transaction.CommitAsync();
 
-						if (ModelState.IsValid)
-						{
-							ModelState.Clear();
-							ViewBag.Message = "Student added.";
-							return View(new StudentsViewModel());
-						}
+						ModelState.Clear();
+						ViewBag.Message = "Student added.";
+						return View(new StudentsViewModel());
 
 					}
 					catch (Exception ex)
@@ -78,8 +76,6 @@ namespace StudentPortal.Controllers
 					}
 				}
 			}
-
-			return View();
 		}
 
 		[HttpGet]
@@ -171,13 +167,11 @@ namespace StudentPortal.Controllers
 
             if (affectedRows > 0)
             {
-                // If rows were affected, the deletion was successful
-                return RedirectToAction("List", "Students"); // Redirect or take any other action
+                return RedirectToAction("List", "Students");
             }
             else
             {
-                // Handle the case when no rows were affected (e.g., ID not found)
-                return NotFound(); // Or some other appropriate response
+                return NotFound();
             }
 		}
 	}
