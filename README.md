@@ -1,8 +1,12 @@
 # ELDNET 1 Final Project
+An enrollment system with basic features.
 
+## Tech Stack
+<i>ASP.NET MVC (.NET 8)</i>
+
+## Members
 **Arjay Nino Saguisa - Backend**<br>
 **John Reddick Quijano - Frontend**
-
 
 ## **Disclaimer: This is a work in progress.**
 
@@ -10,11 +14,11 @@
 
  - Frontend Designs
  - Enrollment Entry continuation
- - Subject Entry continuation
-	 -  there is an existing code for this which is working. but refer to the search bug.
+ - Schedule Entry continuation
 
 ### Bugs
-**Subject Entry**
-- Adds a new data when clicking search button if fields are complete
-- Redundancy of returning Entry View when clicking search button
-- Spaghetti Code (?) too many if else blocks
+**Schedule Edit**
+- When clicking save button, days checkbox are not validated if it is null and redirects into <b>Schedule List</b> 
+
+**Schedule Entry**
+- When clicking save button, days checkbox are not validated if it is null and sends an error therefore not adding the value in the database.

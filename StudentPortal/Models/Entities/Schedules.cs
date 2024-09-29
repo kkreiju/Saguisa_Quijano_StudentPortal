@@ -16,9 +16,6 @@ namespace StudentPortal.Models.Entities
 
 		public string Days { get; set; }
 
-		[StringLength(3)]
-		public string Category { get; set; }
-
 		[StringLength(5)]
 		public string Room { get; set; }
 
@@ -28,6 +25,9 @@ namespace StudentPortal.Models.Entities
 
 		[StringLength(3)]
 		public string Status { get; set; }
+
+		[StringLength(5)]
+		public string Course { get; set; }
 
 		[StringLength(3)]
 		public string Section { get; set; }
