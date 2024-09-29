@@ -1,6 +1,6 @@
-<center>
+<p align="center">
   <img src="assets/cinnamoroll.png" alt="Cinnamoroll">
-</center>
+</p>
 
 <h1 align="center"> ELDNET 1 Final Project </h1>
 An enrollment system with basic features.
@@ -21,11 +21,14 @@ An enrollment system with basic features.
     <i>if possible i would like to implement admin log in to enable the delete access (if i can solely edit the primary key value itself)<br>
     add table list for the student enrollment and create a new database for saving all values (edp, increment class size, etc.)</i>
 
-### Fixes
+### Fix Plans
 
 **Schedule Entry & Schedule Edit**
  - Change "Days" text size
  - Fix Checkbox logic if possible
+
+**Subject Edit & Schedule Edit**
+ - Updatable Primary Key Values (refer on Student Edit)
 
 **UI**
  - Fonts

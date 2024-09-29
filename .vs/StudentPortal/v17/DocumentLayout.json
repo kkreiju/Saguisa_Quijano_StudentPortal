@@ -3,6 +3,26 @@
   "WorkspaceRootPath": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|c:\\users\\arjay\\documents\\github\\saguisa_quijano_studentportal\\studentportal\\views\\students\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|solutionrelative:studentportal\\views\\students\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|c:\\users\\arjay\\documents\\github\\saguisa_quijano_studentportal\\studentportal\\controllers\\studentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|solutionrelative:studentportal\\controllers\\studentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|c:\\users\\arjay\\documents\\github\\saguisa_quijano_studentportal\\studentportal\\views\\students\\entry.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|solutionrelative:studentportal\\views\\students\\entry.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|c:\\users\\arjay\\documents\\github\\saguisa_quijano_studentportal\\studentportal\\views\\schedules\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|solutionrelative:studentportal\\views\\schedules\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|c:\\users\\arjay\\documents\\github\\saguisa_quijano_studentportal\\studentportal\\views\\schedules\\entry.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|solutionrelative:studentportal\\views\\schedules\\entry.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|c:\\users\\arjay\\documents\\github\\saguisa_quijano_studentportal\\studentportal\\controllers\\schedulescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|solutionrelative:studentportal\\controllers\\schedulescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -15,24 +35,8 @@
       "RelativeMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|solutionrelative:studentportal\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|c:\\users\\arjay\\documents\\github\\saguisa_quijano_studentportal\\studentportal\\views\\schedules\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|solutionrelative:studentportal\\views\\schedules\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|c:\\users\\arjay\\documents\\github\\saguisa_quijano_studentportal\\studentportal\\views\\students\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|solutionrelative:studentportal\\views\\students\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|c:\\users\\arjay\\documents\\github\\saguisa_quijano_studentportal\\studentportal\\controllers\\studentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|solutionrelative:studentportal\\controllers\\studentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|c:\\users\\arjay\\documents\\github\\saguisa_quijano_studentportal\\studentportal\\views\\schedules\\entry.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|solutionrelative:studentportal\\views\\schedules\\entry.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|c:\\users\\arjay\\documents\\github\\saguisa_quijano_studentportal\\studentportal\\views\\students\\entry.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|solutionrelative:studentportal\\views\\students\\entry.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|c:\\users\\arjay\\documents\\github\\saguisa_quijano_studentportal\\studentportal\\models\\studentsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -51,10 +55,6 @@
       "RelativeMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|solutionrelative:studentportal\\views\\students\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|c:\\users\\arjay\\documents\\github\\saguisa_quijano_studentportal\\studentportal\\views\\students\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|solutionrelative:studentportal\\views\\students\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|c:\\users\\arjay\\documents\\github\\saguisa_quijano_studentportal\\studentportal\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
       "RelativeMoniker": "D:0:0:{B7CD5DA1-A127-4796-8A6D-9156ABBF2C01}|StudentPortal\\StudentPortal.csproj|solutionrelative:studentportal\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
@@ -70,7 +70,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 237,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 13,
           "Children": [
             {
               "$type": "Bookmark",
@@ -78,7 +78,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "Delete.cshtml",
               "DocumentMoniker": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\Views\\Schedules\\Delete.cshtml",
               "RelativeDocumentMoniker": "StudentPortal\\Views\\Schedules\\Delete.cshtml",
@@ -86,18 +86,17 @@
               "RelativeToolTip": "StudentPortal\\Views\\Schedules\\Delete.cshtml",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAADIAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-09-29T14:44:39.126Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-29T14:44:39.126Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "Entry.cshtml",
               "DocumentMoniker": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\Views\\Schedules\\Entry.cshtml",
               "RelativeDocumentMoniker": "StudentPortal\\Views\\Schedules\\Entry.cshtml",
               "ToolTip": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\Views\\Schedules\\Entry.cshtml",
               "RelativeToolTip": "StudentPortal\\Views\\Schedules\\Entry.cshtml",
-              "ViewState": "AQIAACoAAAAAAAAAAAAAAHwAAAABAAAA",
+              "ViewState": "AQIAADwAAAAAAAAAAAAAAFMAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-09-29T14:25:53.375Z",
               "EditorCaption": ""
@@ -110,27 +109,27 @@
               "RelativeDocumentMoniker": "StudentPortal\\Views\\Schedules\\Edit.cshtml",
               "ToolTip": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\Views\\Schedules\\Edit.cshtml",
               "RelativeToolTip": "StudentPortal\\Views\\Schedules\\Edit.cshtml",
-              "ViewState": "AQIAAIMAAAAAAAAAAAAAAB8AAAABAAAA",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAAACIAAABgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-09-29T14:25:44.704Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "SchedulesController.cs",
               "DocumentMoniker": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\Controllers\\SchedulesController.cs",
               "RelativeDocumentMoniker": "StudentPortal\\Controllers\\SchedulesController.cs",
               "ToolTip": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\Controllers\\SchedulesController.cs",
               "RelativeToolTip": "StudentPortal\\Controllers\\SchedulesController.cs",
-              "ViewState": "AQIAAKcAAAAAAAAAAAAUwOAAAAAuAAAA",
+              "ViewState": "AQIAANAAAAAAAAAAAAAcwOAAAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-29T14:23:35.285Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "StudentsViewModel.cs",
               "DocumentMoniker": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\Models\\StudentsViewModel.cs",
               "RelativeDocumentMoniker": "StudentPortal\\Models\\StudentsViewModel.cs",
@@ -142,7 +141,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\appsettings.json",
               "RelativeDocumentMoniker": "StudentPortal\\appsettings.json",
@@ -154,7 +153,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "Students.cs",
               "DocumentMoniker": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\Models\\Entities\\Students.cs",
               "RelativeDocumentMoniker": "StudentPortal\\Models\\Entities\\Students.cs",
@@ -166,7 +165,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "List.cshtml",
               "DocumentMoniker": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\Views\\Students\\List.cshtml",
               "RelativeDocumentMoniker": "StudentPortal\\Views\\Students\\List.cshtml",
@@ -202,7 +201,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "StudentPortal\\Views\\Shared\\_Layout.cshtml",
@@ -210,12 +209,11 @@
               "RelativeToolTip": "StudentPortal\\Views\\Shared\\_Layout.cshtml",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAFIAAABSAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-09-17T15:13:42.83Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-17T15:13:42.83Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "Delete.cshtml",
               "DocumentMoniker": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\Views\\Students\\Delete.cshtml",
               "RelativeDocumentMoniker": "StudentPortal\\Views\\Students\\Delete.cshtml",
@@ -223,43 +221,43 @@
               "RelativeToolTip": "StudentPortal\\Views\\Students\\Delete.cshtml",
               "ViewState": "AQIAAC8AAAAAAAAAAAAAAEAAAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-09-17T17:41:57.758Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-17T17:41:57.758Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 0,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\Views\\Students\\Edit.cshtml",
               "RelativeDocumentMoniker": "StudentPortal\\Views\\Students\\Edit.cshtml",
               "ToolTip": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\Views\\Students\\Edit.cshtml",
               "RelativeToolTip": "StudentPortal\\Views\\Students\\Edit.cshtml",
-              "ViewState": "AQIAABoAAAAAAAAAAAAqwCAAAAARAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABoAAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-09-17T16:21:13.788Z"
+              "WhenOpened": "2024-09-17T16:21:13.788Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "StudentsController.cs",
               "DocumentMoniker": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\Controllers\\StudentsController.cs",
               "RelativeDocumentMoniker": "StudentPortal\\Controllers\\StudentsController.cs",
               "ToolTip": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\Controllers\\StudentsController.cs",
               "RelativeToolTip": "StudentPortal\\Controllers\\StudentsController.cs",
-              "ViewState": "AQIAAH8AAAAAAAAAAAAkwIYAAAACAAAA",
+              "ViewState": "AQIAAHQAAAAAAAAAAAAIwIQAAABEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-17T15:21:04.757Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 2,
               "Title": "Entry.cshtml",
               "DocumentMoniker": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\Views\\Students\\Entry.cshtml",
               "RelativeDocumentMoniker": "StudentPortal\\Views\\Students\\Entry.cshtml",
               "ToolTip": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\Views\\Students\\Entry.cshtml",
               "RelativeToolTip": "StudentPortal\\Views\\Students\\Entry.cshtml",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAACgAAAAHAAAA",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAB0AAAAVAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-09-17T15:13:25.9Z",
               "EditorCaption": ""

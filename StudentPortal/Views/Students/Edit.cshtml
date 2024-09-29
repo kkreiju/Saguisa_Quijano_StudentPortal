@@ -16,7 +16,7 @@
 	}
 	<form action="/Students/Edit" method="get" id="search">
 		<label class="form-label">ID Number</label>
-		<input type="text" class="form-control shadow-lg" name="idnumber1" id="idnumber1" required />
+		<input type="number" class="form-control shadow-lg" name="idnumber" id="idnumber" required />
 		<button onclick="search()" class="btn btn-primary mt-2">Search</button>
 	</form>
 }
@@ -24,37 +24,38 @@ else
 {
 
 	<form method="post">
+		<input type="hidden" name="idnumber1" value="@ViewBag.ID" />
 
 		<div class="mt-3">
 			<label class="form-label">ID Number</label>
-			<input type="text" class="form-control shadow-lg" asp-for="StudID" name="idnumber2" id="idnumber2" readonly />
+			<input type="number" class="form-control shadow-lg" asp-for="StudID" name="idnumber2" id="idnumber2" />
 		</div>
 
 		<div class="row">
 			<div class="col mt-3">
 				<label class="form-label">First Name</label>
-				<input type="text" class="form-control shadow-lg" asp-for="StudFName" />
+				<input type="text" style="text-transform: uppercase;" class="form-control shadow-lg" asp-for="StudFName" />
 			</div>
 
 			<div class="col mt-3">
 				<label class="form-label">Middle Name</label>
-				<input type="text" class="form-control shadow-lg" asp-for="StudMName" />
+				<input type="text" style="text-transform: uppercase;" class="form-control shadow-lg" asp-for="StudMName" />
 			</div>
 
 			<div class="col mt-3">
 				<label class="form-label">Last Name</label>
-				<input type="text" class="form-control shadow-lg" asp-for="StudLName" />
+				<input type="text" style="text-transform: uppercase;" class="form-control shadow-lg" asp-for="StudLName" />
 			</div>
 		</div>
 
 		<div class="mt-3">
 			<label class="form-label">Course</label>
-			<input type="text" class="form-control shadow-lg" asp-for="StudCourse" />
+			<input type="text" style="text-transform: uppercase;" class="form-control shadow-lg" asp-for="StudCourse" />
 		</div>
 
 		<div class="mt-3">
 			<label class="form-label">Year</label>
-			<input type="text" class="form-control shadow-lg" asp-for="StudYear" />
+			<input type="text" style="text-transform: uppercase;" class="form-control shadow-lg" asp-for="StudYear" />
 		</div>
 
 		<div class="mt-3">
