@@ -27,11 +27,5 @@ An enrollment system with basic features.
  - Change "Days" text size
  - Fix Checkbox logic if possible
 
-**Subject Edit & Schedule Edit**
- - Updatable Primary Key Values (refer on Student Edit)
-
 **UI**
  - Fonts
-
-**Logical**
- - Primary Key Value Update (for schedule edit)

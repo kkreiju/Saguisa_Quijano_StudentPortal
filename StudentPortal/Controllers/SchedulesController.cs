@@ -5,6 +5,7 @@ using StudentPortal.Models;
 using StudentPortal.Models.Entities;
 using static System.Collections.Specialized.BitVector32;
 using System.Reflection.Emit;
+using System.Numerics;
 
 namespace StudentPortal.Controllers
 {
@@ -141,6 +142,7 @@ namespace StudentPortal.Controllers
 
 			if (edp != null)
 			{
+				ViewBag.EDP = edpcode;
 				return View(edp);
 			}
 			else
@@ -152,9 +154,10 @@ namespace StudentPortal.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Edit(Schedules viewModel, int? edpcode, string subjectcode, string course)
+		public async Task<IActionResult> Edit(Schedules viewModel, int? edpc, int? edpcode, string subjectcode, string course)
 		{
-			var edp = await DBContext.Schedule.FindAsync(edpcode);
+			ViewBag.EDP = edpc;
+			var edp = await DBContext.Schedule.FindAsync(edpc);
 
 			var subjectandcourse = await DBContext.Subject
 			   .Where(s => s.SubjCode == subjectcode && s.SubjCourseCode == course)
@@ -167,7 +170,7 @@ namespace StudentPortal.Controllers
 				return View(edp);
 			}
 
-			if (edp is not null)
+			if (edpc == edpcode)
 			{
 				edp.SubjCode = subjectcode.ToUpper();
 				edp.StartTime = viewModel.StartTime;
@@ -182,6 +185,52 @@ namespace StudentPortal.Controllers
 				DBContext.Schedule.Update(edp);
 
 				await DBContext.SaveChangesAsync();
+			}
+			else
+			{
+				// Transaction is used associated to IDENTITY INSERT query
+				using (var transaction = await DBContext.Database.BeginTransactionAsync())
+				{
+					try
+					{
+						// To write values in primary key StudID
+						await DBContext.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Schedule ON");
+
+						var newschedule = new Schedules
+						{
+							EDPCode = Convert.ToInt32(edpcode),
+							SubjCode = subjectcode.ToUpper(),
+							StartTime = viewModel.StartTime,
+							EndTime = viewModel.EndTime,
+							Days = viewModel.Days,
+							Room = viewModel.Room.ToUpper(),
+							MaxSize = viewModel.MaxSize,
+							ClassSize = edp.ClassSize,
+							Status = edp.Status,
+							Course = viewModel.Course,
+							Section = viewModel.Section.ToUpper(),
+							SchoolYear = viewModel.SchoolYear.ToUpper()
+						};
+
+						await DBContext.Schedule.AddAsync(newschedule);
+						await DBContext.SaveChangesAsync();
+
+						await DBContext.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Schedule OFF");
+
+						await transaction.CommitAsync();
+
+						// Define the SQL command with a parameter placeholder
+						var sqlCommand = "DELETE FROM Schedule WHERE EDPCode = {0}";
+
+						// Execute the command with the specified parameter value
+						int affectedRows = await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, edpc);
+					}
+					catch (Exception ex)
+					{
+						await transaction.RollbackAsync();
+						throw;
+					}
+				}
 			}
 
 			return RedirectToAction("List", "Schedules");
