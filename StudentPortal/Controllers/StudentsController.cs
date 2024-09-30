@@ -116,45 +116,61 @@ namespace StudentPortal.Controllers
 		{
 			var student = await DBContext.Student.FindAsync(Convert.ToInt32(idnumber1));
 
-            // Transaction is used associated to IDENTITY INSERT query
-            using (var transaction = await DBContext.Database.BeginTransactionAsync())
-            {
-                try
-                {
-                    // To write values in primary key StudID
-                    await DBContext.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Student ON");
+			if(idnumber1.Trim().ToUpper().Equals(idnumber2.Trim().ToUpper()) && student is not null)
+			{
+				student.StudLName = viewModel.StudLName.ToUpper();
+				student.StudFName = viewModel.StudFName.ToUpper();
+				student.StudMName = viewModel.StudMName.ToUpper();
+				student.StudCourse = viewModel.StudCourse.ToUpper();
+				student.StudYear = viewModel.StudYear;
+				student.StudRemarks = viewModel.StudRemarks;
 
-                    var newstudent = new Students
-                    {
-                        StudID = Convert.ToInt32(idnumber2),
-                        StudLName = viewModel.StudLName.ToUpper(),
-                        StudFName = viewModel.StudFName.ToUpper(),
-                        StudMName = viewModel.StudMName.ToUpper(),
-                        StudCourse = viewModel.StudCourse.ToUpper(),
-                        StudYear = viewModel.StudYear,
-                        StudRemarks = viewModel.StudRemarks,
-                        StudStatus = student.StudStatus
-                    };
+				DBContext.Student.Update(student);
 
-                    await DBContext.Student.AddAsync(newstudent);
-                    await DBContext.SaveChangesAsync();
+				await DBContext.SaveChangesAsync();
+			}
+			else
+			{
+				// Transaction is used associated to IDENTITY INSERT query
+				using (var transaction = await DBContext.Database.BeginTransactionAsync())
+				{
+					try
+					{
+						// To write values in primary key StudID
+						await DBContext.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Student ON");
 
-                    await DBContext.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Student OFF");
+						var newstudent = new Students
+						{
+							StudID = Convert.ToInt32(idnumber2),
+							StudLName = viewModel.StudLName.ToUpper(),
+							StudFName = viewModel.StudFName.ToUpper(),
+							StudMName = viewModel.StudMName.ToUpper(),
+							StudCourse = viewModel.StudCourse.ToUpper(),
+							StudYear = viewModel.StudYear,
+							StudRemarks = viewModel.StudRemarks,
+							StudStatus = student.StudStatus
+						};
 
-                    await transaction.CommitAsync();
+						await DBContext.Student.AddAsync(newstudent);
+						await DBContext.SaveChangesAsync();
 
-                    // Define the SQL command with a parameter placeholder
-                    var sqlCommand = "DELETE FROM Student WHERE StudID = {0}";
+						await DBContext.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Student OFF");
 
-                    // Execute the command with the specified parameter value
-                    int affectedRows = await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, idnumber1);
-                }
-                catch (Exception ex)
-                {
-                    await transaction.RollbackAsync();
-                    throw;
-                }
-            }
+						await transaction.CommitAsync();
+
+						// Define the SQL command with a parameter placeholder
+						var sqlCommand = "DELETE FROM Student WHERE StudID = {0}";
+
+						// Execute the command with the specified parameter value
+						int affectedRows = await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, idnumber1);
+					}
+					catch (Exception ex)
+					{
+						await transaction.RollbackAsync();
+						throw;
+					}
+				}
+			}
 
 			return RedirectToAction("List", "Students");
 		}

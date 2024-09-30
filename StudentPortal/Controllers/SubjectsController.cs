@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using StudentPortal.Data;
 using StudentPortal.Models;
 using StudentPortal.Models.Entities;
+using System.Numerics;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace StudentPortal.Controllers
 {
@@ -57,7 +59,7 @@ namespace StudentPortal.Controllers
 							SubjStatus = "AC",
 							SubjCourseCode = coursecode,
 							SubjCurrCode = viewModel.SubjCurrCode,
-							SubjRequisite = viewModel.SubjRequisite
+							SubjRequisite = viewModel.SubjRequisite.ToUpper()
 						};
 
 						await DBContext.Subject.AddAsync(subject);
@@ -88,40 +90,42 @@ namespace StudentPortal.Controllers
 			return View(subjects);
 		}
 
-        [HttpGet]
-        public async Task<IActionResult> Edit(string subjectcode, string coursecode)
-        {
-            if (subjectcode == null && coursecode == null)
-            {
-                // When there is no ID submitted (initial load), do nothing
-                ViewBag.SearchPerformed = false; // No search was performed yet
-                return View();
-            }
-
-            var subjectandcoursecode = await DBContext.Subject
-			   .Where(s => s.SubjCode == subjectcode && s.SubjCourseCode == coursecode)
-			   .FirstOrDefaultAsync();
-
-			if (subjectandcoursecode != null)
-            {
-                return View(subjectandcoursecode);
-            }
-            else
-            {
-                ViewBag.Search = true;
-                ViewBag.Message = "Subject Not Found.";
-                return View();
-            }
-        }
-
-		[HttpPost]
-		public async Task<IActionResult> Edit(Subjects viewModel, string subjectcode, string coursecode)
+		[HttpGet]
+		public async Task<IActionResult> Edit(string subjectcode, string coursecode)
 		{
+			if (subjectcode == null && coursecode == null)
+			{
+				// When there is no ID submitted (initial load), do nothing
+				ViewBag.SearchPerformed = false; // No search was performed yet
+				return View();
+			}
+
 			var subjectandcoursecode = await DBContext.Subject
 			   .Where(s => s.SubjCode == subjectcode && s.SubjCourseCode == coursecode)
 			   .FirstOrDefaultAsync();
 
-			if (subjectandcoursecode is not null)
+			if (subjectandcoursecode != null)
+			{
+				ViewBag.Subject = subjectcode;
+				ViewBag.Course = coursecode;
+				return View(subjectandcoursecode);
+			}
+			else
+			{
+				ViewBag.Search = true;
+				ViewBag.Message = "Subject Not Found.";
+				return View();
+			}
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Edit(Subjects viewModel, string subject, string course, string subjectcode, string coursecode)
+		{
+			var subjectandcoursecode = await DBContext.Subject
+			   .Where(s => s.SubjCode == subject && s.SubjCourseCode == course)
+			   .FirstOrDefaultAsync();
+
+			if ((subject.Trim().ToUpper().Equals(subjectcode.Trim().ToUpper()) && course.Trim().ToUpper().Equals(coursecode.ToUpper())) && subjectandcoursecode is not null)
 			{
 				subjectandcoursecode.SubjDesc = viewModel.SubjDesc.ToUpper();
 				subjectandcoursecode.SubjUnits = viewModel.SubjUnits;
@@ -132,6 +136,45 @@ namespace StudentPortal.Controllers
 				DBContext.Subject.Update(subjectandcoursecode);
 
 				await DBContext.SaveChangesAsync();
+			}
+			else
+			{
+				using (var transaction = await DBContext.Database.BeginTransactionAsync())
+				{
+					try
+					{
+						var newsubject = new Subjects
+						{
+							SubjCode = subjectcode.ToUpper(),
+							SubjDesc = viewModel.SubjDesc.ToUpper(),
+							SubjUnits = viewModel.SubjUnits,
+							SubjRegOfrng = viewModel.SubjRegOfrng,
+							SubjCategory = viewModel.SubjCategory,
+							SubjStatus = subjectandcoursecode.SubjStatus,
+							SubjCourseCode = coursecode,
+							SubjCurrCode = viewModel.SubjCurrCode,
+							SubjRequisite = viewModel.SubjRequisite.ToUpper()
+						};
+
+						await DBContext.Subject.AddAsync(newsubject);
+						await DBContext.SaveChangesAsync();
+
+						await transaction.CommitAsync();
+
+						ViewBag.Message = "Subject added.";
+
+						// Define the SQL command with a parameter placeholder
+						var sqlCommand = "DELETE FROM Subject WHERE SubjCode = {0} AND SubjCourseCode = {1}";
+
+						// Execute the command with the specified parameter value
+						int affectedRows = await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, subject, course);
+					}
+					catch (Exception ex)
+					{
+						transaction.Rollback();
+						throw;
+					}
+				}
 			}
 
 			return RedirectToAction("List", "Subjects");

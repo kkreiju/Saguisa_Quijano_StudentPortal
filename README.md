@@ -34,4 +34,4 @@ An enrollment system with basic features.
  - Fonts
 
 **Logical**
- - Primary Key Value Update (for 3 entries and edits)
+ - Primary Key Value Update (for schedule edit)
