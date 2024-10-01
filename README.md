@@ -29,3 +29,9 @@ An enrollment system with basic features.
 
 **UI**
  - Fonts
+
+**BUGS:**
+
+Student Edit - must be integer input<br>
+Schedule - time error trap<br>
+Subject Edit to Schedule List - Error Page when Subject Code is changed

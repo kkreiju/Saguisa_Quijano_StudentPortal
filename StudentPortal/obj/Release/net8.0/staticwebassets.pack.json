@@ -249,6 +249,14 @@
       "PackagePath": "staticwebassets\\pics\\cinnamorollwelcome.gif"
     },
     {
+      "Id": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\wwwroot\\pics\\uc-logo-bg.png",
+      "PackagePath": "staticwebassets\\pics\\uc-logo-bg.png"
+    },
+    {
+      "Id": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\wwwroot\\pics\\uc.ico",
+      "PackagePath": "staticwebassets\\pics\\uc.ico"
+    },
+    {
       "Id": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\wwwroot\\uc-logo-bg.png",
       "PackagePath": "staticwebassets\\uc-logo-bg.png"
     },
