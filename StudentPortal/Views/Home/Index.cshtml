@@ -1,8 +1,43 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Home Page";
 }
 
+@model StudentPortal.Models.IndexViewModel
+
 <div class="text-center">
-    <h1 class="display-4 border-bottom mb-3">Welcome to UCB!</h1>
-    <img class="img-fluid" style="height: auto; max-width: 100%;" src="~/pics/cinnamorollwelcome.gif" />
+	<h1 class="display-4 border-bottom mb-3">Welcome to UCB!</h1>
+	<img class="img-fluid" style="height: auto; max-width: 100%;" src="~/pics/cinnamorollwelcome.gif" />
+
+	<table class="table bg-color1 table-responsive mt-3">
+		<thead>
+			<tr>
+				@if(Model.Students.Count == 1)
+				{
+					<th>@Model.Students.Count Student</th>
+				}
+				else
+				{
+					<th>@Model.Students.Count Students</th>
+				}
+
+				@if (Model.Subjects.Count == 1)
+				{
+					<th>@Model.Subjects.Count Subject</th>
+				}
+				else
+				{
+					<th>@Model.Subjects.Count Subjects</th>
+				}
+
+				@if (Model.Schedules.Count == 1)
+				{
+					<th>@Model.Schedules.Count Schedule</th>
+				}
+				else
+				{
+					<th>@Model.Schedules.Count Schedules</th>
+				}
+			</tr>
+		</thead>
+	</table>
 </div>
