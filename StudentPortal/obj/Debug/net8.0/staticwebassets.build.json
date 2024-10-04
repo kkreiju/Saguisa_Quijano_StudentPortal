@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "gPxb2XnY/NR6V6+A8pXLleIPayGZPTYF9/JUQmr6XzQ=",
+  "Hash": "AbL+7ZZ2c7bg7Qc2b7cY87z4/7EvOjbNSLEwSCdHh+4=",
   "Source": "StudentPortal",
   "BasePath": "_content/StudentPortal",
   "Mode": "Default",
@@ -1176,6 +1176,25 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
+      "Identity": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\wwwroot\\pics\\cinnamoroll.png",
+      "SourceId": "StudentPortal",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\wwwroot\\",
+      "BasePath": "_content/StudentPortal",
+      "RelativePath": "pics/cinnamoroll.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\pics\\cinnamoroll.png"
+    },
+    {
       "Identity": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\wwwroot\\pics\\cinnamorollwelcome.gif",
       "SourceId": "StudentPortal",
       "SourceType": "Discovered",
@@ -1231,6 +1250,44 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\pics\\uc-logo-bg.png"
+    },
+    {
+      "Identity": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\wwwroot\\uc.ico",
+      "SourceId": "StudentPortal",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\wwwroot\\",
+      "BasePath": "_content/StudentPortal",
+      "RelativePath": "uc.ico",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uc.ico"
+    },
+    {
+      "Identity": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\wwwroot\\uc-logo-bg.png",
+      "SourceId": "StudentPortal",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\wwwroot\\",
+      "BasePath": "_content/StudentPortal",
+      "RelativePath": "uc-logo-bg.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uc-logo-bg.png"
     }
   ]
 }

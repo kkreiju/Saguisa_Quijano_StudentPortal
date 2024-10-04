@@ -30,9 +30,11 @@ else
 	}
 
 	<form method="post" id="form">
+		<input type="hidden" name="edpc" value="@ViewBag.EDP" />
+
 		<div class="mt-3">
 			<label class="form-label">EDP Code</label>
-			<input type="number" class="form-control shadow-lg" name="edpcode" asp-for="EDPCode" readonly />
+			<input type="number" class="form-control shadow-lg" name="edpcode" asp-for="EDPCode" required />
 		</div>
 
 		<div class="mt-3">
@@ -52,7 +54,7 @@ else
 			</div>
 		</div>
 
-		<div class="mt-3">
+		<div class="mt-3" id="daysform">
 			<legend>Days</legend>
 			<div>
 				<input class="form-check-input" type="checkbox" value="MON" id="monday" />

@@ -1,4 +1,9 @@
-# ELDNET 1 Final Project
+<p align="center">
+  <img src="assets/cinnamoroll.png" alt="Cinnamoroll">
+</p>
+
+<h1 align="center"> ELDNET 1 Final Project </h1>
+<p align="center"><i >Updated as of October 1, 2024.</i></p><br>
 An enrollment system with basic features.
 
 ## Tech Stack
@@ -13,12 +18,21 @@ An enrollment system with basic features.
 ### To be implemented
 
  - Frontend Designs
- - Enrollment Entry continuation
- - Schedule Entry continuation
+ - Enrollment Entry continuation<br>
+    <i>if possible i would like to implement admin log in to enable the delete access (if i can solely edit the primary key value itself)<br>
+    add table list for the student enrollment and create a new database for saving all values (edp, increment class size, etc.)</i>
 
-### Bugs
-**Schedule Edit**
-- When clicking save button, days checkbox are not validated if it is null and redirects into <b>Schedule List</b> 
+### Fix Plans
 
-**Schedule Entry**
-- When clicking save button, days checkbox are not validated if it is null and sends an error therefore not adding the value in the database.
+**Schedule Entry & Schedule Edit**
+ - Change "Days" text size
+ - Fix Checkbox logic if possible
+
+**UI**
+ - Fonts
+
+**BUGS:**
+
+- Student Edit - must be integer input<br>
+- Schedule - time error trap<br>
+- Subject Edit to Schedule List - Error Page when Subject Code is changed

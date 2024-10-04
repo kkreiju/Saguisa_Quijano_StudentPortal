@@ -241,6 +241,10 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\wwwroot\\pics\\cinnamoroll.png",
+      "PackagePath": "staticwebassets\\pics\\cinnamoroll.png"
+    },
+    {
       "Id": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\wwwroot\\pics\\cinnamorollwelcome.gif",
       "PackagePath": "staticwebassets\\pics\\cinnamorollwelcome.gif"
     },
@@ -251,6 +255,14 @@
     {
       "Id": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\wwwroot\\pics\\uc.ico",
       "PackagePath": "staticwebassets\\pics\\uc.ico"
+    },
+    {
+      "Id": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\wwwroot\\uc-logo-bg.png",
+      "PackagePath": "staticwebassets\\uc-logo-bg.png"
+    },
+    {
+      "Id": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\wwwroot\\uc.ico",
+      "PackagePath": "staticwebassets\\uc.ico"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.StudentPortal.Microsoft.AspNetCore.StaticWebAssets.props",

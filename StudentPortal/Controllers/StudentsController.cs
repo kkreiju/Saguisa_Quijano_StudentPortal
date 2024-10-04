@@ -87,19 +87,20 @@ namespace StudentPortal.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Edit(int? idnumber1)
+		public async Task<IActionResult> Edit(int? idnumber)
 		{
-			if (idnumber1 == null)
+			if (idnumber == null)
 			{
 				// When there is no ID submitted (initial load), do nothing
 				ViewBag.SearchPerformed = false; // No search was performed yet
 				return View();
 			}
 
-			var id = await DBContext.Student.FindAsync(idnumber1);
+			var id = await DBContext.Student.FindAsync(idnumber);
 
 			if (id != null)
 			{
+				ViewBag.ID = idnumber;
 				return View(id);
 			}
 			else
@@ -111,11 +112,11 @@ namespace StudentPortal.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Edit(Students viewModel, string idnumber2)
+		public async Task<IActionResult> Edit(Students viewModel, string idnumber1, string idnumber2)
 		{
-			var student = await DBContext.Student.FindAsync(Convert.ToInt32(idnumber2));
+			var student = await DBContext.Student.FindAsync(Convert.ToInt32(idnumber1));
 
-			if (student is not null)
+			if(idnumber1.Trim().ToUpper().Equals(idnumber2.Trim().ToUpper()) && student is not null)
 			{
 				student.StudLName = viewModel.StudLName.ToUpper();
 				student.StudFName = viewModel.StudFName.ToUpper();
@@ -127,6 +128,48 @@ namespace StudentPortal.Controllers
 				DBContext.Student.Update(student);
 
 				await DBContext.SaveChangesAsync();
+			}
+			else
+			{
+				// Transaction is used associated to IDENTITY INSERT query
+				using (var transaction = await DBContext.Database.BeginTransactionAsync())
+				{
+					try
+					{
+						// To write values in primary key StudID
+						await DBContext.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Student ON");
+
+						var newstudent = new Students
+						{
+							StudID = Convert.ToInt32(idnumber2),
+							StudLName = viewModel.StudLName.ToUpper(),
+							StudFName = viewModel.StudFName.ToUpper(),
+							StudMName = viewModel.StudMName.ToUpper(),
+							StudCourse = viewModel.StudCourse.ToUpper(),
+							StudYear = viewModel.StudYear,
+							StudRemarks = viewModel.StudRemarks,
+							StudStatus = student.StudStatus
+						};
+
+						await DBContext.Student.AddAsync(newstudent);
+						await DBContext.SaveChangesAsync();
+
+						await DBContext.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Student OFF");
+
+						await transaction.CommitAsync();
+
+						// Define the SQL command with a parameter placeholder
+						var sqlCommand = "DELETE FROM Student WHERE StudID = {0}";
+
+						// Execute the command with the specified parameter value
+						int affectedRows = await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, idnumber1);
+					}
+					catch (Exception ex)
+					{
+						await transaction.RollbackAsync();
+						throw;
+					}
+				}
 			}
 
 			return RedirectToAction("List", "Students");
