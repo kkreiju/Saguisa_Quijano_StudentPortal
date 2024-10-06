@@ -6,14 +6,21 @@
 
 <h1>Schedule Edit</h1>
 
+@if (ViewBag.Message == "EDP Code Not Found." && ViewBag.Search == true)
+{
+	<div class="alert alert-danger mt-2">
+		<p class="my-0">@ViewBag.Message</p>
+	</div>
+}
+else if (ViewBag.Message != null && (ViewBag.Message.Contains("schedule") || ViewBag.Message.Contains("Invalid")))
+{
+	<div class="alert alert-danger mt-2">
+		<p class="my-0">@ViewBag.Message</p>
+	</div>
+}
+
 @if (Model is null)
 {
-	@if (ViewBag.Message == "EDP Code Not Found." && ViewBag.Search == true)
-	{
-		<div class="alert alert-danger mt-2">
-			<p class="my-0">@ViewBag.Message</p>
-		</div>
-	}
 	<form action="/Schedules/Edit" method="get" id="search">
 		<label class="form-label">EDP Code</label>
 		<input type="text" class="form-control shadow-lg" name="edpcode" id="edpcode" required />
@@ -22,12 +29,6 @@
 }
 else
 {
-	@if (ViewBag.Message != null && ViewBag.Message.Contains("schedule"))
-	{
-		<div class="alert alert-danger mt-2">
-			<p class="my-0">@ViewBag.Message</p>
-		</div>
-	}
 
 	<form method="post" id="form">
 		<input type="hidden" name="edpc" value="@ViewBag.EDP" />

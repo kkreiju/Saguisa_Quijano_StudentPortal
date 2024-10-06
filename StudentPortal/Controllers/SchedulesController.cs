@@ -47,6 +47,12 @@ namespace StudentPortal.Controllers
 				ViewBag.Message = "Schedule is already registered.";
 				return View();
 			}
+			else if(viewModel.StartTime >= viewModel.EndTime)
+			{
+				ViewBag.Message = "Start Time is Invalid.";
+				viewModel.SubjCode = subjectcode;
+				return View(viewModel);
+			}
 			else
 			{
 

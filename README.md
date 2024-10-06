@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center"> ELDNET 1 Final Project </h1>
-<p align="center"><i >Updated as of October 1, 2024.</i></p><br>
+<p align="center"><i >Updated as of October 4, 2024.</i></p><br>
 An enrollment system with basic features.
 
 ## Tech Stack
@@ -33,6 +33,6 @@ An enrollment system with basic features.
 
 **BUGS:**
 
-- Student Edit - must be integer input<br>
+- Student Edit - must be integer input "E"<br>
 - Schedule - time error trap<br>
 - Subject Edit to Schedule List - Error Page when Subject Code is changed
