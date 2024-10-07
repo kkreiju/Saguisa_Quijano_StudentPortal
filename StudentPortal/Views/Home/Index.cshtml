@@ -8,36 +8,59 @@
 	<h1 class="display-4 border-bottom mb-3">Welcome to UCB!</h1>
 	<img class="img-fluid" style="height: auto; max-width: 100%;" src="~/pics/cinnamorollwelcome.gif" />
 
-	<table class="table bg-color1 table-responsive mt-3">
-		<thead>
-			<tr>
-				@if(Model.Students.Count == 1)
-				{
-					<th>@Model.Students.Count Student</th>
-				}
-				else
-				{
-					<th>@Model.Students.Count Students</th>
-				}
+	<div class="d-flex justify-content-between mt-3">
+		<table class="table bg-color1 text-center rounded-table">
+			<thead>
+				<tr>
+					@if (Model.Students.Count == 1)
 
-				@if (Model.Subjects.Count == 1)
-				{
-					<th>@Model.Subjects.Count Subject</th>
-				}
-				else
-				{
-					<th>@Model.Subjects.Count Subjects</th>
-				}
+					{
+						<th class="bg-fit">@Model.Students.Count Student</th>
+					}
 
-				@if (Model.Schedules.Count == 1)
-				{
-					<th>@Model.Schedules.Count Schedule</th>
-				}
-				else
-				{
-					<th>@Model.Schedules.Count Schedules</th>
-				}
-			</tr>
-		</thead>
-	</table>
+					else
+
+					{
+						<th class="bg-fit">@Model.Students.Count Students</th>
+					}
+				</tr>
+			</thead>
+		</table>
+
+		<table class="table bg-color1 text-center rounded-table">
+			<thead>
+				<tr>
+					@if (Model.Subjects.Count == 1)
+
+					{
+						<th class="bg-fit">@Model.Subjects.Count Subject</th>
+					}
+
+					else
+
+					{
+						<th class="bg-fit">@Model.Subjects.Count Subjects</th>
+					}
+				</tr>
+			</thead>
+		</table>
+
+		<table class="table bg-color1 text-center rounded-table">
+			<thead>
+				<tr>
+					@if (Model.Schedules.Count == 1)
+
+					{
+						<th class="bg-fit">@Model.Schedules.Count Schedule</th>
+					}
+
+					else
+
+					{
+						<th class="bg-fit">@Model.Schedules.Count Schedules</th>
+					}
+				</tr>
+			</thead>
+		</table>
+	</div>
 </div>
