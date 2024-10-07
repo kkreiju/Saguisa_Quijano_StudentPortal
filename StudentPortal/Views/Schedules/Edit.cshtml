@@ -23,7 +23,7 @@ else if (ViewBag.Message != null && (ViewBag.Message.Contains("schedule") || Vie
 {
 	<form action="/Schedules/Edit" method="get" id="search">
 		<label class="form-label">EDP Code</label>
-		<input type="text" class="form-control shadow-lg" name="edpcode" id="edpcode" required />
+		<input type="number" class="form-control shadow-lg" name="edpcode" id="edpcode" required />
 		<button onclick="search()" class="btn btn-primary mt-2">Search</button>
 	</form>
 }
@@ -148,12 +148,14 @@ else
 		const dayAbbreviations = [];
 
 		// Handle TH (Thursday) separately since it's 2 characters
+		let thursdayremover = daysValue;
 		if (daysValue.includes('TH')) {
 			dayAbbreviations.push('TH');
+			thursdayremover = thursdayremover.replace('TH', '');
 		}
 
 		// Handle the rest of the characters (M, T, W, F, S)
-		for (let char of daysValue) {
+		for (let char of thursdayremover) {
 			if (char !== 'H') { // Skip 'H' since we already handled 'TH'
 				dayAbbreviations.push(char);
 			}

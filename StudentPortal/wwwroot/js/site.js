@@ -1,4 +1,42 @@
-﻿// Day abbreviations
+﻿// Select all input fields of type="number"
+const numberInputs = document.querySelectorAll('input[type="number"]');
+
+// Loop through each number input and apply the event listener
+numberInputs.forEach(input => {
+    // Restrict input to digits only
+    input.addEventListener('input', function (e) {
+        this.value = this.value.replace(/[^0-9]/g, ''); // Replace non-numeric characters
+    });
+
+    // Prevent non-numeric paste
+    input.addEventListener('paste', function (e) {
+        const pastedData = e.clipboardData.getData('text');
+        if (!/^\d+$/.test(pastedData)) {
+            e.preventDefault(); // Prevent paste if it's not only numbers
+        }
+    });
+
+    // Optional: Prevent non-numeric key inputs (e.g., block "e", "+", "-")
+    input.addEventListener('keydown', function (e) {
+        // Allow: backspace, delete, tab, escape, enter, arrows, digits
+        if (
+            [46, 8, 9, 27, 13].indexOf(e.keyCode) !== -1 || // Allow special keys: delete, backspace, etc.
+            (e.keyCode >= 35 && e.keyCode <= 40) || // Arrow keys
+            (e.keyCode >= 48 && e.keyCode <= 57) || // Numbers on the main keyboard (0-9)
+            (e.keyCode >= 96 && e.keyCode <= 105)   // Numbers on the numpad (0-9)
+        ) {
+            return; // Allow these keys
+        }
+
+        // Allow Ctrl+A, Ctrl+C, Ctrl+V (key combinations)
+        if ((e.ctrlKey || e.metaKey) && (e.key === 'a' || e.key === 'c' || e.key === 'v')) {
+            return; // Allow Ctrl+A, Ctrl+C, Ctrl+V
+        }
+        e.preventDefault(); // Prevent all other keypresses
+    });
+});
+
+// Day abbreviations
 const dayAbbreviations = {
     MON: 'M',
     TUE: 'T',
@@ -117,38 +155,3 @@ submitBtn.addEventListener('click', function (event) {
         tooltipMessage.style.display = 'none';
     }
 });
-
-// Pre Load in Schedule Edit
-
-// Function to pre-check checkboxes based on the value of the hidden input
-function preCheckDays() {
-    //console.log("working")
-
-    const daysValue = document.getElementById('days').value;
-
-    // Break the abbreviation into individual day values
-    const dayAbbreviations = [];
-
-    // Handle TH (Thursday) separately since it's 2 characters
-    if (daysValue.includes('TH')) {
-        dayAbbreviations.push('TH');
-    }
-
-    // Handle the rest of the characters (M, T, W, F, S)
-    for (let char of daysValue) {
-        if (char !== 'H') { // Skip 'H' since we already handled 'TH'
-            dayAbbreviations.push(char);
-        }
-    }
-
-    // Map the abbreviations to their full day names and check the corresponding boxes
-    dayAbbreviations.forEach(abbreviation => {
-        const dayName = abbreviationMap[abbreviation];
-
-        // Find the checkbox with the value corresponding to the day name and check it
-        const checkbox = document.querySelector(`input[value="${dayName}"]`);
-        if (checkbox) {
-            checkbox.checked = true;
-        }
-    });
-}
