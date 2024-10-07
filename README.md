@@ -26,11 +26,9 @@ An enrollment system with basic features.
 
 **Schedule Entry & Schedule Edit**
  - Change "Days" text size
- - Fix Checkbox logic if possible
 
 **UI**
  - Fonts
 
 **BUGS:**
-
 - Student Edit - must be integer input "E"<br>
