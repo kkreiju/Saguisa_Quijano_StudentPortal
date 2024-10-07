@@ -28,8 +28,9 @@ An enrollment system with basic features.
  - Change "Days" text size
  - Fix Checkbox logic if possible
 
+**UI**
+ - Fonts
+
 **BUGS:**
 
 - Student Edit - must be integer input "E"<br>
-- Schedule - time error trap<br>
-- Subject Edit to Schedule List - Error Page when Subject Code is changed

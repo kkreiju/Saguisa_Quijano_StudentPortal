@@ -147,7 +147,8 @@ namespace StudentPortal.Controllers
 				return View(viewModel);
 			}
 
-			if ((subject.Trim().ToUpper().Equals(subjectcode.Trim().ToUpper()) && course.Trim().ToUpper().Equals(coursecode.ToUpper())) && subjectandcoursecode is not null)
+			if ((subject.Trim().ToUpper().Equals(subjectcode.Trim().ToUpper()) &&
+				course.Trim().ToUpper().Equals(coursecode.ToUpper())) && subjectandcoursecode is not null)
 			{
 				subjectandcoursecode.SubjDesc = viewModel.SubjDesc.ToUpper();
 				subjectandcoursecode.SubjUnits = viewModel.SubjUnits;
@@ -175,13 +176,11 @@ namespace StudentPortal.Controllers
 							SubjStatus = subjectandcoursecode.SubjStatus,
 							SubjCourseCode = coursecode,
 							SubjCurrCode = viewModel.SubjCurrCode,
-							SubjRequisite = viewModel.SubjRequisite.ToUpper()
+							SubjRequisite = viewModel.SubjRequisite?.ToUpper()
 						};
 
 						await DBContext.Subject.AddAsync(newsubject);
 						await DBContext.SaveChangesAsync();
-
-						await transaction.CommitAsync();
 
 						ViewBag.Message = "Subject added.";
 
@@ -189,7 +188,13 @@ namespace StudentPortal.Controllers
 						var sqlCommand = "DELETE FROM Subject WHERE SubjCode = {0} AND SubjCourseCode = {1}";
 
 						// Execute the command with the specified parameter value
-						int affectedRows = await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, subject, course);
+						await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, subject, course);
+
+						//Update affected rows from schedule if the Subject Code is Updated
+						sqlCommand = "UPDATE Schedule SET SubjCode = {0} WHERE SubjCode = {1} AND Course = {2}";
+						await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, subjectcode, subject, course);
+
+						await transaction.CommitAsync();
 					}
 					catch (Exception ex)
 					{

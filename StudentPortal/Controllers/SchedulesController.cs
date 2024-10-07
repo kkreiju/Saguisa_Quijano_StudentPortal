@@ -175,6 +175,12 @@ namespace StudentPortal.Controllers
 				ViewBag.Message = "Please add subject code " + subjectcode.ToUpper() + " with its respective course before editing a schedule.";
 				return View(edp);
 			}
+			else if (viewModel.StartTime >= viewModel.EndTime)
+			{
+				ViewBag.Message = "Start Time is Invalid.";
+				viewModel.SubjCode = subjectcode;
+				return View(viewModel);
+			}
 
 			if (edpc == edpcode)
 			{

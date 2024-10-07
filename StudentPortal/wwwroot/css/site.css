@@ -20,16 +20,6 @@ html {
 body {
     margin-bottom: 60px;
     font-family: 'Ysabeau SC', sans-serif;
-    background-image: url('/pics/cinnabg.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    background-attachment: fixed;
-}
-@media only screen and (max-width: 600px) {
-    body {
-        background-size: contain;
-    }
 }
 
 h1 {
@@ -43,32 +33,4 @@ h1 {
 
 .bg-color4 {
     background-color: #0F67B1;
-}
-
-.d-flex {
-    display: flex;
-}
-
-.justify-content-between {
-    justify-content: space-between;
-}
-
-.table {
-    width: auto;
-    margin: 0 10px;
-    background-color: #d1ebf6;
-}
-
-.bg-fit {
-    background-color: #f8f9fa;
-    padding: 10px;
-}
-
-.text-center {
-    text-align: center;
-}
-
-.rounded-table {
-    border-radius: 10px;
-    overflow: hidden;
 }

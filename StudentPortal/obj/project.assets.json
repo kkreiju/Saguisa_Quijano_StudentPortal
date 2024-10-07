@@ -4111,11 +4111,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\arjay\\Desktop\\Saguisa_Quijano_StudentPortal\\StudentPortal\\StudentPortal.csproj",
+      "projectUniqueName": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\StudentPortal.csproj",
       "projectName": "StudentPortal",
-      "projectPath": "C:\\Users\\arjay\\Desktop\\Saguisa_Quijano_StudentPortal\\StudentPortal\\StudentPortal.csproj",
+      "projectPath": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\StudentPortal.csproj",
       "packagesPath": "C:\\Users\\arjay\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\arjay\\Desktop\\Saguisa_Quijano_StudentPortal\\StudentPortal\\obj\\",
+      "outputPath": "C:\\Users\\arjay\\Documents\\Github\\Saguisa_Quijano_StudentPortal\\StudentPortal\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\arjay\\AppData\\Roaming\\NuGet\\NuGet.Config",
