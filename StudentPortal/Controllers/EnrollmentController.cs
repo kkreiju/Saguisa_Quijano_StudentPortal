@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using StudentPortal.Data;
+using StudentPortal.Models;
 using StudentPortal.Models.Entities;
 
 namespace StudentPortal.Controllers
@@ -22,7 +23,7 @@ namespace StudentPortal.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Entry(Students viewModel, string idnumber)
+		public async Task<IActionResult> Entry(string idnumber)
 		{
 
 			// Search for the student using the provided ID number
@@ -40,8 +41,23 @@ namespace StudentPortal.Controllers
 				ViewBag.Message = "Student found.";
 				ViewBag.ID = idnumber;
 
-				// Pass the found student to the view
-				return View(student);  // Adjust the view accordingly to display search results
+				// Initialize a list to store the table lists
+				var schedules = await DBContext.Schedule.ToListAsync();
+				var subjects = await DBContext.Subject.ToListAsync();
+				var enrollmenth = await DBContext.EnrollmentHeader.ToListAsync();
+				var enrollmentd = await DBContext.EnrollmentDetail.ToListAsync();
+
+				// Create the view model with datas
+				var viewModel = new EnrollmentViewModel
+				{
+					Students = student,
+					Schedules = schedules,
+					Subjects = subjects,
+					EnrollmentHeaders = enrollmenth,
+					EnrollmentDetails = enrollmentd,
+				};
+
+				return View(viewModel);
 			}
 		}
 	}

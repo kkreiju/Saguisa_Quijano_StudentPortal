@@ -155,3 +155,12 @@ submitBtn.addEventListener('click', function (event) {
         tooltipMessage.style.display = 'none';
     }
 });
+
+function formatTime(timeString) {
+    const [hours, minutes, seconds] = timeString.split(':');
+    const formattedHours = parseInt(hours, 10) % 12 || 12;
+    const formattedMinutes = minutes.padStart(2, '0');
+    const amPm = hours < 12 ? 'AM' : 'PM';
+
+    return `${formattedHours}:${formattedMinutes} ${amPm}`;
+}

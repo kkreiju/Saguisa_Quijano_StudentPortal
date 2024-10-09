@@ -50,7 +50,7 @@ namespace StudentPortal.Controllers
 							StudID = Convert.ToInt32(idnumber),
 							StudLName = viewModel.StudLName.ToUpper(),
 							StudFName = viewModel.StudFName.ToUpper(),
-							StudMName = viewModel.StudMName.ToUpper(),
+							StudMName = viewModel.StudMName?.ToUpper(),
 							StudCourse = viewModel.StudCourse.ToUpper(),
 							StudYear = viewModel.StudYear,
 							StudRemarks = viewModel.StudRemarks,
@@ -120,7 +120,7 @@ namespace StudentPortal.Controllers
 			{
 				student.StudLName = viewModel.StudLName.ToUpper();
 				student.StudFName = viewModel.StudFName.ToUpper();
-				student.StudMName = viewModel.StudMName.ToUpper();
+				student.StudMName = viewModel.StudMName?.ToUpper();
 				student.StudCourse = viewModel.StudCourse.ToUpper();
 				student.StudYear = viewModel.StudYear;
 				student.StudRemarks = viewModel.StudRemarks;
@@ -144,7 +144,7 @@ namespace StudentPortal.Controllers
 							StudID = Convert.ToInt32(idnumber2),
 							StudLName = viewModel.StudLName.ToUpper(),
 							StudFName = viewModel.StudFName.ToUpper(),
-							StudMName = viewModel.StudMName.ToUpper(),
+							StudMName = viewModel.StudMName?.ToUpper(),
 							StudCourse = viewModel.StudCourse.ToUpper(),
 							StudYear = viewModel.StudYear,
 							StudRemarks = viewModel.StudRemarks,

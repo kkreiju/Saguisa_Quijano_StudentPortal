@@ -2,20 +2,20 @@
 	ViewData["Title"] = "Enrollment Entry";
 }
 
-@model StudentPortal.Models.Entities.Students
+@model StudentPortal.Models.EnrollmentViewModel
 
 <h1>Student Information</h1>
 
 <div class="mt-2">
 	<form action="/Enrollment/Entry" method="post" id="form">
 		<label class="form-label">ID Number</label>
-		<input type="text" class="form-control shadow-lg" name="idnumber" value="@ViewBag.ID" required />
+		<input type="number" class="form-control shadow-lg" name="idnumber" value="@ViewBag.ID" required />
 		<button type="submit" class="btn btn-primary mt-2">Search</button>
 	</form>
 
 	@if (ViewBag.Message == "Student not found.")
-    {
-        <div class="alert alert-danger mt-2">
+	{
+		<div class="alert alert-danger mt-2">
 			<p class="my-0">@ViewBag.Message</p>
 		</div>
 	}
@@ -27,12 +27,12 @@
 	}
 </div>
 
-@if (Model != null)
+@if (Model is not null)
 {
-	var name = Model.StudLName + ", " + Model.StudFName;
-	if(Model.StudMName != String.Empty)
+	var name = Model.Students.StudLName + ", " + Model.Students.StudFName;
+	if (Model.Students.StudMName is not null)
 	{
-		name = Model.StudLName + ", " + Model.StudFName + " " + Model.StudMName.ToString().ElementAt(0) + ".";
+		name += " " + Model.Students.StudMName.ToString().ElementAt(0) + ".";
 	}
 
 	<div class="mt-auto">
@@ -45,14 +45,53 @@
 	<div class="mt-auto">
 		<fieldset>
 			<label class="form-label mt-3" for="readOnlyInput">Course</label>
-			<input class="form-control" id="course" type="text" placeholder="@Model.StudCourse" readonly="">
+			<input class="form-control" id="course" type="text" placeholder="@Model.Students.StudCourse" readonly="">
 		</fieldset>
 	</div>
 
 	<div class="mt-auto">
 		<fieldset>
 			<label class="form-label mt-3" for="readOnlyInput">Year</label>
-			<input class="form-control" id="year" type="text" placeholder="@Model.StudYear" readonly="">
+			<input class="form-control" id="year" type="text" placeholder="@Model.Students.StudYear" readonly="">
 		</fieldset>
 	</div>
+
+	<div class="row align-items-center mt-3">
+		<div class="col-md-7">
+			<label class="form-label">EDP Code</label>
+			<input type="number" class="form-control shadow-lg" name="edpcode" id="edpcode" required />
+		</div>
+
+		<div class="col-md-3 text-start">
+			<button type="submit" class="btn btn-primary" onclick="searchSchedules()">Search</button>
+		</div>
+	</div>
+
+	<table class="table table-responsive table-bordered table-light shadow-lg mt-3" id="enrollmenttable">
+		<thead>
+			<tr>
+				<th scope="col">EDP Code</th>
+				<th scope="col">Subject Code</th>
+				<th scope="col">Time</th>
+				<th scope="col">Days</th>
+				<th scope="col">Room</th>
+				<th scope="col">Category</th> <!-- From Subject Table-->
+				<th scope="col">Units</th> <!-- From Subject Table-->
+			</tr>
+		</thead>
+		<tbody>
+			<!-- Javascript will insert new rows-->
+		</tbody>
+	</table>
+}
+
+@section Scripts {
+	<script>
+		let search = false;
+		let subjectscount = 0;
+		// Serializing C# list to JSON and passing it to JavaScript
+		const schedules = @Html.Raw(Json.Serialize(Model?.Schedules));
+		const subjects = @Html.Raw(Json.Serialize(Model?.Subjects));
+	</script>
+	<script src="~/js/enrollment.js"></script>
 }

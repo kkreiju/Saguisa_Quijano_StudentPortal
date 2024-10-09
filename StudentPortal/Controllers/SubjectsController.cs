@@ -154,7 +154,7 @@ namespace StudentPortal.Controllers
 				subjectandcoursecode.SubjUnits = viewModel.SubjUnits;
 				subjectandcoursecode.SubjRegOfrng = viewModel.SubjRegOfrng;
 				subjectandcoursecode.SubjCategory = viewModel.SubjCategory;
-				subjectandcoursecode.SubjRequisite = viewModel.SubjRequisite.ToUpper();
+				subjectandcoursecode.SubjRequisite = viewModel.SubjRequisite?.ToUpper();
 
 				DBContext.Subject.Update(subjectandcoursecode);
 

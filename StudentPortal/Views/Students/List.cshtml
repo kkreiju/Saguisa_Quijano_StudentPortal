@@ -27,9 +27,9 @@ else
             @foreach (var student in Model)
             {
                 var name = student.StudLName + ", " + student.StudFName;
-                if (student.StudMName != String.Empty)
+                if (student.StudMName is not null)
                 {
-                    name = student.StudLName + ", " + student.StudFName + " " + student.StudMName.ToString().ElementAt(0) + ".";
+                    name += " " + student.StudMName?.ToString().ElementAt(0) + ".";
                 }
                 <tr>
                     <th scope="row">@student.StudID</th>

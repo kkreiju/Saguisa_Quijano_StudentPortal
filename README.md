@@ -24,6 +24,9 @@ An enrollment system with basic features.
 
 ### Fix Plans
 
+**Database**
+ - Subjects and Students Table Change Name
+
 **Schedule Entry & Schedule Edit**
  - Change "Days" text size
 

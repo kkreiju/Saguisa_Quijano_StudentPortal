@@ -14,7 +14,7 @@ namespace StudentPortal.Models.Entities
         public string StudFName { get; set; }
 
         [StringLength(15)]
-        public string StudMName { get; set; }
+        public string? StudMName { get; set; }
 
         [StringLength(10)]
         public string StudCourse { get; set; }
