@@ -12,12 +12,12 @@ namespace StudentPortal.Controllers
 		private readonly ApplicationDBContext DBContext;
 
 		public EnrollmentController(ApplicationDBContext DBContext)
-        {
-            this.DBContext = DBContext;
-        }
+		{
+			this.DBContext = DBContext;
+		}
 
 		[HttpGet]
-        public IActionResult Entry()
+		public IActionResult Entry()
 		{
 			return View();
 		}
@@ -59,6 +59,12 @@ namespace StudentPortal.Controllers
 
 				return View(viewModel);
 			}
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> EnrollStudent(string idnumber)
+		{
+			return View();
 		}
 	}
 }

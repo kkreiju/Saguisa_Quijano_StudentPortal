@@ -57,41 +57,62 @@
 	</div>
 
 	<div class="row align-items-center mt-3">
-		<div class="col-md-7">
-			<label class="form-label">EDP Code</label>
-			<input type="number" class="form-control shadow-lg" name="edpcode" id="edpcode" required />
-		</div>
+		<form id="searchForm">
+			<div class="col-md-7">
+				<label class="form-label">EDP Code</label>
+				<input type="number" class="form-control shadow-lg" name="edpcode" id="edpcode" required />
+			</div>
 
-		<div class="col-md-3 text-start">
-			<button type="submit" class="btn btn-primary" onclick="searchSchedules()">Search</button>
-		</div>
+			<div class="col-md-3 text-start">
+				<button type="submit" class="btn btn-primary" onclick="searchSchedules()">Search</button>
+			</div>
+		</form>
 	</div>
 
-	<table class="table table-responsive table-bordered table-light shadow-lg mt-3" id="enrollmenttable">
-		<thead>
-			<tr>
-				<th scope="col">EDP Code</th>
-				<th scope="col">Subject Code</th>
-				<th scope="col">Time</th>
-				<th scope="col">Days</th>
-				<th scope="col">Room</th>
-				<th scope="col">Category</th> <!-- From Subject Table-->
-				<th scope="col">Units</th> <!-- From Subject Table-->
-			</tr>
-		</thead>
-		<tbody>
-			<!-- Javascript will insert new rows-->
-		</tbody>
-	</table>
+	<form asp-action="EnrollStudent" asp-controller="Enrollment">
+		<div class="mt-3">
+			<table class="table table-responsive table-bordered table-light shadow-lg mt-3" id="enrollmenttable">
+				<thead>
+					<tr>
+						<th scope="col">EDP Code</th>
+						<th scope="col">Subject Code</th>
+						<th scope="col">Time</th>
+						<th scope="col">Days</th>
+						<th scope="col">Room</th>
+						<th scope="col">Category</th> <!-- From Subject Table-->
+						<th scope="col">Units</th> <!-- From Subject Table-->
+					</tr>
+				</thead>
+				<tbody>
+					<!-- Javascript will insert new rows-->
+				</tbody>
+				<tfoot>
+					<tr>
+						<th style="text-align: right;" colspan="7" id="totalunits">Total Units: 0</th>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+
+		<div class="mt-3">
+			<button type="submit" class="btn btn-primary">Enroll</button>
+		</div>
+	</form>
+	
 }
 
 @section Scripts {
 	<script>
 		let search = false;
 		let subjectscount = 0;
+		let unitscount = 0;
 		// Serializing C# list to JSON and passing it to JavaScript
 		const schedules = @Html.Raw(Json.Serialize(Model?.Schedules));
 		const subjects = @Html.Raw(Json.Serialize(Model?.Subjects));
+
+		document.getElementById('searchForm').addEventListener('submit', function (event) {
+			event.preventDefault(); // Prevent the form from submitting and refreshing the page
+		});
 	</script>
 	<script src="~/js/enrollment.js"></script>
 }

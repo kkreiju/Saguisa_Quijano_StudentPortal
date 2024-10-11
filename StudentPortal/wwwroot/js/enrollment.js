@@ -1,17 +1,4 @@
-function searchSchedules() {
-    // Get the value entered in the input field
-    const edpCodeInput = document.getElementById('edpcode').value;
-
-    // Check if the input EDPCode exists in the schedules list
-    const matchedSchedule = schedules.find(schedule => schedule.edpCode == edpCodeInput);
-
-    // Handle success or error
-    if (matchedSchedule) {
-        addNewRow(matchedSchedule);
-    } else {
-        alert("EDP Code not found!");
-    }
-}
+let edpCodes = [];
 
 function addNewRow(schedule) {
     const subjCode = schedule.subjCode;
@@ -40,6 +27,7 @@ function addNewRow(schedule) {
     newRow.insertCell().textContent = category;
     newRow.insertCell().textContent = units;
     subjectscount++;
+    unitscount += units;
     updateCount();
 
     // Create and add the button in the last cell
@@ -54,6 +42,7 @@ function addNewRow(schedule) {
         const rowIndex = newRow.rowIndex - 1; // Adjust for header row
         newRow.remove();
         subjectscount--;
+        unitscount -= units;
         updateCount();
     });
 
@@ -61,12 +50,29 @@ function addNewRow(schedule) {
     buttonCell.appendChild(button);
 }
 
+function searchSchedules() {
+    // Get the value entered in the input field
+    const edpCodeInput = document.getElementById('edpcode').value;
+
+    // Check if the input EDPCode exists in the schedules list
+    const matchedSchedule = schedules.find(schedule => schedule.edpCode == edpCodeInput);
+
+    // Handle success or error
+    if (matchedSchedule) {
+        checkDuplicateEDP(matchedSchedule, edpCodeInput);
+    } else {
+        alert("EDP Code not found!");
+    }
+}
+
 function updateCount() {
     const table = document.getElementById("enrollmenttable");
     const thead = table.querySelector("thead");
     const firstRow = thead.querySelector("tr");
+    const footer = document.getElementById("totalunits");
 
-    console.log(subjectscount)
+    //Update Units
+    document.getElementById("totalunits").innerHTML = "Total Units: " + unitscount.toString();
 
     // Add Options into THead
     if (!search) {
@@ -78,10 +84,34 @@ function updateCount() {
 
         // Insert the new `th` element into the first row of the `thead`
         firstRow.appendChild(optionsTh);
+        footer.colSpan = 8;
     }
     else if (search && subjectscount == 0) {
         // Removes "Options" when there is no schedules listed
         search = false;
         firstRow.removeChild(firstRow.children[7]);
+        footer.colSpan = 7; 
+    }
+}
+
+function checkDuplicateEDP(schedule, EDPCode) {
+    // Get all the table rows
+    let rows = document.querySelectorAll("table tr");
+
+    // If there are no schedules in the table
+    if (rows.length === 2) {
+        addNewRow(schedule);
+        rows = document.querySelectorAll("table tr");
+        edpCodes.push(EDPCode);
+        return;
+    }
+
+    if (edpCodes.includes(EDPCode)) {
+        alert(EDPCode.toString() + " is duplicate.");
+        return;
+    }
+    else {
+        addNewRow(schedule);
+        edpCodes.push(EDPCode);
     }
 }

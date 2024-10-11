@@ -32,6 +32,3 @@ An enrollment system with basic features.
 
 **UI**
  - Fonts
-
-**BUGS:**
-- Student Edit - must be integer input "E"<br>
