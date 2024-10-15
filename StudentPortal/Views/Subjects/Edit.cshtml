@@ -6,14 +6,22 @@
 
 <h1>Subject Edit</h1>
 
+@if (ViewBag.Message == "Subject Not Found." && ViewBag.Search == true)
+{
+	<div class="alert alert-danger mt-2">
+		<p class="my-0">@ViewBag.Message</p>
+	</div>
+}
+else if(ViewBag.Message != null && ViewBag.Message.Contains("registered"))
+{
+	<div class="alert alert-danger mt-3">
+		<p class="my-0">@ViewBag.Message</p>
+	</div>
+}
+
 @if (Model is null)
 {
-	@if (ViewBag.Message == "Subject Not Found." && ViewBag.Search == true)
-	{
-		<div class="alert alert-danger mt-2">
-			<p class="my-0">@ViewBag.Message</p>
-		</div>
-	}
+	
 	<form action="/Students/Edit" method="get" id="search">
 		<div class="row">
 			<div class="col mt-3">
@@ -32,14 +40,13 @@
 }
 else
 {
-
 	<form method="post">
 		<input type="hidden" name="subject" value="@ViewBag.Subject" />
 		<input type="hidden" name="course" value="@ViewBag.Course" />
 
 		<div class="mt-3">
 			<label class="form-label">Subject Code</label>
-			<input type="text" class="form-control shadow-lg" name="subjectcode" asp-for="SubjCode" required />
+			<input type="text" style="text-transform: uppercase;" class="form-control shadow-lg" name="subjectcode" asp-for="SubjCode" required />
 		</div>
 
 		<div class="mt-3">

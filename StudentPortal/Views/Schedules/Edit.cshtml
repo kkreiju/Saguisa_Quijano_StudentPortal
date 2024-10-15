@@ -6,28 +6,29 @@
 
 <h1>Schedule Edit</h1>
 
+@if (ViewBag.Message == "EDP Code Not Found." && ViewBag.Search == true)
+{
+	<div class="alert alert-danger mt-2">
+		<p class="my-0">@ViewBag.Message</p>
+	</div>
+}
+else if (ViewBag.Message != null && (ViewBag.Message.Contains("schedule") || ViewBag.Message.Contains("Invalid")))
+{
+	<div class="alert alert-danger mt-2">
+		<p class="my-0">@ViewBag.Message</p>
+	</div>
+}
+
 @if (Model is null)
 {
-	@if (ViewBag.Message == "EDP Code Not Found." && ViewBag.Search == true)
-	{
-		<div class="alert alert-danger mt-2">
-			<p class="my-0">@ViewBag.Message</p>
-		</div>
-	}
 	<form action="/Schedules/Edit" method="get" id="search">
 		<label class="form-label">EDP Code</label>
-		<input type="text" class="form-control shadow-lg" name="edpcode" id="edpcode" required />
+		<input type="number" class="form-control shadow-lg" name="edpcode" id="edpcode" required />
 		<button onclick="search()" class="btn btn-primary mt-2">Search</button>
 	</form>
 }
 else
 {
-	@if (ViewBag.Message != null && ViewBag.Message.Contains("schedule"))
-	{
-		<div class="alert alert-danger mt-2">
-			<p class="my-0">@ViewBag.Message</p>
-		</div>
-	}
 
 	<form method="post" id="form">
 		<input type="hidden" name="edpc" value="@ViewBag.EDP" />
@@ -88,7 +89,7 @@ else
 		</div>
 
 		<!-- Hidden field to store concatenated values -->
-		<input type="hidden" asp-for="Days" id="days" />
+		<input type="hidden" asp-for="Days" id="days" value="@Model.Days" />
 
 		<div class="mt-3">
 			<label class="form-label">Room</label>
@@ -129,33 +130,50 @@ else
 }
 
 <script>
-	const submitBtn = document.getElementById('submitBtn');
-	const checkboxes = document.querySelectorAll('.form-check-input');
-	const tooltipMessage = document.getElementById('tooltipMessage');
+	// Since it wont read site.js abbreviation mapping
+	const abbreviationDayMap = {
+		'M': 'MON',
+		'T': 'TUE',
+		'W': 'WED',
+		'TH': 'THU',
+		'F': 'FRI',
+		'S': 'SAT',
+	};
 
-	// Add event listener for the submit button
-	submitBtn.addEventListener('click', function (event) {
-		// Check if any checkbox is selected
-		let isAnyChecked = false;
-		checkboxes.forEach(checkbox => {
-			if (checkbox.checked) {
-				isAnyChecked = true;
+	function preCheckDays() {
+
+		const daysValue = document.getElementById('days').value;
+
+		// Break the abbreviation into individual day values
+		const dayAbbreviations = [];
+
+		// Handle TH (Thursday) separately since it's 2 characters
+		let thursdayremover = daysValue;
+		if (daysValue.includes('TH')) {
+			dayAbbreviations.push('TH');
+			thursdayremover = thursdayremover.replace('TH', '');
+		}
+
+		// Handle the rest of the characters (M, T, W, F, S)
+		for (let char of thursdayremover) {
+			if (char !== 'H') { // Skip 'H' since we already handled 'TH'
+				dayAbbreviations.push(char);
+			}
+		}
+
+		// Map the abbreviations to their full day names and check the corresponding boxes
+		dayAbbreviations.forEach(abbreviation => {
+			const dayName = abbreviationDayMap[abbreviation];
+
+			// Find the checkbox with the value corresponding to the day name and check it
+			const checkbox = document.querySelector(`input[value="${dayName}"]`);
+			if (checkbox) {
+				checkbox.checked = true;
 			}
 		});
+	}
 
-		// If no checkbox is checked, alert the user and prevent form submission
-		if (!isAnyChecked) {
-			tooltipMessage.style.display = 'block';
-			daysform.scrollIntoView({
-				behavior: 'smooth',  // Smooth scrolling
-				block: 'start'       // Scroll to the top of the element
-			});
-			event.preventDefault(); // Prevent the form from submitting
-		}
-		else {
-			tooltipMessage.style.display = 'none';
-		}
-	});
+	preCheckDays();
 
 	function search() {
 		document.getElementById('search').addEventListener('submit', function (event) {
@@ -164,21 +182,4 @@ else
 			this.action = "/Schedules/Edit/" + encodeURIComponent(edpcode);
 		});
 	}
-
-	// Concatenates days selected
-	function updateSelectedDays() {
-		const checkboxes = document.querySelectorAll('.form-check-input');
-		const selectedDays = Array.from(checkboxes)
-			.filter(checkbox => checkbox.checked)
-			.map(checkbox => checkbox.value)
-			.join(',');
-
-		// Store the result in the hidden field
-		document.getElementById('days').value = selectedDays;
-	}
-
-	// Add event listener to all checkboxes
-	document.querySelectorAll('.form-check-input').forEach(checkbox => {
-		checkbox.addEventListener('change', updateSelectedDays);
-	});
 </script>

@@ -24,11 +24,15 @@ namespace StudentPortal.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Entry(SubjectsViewModel viewModel, string subjectcode, string coursecode)
+		public async Task<IActionResult> Entry(SubjectsViewModel viewModel, string subjectcode, string coursecode, string subjrequisite)
 		{
 			var subjCode = await DBContext.Subject.FirstOrDefaultAsync(s => s.SubjCode.ToString() == subjectcode);
 			var primarykey1 = string.Empty;
 			var primarykey2 = string.Empty;
+
+			var requisite = await DBContext.Subject
+			   .Where(s => s.SubjCode == subjrequisite && s.SubjCourseCode == coursecode)
+			   .FirstOrDefaultAsync();
 
 			// If there are row/s in the database
 			if (subjCode != null)
@@ -41,6 +45,11 @@ namespace StudentPortal.Controllers
 			{
 				// Optionally return an error or notification to the user
 				ViewBag.Message = subjectcode + " is already registered on course " + coursecode + ".";
+				return View();
+			}
+			else if (requisite is null && subjrequisite is not null)
+			{
+				ViewBag.Message = subjrequisite + " is not registered on subjects and must be on the same course.";
 				return View();
 			}
 			else
@@ -59,7 +68,7 @@ namespace StudentPortal.Controllers
 							SubjStatus = "AC",
 							SubjCourseCode = coursecode,
 							SubjCurrCode = viewModel.SubjCurrCode,
-							SubjRequisite = viewModel.SubjRequisite.ToUpper()
+							SubjRequisite = subjrequisite?.ToUpper()
 						};
 
 						await DBContext.Subject.AddAsync(subject);
@@ -119,19 +128,33 @@ namespace StudentPortal.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Edit(Subjects viewModel, string subject, string course, string subjectcode, string coursecode)
+		public async Task<IActionResult> Edit(Subjects viewModel, string subject, string course, string subjectcode, string coursecode, string subjrequisite)
 		{
+			ViewBag.Subject = subject;
+			ViewBag.Course = course;
+
 			var subjectandcoursecode = await DBContext.Subject
 			   .Where(s => s.SubjCode == subject && s.SubjCourseCode == course)
 			   .FirstOrDefaultAsync();
 
-			if ((subject.Trim().ToUpper().Equals(subjectcode.Trim().ToUpper()) && course.Trim().ToUpper().Equals(coursecode.ToUpper())) && subjectandcoursecode is not null)
+			var requisite = await DBContext.Subject
+			   .Where(s => s.SubjCode == subjrequisite && s.SubjCourseCode == coursecode)
+			   .FirstOrDefaultAsync();
+
+			if (requisite is null && subjrequisite is not null)
+			{
+				ViewBag.Message = subjrequisite + " is not registered on subjects and must be on the same course.";
+				return View(viewModel);
+			}
+
+			if ((subject.Trim().ToUpper().Equals(subjectcode.Trim().ToUpper()) &&
+				course.Trim().ToUpper().Equals(coursecode.ToUpper())) && subjectandcoursecode is not null)
 			{
 				subjectandcoursecode.SubjDesc = viewModel.SubjDesc.ToUpper();
 				subjectandcoursecode.SubjUnits = viewModel.SubjUnits;
 				subjectandcoursecode.SubjRegOfrng = viewModel.SubjRegOfrng;
 				subjectandcoursecode.SubjCategory = viewModel.SubjCategory;
-				subjectandcoursecode.SubjRequisite = viewModel.SubjRequisite.ToUpper();
+				subjectandcoursecode.SubjRequisite = viewModel.SubjRequisite?.ToUpper();
 
 				DBContext.Subject.Update(subjectandcoursecode);
 
@@ -153,13 +176,11 @@ namespace StudentPortal.Controllers
 							SubjStatus = subjectandcoursecode.SubjStatus,
 							SubjCourseCode = coursecode,
 							SubjCurrCode = viewModel.SubjCurrCode,
-							SubjRequisite = viewModel.SubjRequisite.ToUpper()
+							SubjRequisite = viewModel.SubjRequisite?.ToUpper()
 						};
 
 						await DBContext.Subject.AddAsync(newsubject);
 						await DBContext.SaveChangesAsync();
-
-						await transaction.CommitAsync();
 
 						ViewBag.Message = "Subject added.";
 
@@ -167,7 +188,13 @@ namespace StudentPortal.Controllers
 						var sqlCommand = "DELETE FROM Subject WHERE SubjCode = {0} AND SubjCourseCode = {1}";
 
 						// Execute the command with the specified parameter value
-						int affectedRows = await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, subject, course);
+						await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, subject, course);
+
+						//Update affected rows from schedule if the Subject Code is Updated
+						sqlCommand = "UPDATE Schedule SET SubjCode = {0} WHERE SubjCode = {1} AND Course = {2}";
+						await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, subjectcode, subject, course);
+
+						await transaction.CommitAsync();
 					}
 					catch (Exception ex)
 					{

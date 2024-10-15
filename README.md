@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center"> ELDNET 1 Final Project </h1>
-<p align="center"><i >Updated as of October 1, 2024.</i></p><br>
+<p align="center"><i >Updated as of October 16, 2024.</i></p><br>
 An enrollment system with basic features.
 
 ## Tech Stack
@@ -15,6 +15,8 @@ An enrollment system with basic features.
 
 ## **Disclaimer: This is a work in progress.**
 
+#### **Please migrate database when pulling a new commit**
+
 ### To be implemented
 
  - Frontend Designs
@@ -24,15 +26,20 @@ An enrollment system with basic features.
 
 ### Fix Plans
 
+**Bugs**
+ - Enrollment.js notifying functionality thru DOM Element not working
+
+**Enrollment**
+ - Incrementation of Schedule Class Size when adding a student successfully 
+
+**Enrollment Header**
+ - Continuation of EnrollStudent in EnrollmentController
+
+**Database**
+ - Subjects and Students Table Change Name
+
 **Schedule Entry & Schedule Edit**
  - Change "Days" text size
- - Fix Checkbox logic if possible
 
 **UI**
  - Fonts
-
-**BUGS:**
-
-- Student Edit - must be integer input<br>
-- Schedule - time error trap<br>
-- Subject Edit to Schedule List - Error Page when Subject Code is changed

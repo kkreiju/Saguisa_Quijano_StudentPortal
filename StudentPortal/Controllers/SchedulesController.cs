@@ -47,6 +47,12 @@ namespace StudentPortal.Controllers
 				ViewBag.Message = "Schedule is already registered.";
 				return View();
 			}
+			else if(viewModel.StartTime >= viewModel.EndTime)
+			{
+				ViewBag.Message = "Start Time is Invalid.";
+				viewModel.SubjCode = subjectcode;
+				return View(viewModel);
+			}
 			else
 			{
 
@@ -168,6 +174,12 @@ namespace StudentPortal.Controllers
 				// Optionally return an error or notification to the user
 				ViewBag.Message = "Please add subject code " + subjectcode.ToUpper() + " with its respective course before editing a schedule.";
 				return View(edp);
+			}
+			else if (viewModel.StartTime >= viewModel.EndTime)
+			{
+				ViewBag.Message = "Start Time is Invalid.";
+				viewModel.SubjCode = subjectcode;
+				return View(viewModel);
 			}
 
 			if (edpc == edpcode)

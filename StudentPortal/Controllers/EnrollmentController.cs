@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using StudentPortal.Data;
+using StudentPortal.Models;
+using StudentPortal.Models.Entities;
+using System.Reflection.Emit;
 
 namespace StudentPortal.Controllers
 {
@@ -9,11 +13,12 @@ namespace StudentPortal.Controllers
 		private readonly ApplicationDBContext DBContext;
 
 		public EnrollmentController(ApplicationDBContext DBContext)
-        {
-            this.DBContext = DBContext;
-        }
+		{
+			this.DBContext = DBContext;
+		}
 
-        public IActionResult Entry()
+		[HttpGet]
+		public IActionResult Entry()
 		{
 			return View();
 		}
@@ -29,15 +34,73 @@ namespace StudentPortal.Controllers
 			{
 				// Optionally return an error or notification to the user
 				ViewBag.Message = "Student not found.";
+				ViewBag.ID = idnumber;
 				return View();
 			}
 			else
 			{
 				ViewBag.Message = "Student found.";
-			}
+				ViewBag.ID = idnumber;
 
-			// Pass the found student to the view
-			return View(student);  // Adjust the view accordingly to display search results
+				// Initialize a list to store the table lists
+				var schedules = await DBContext.Schedule.ToListAsync();
+				var subjects = await DBContext.Subject.ToListAsync();
+				var enrollmenth = await DBContext.EnrollmentHeader.ToListAsync();
+				var enrollmentd = await DBContext.EnrollmentDetail.ToListAsync();
+
+				// Create the view model with datas
+				var viewModel = new EnrollmentViewModel
+				{
+					Students = student,
+					Schedules = schedules,
+					Subjects = subjects,
+					EnrollmentHeaders = enrollmenth,
+					EnrollmentDetails = enrollmentd,
+				};
+
+				return View(viewModel);
+			}
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> EnrollStudent([FromBody] List<EnrollmentDetails> data, string idnumber, int units)
+		{
+			// Search for the student using the provided ID number
+			var subjectcode = await DBContext.Schedule.FirstOrDefaultAsync(s => s.EDPCode.ToString() == 0.ToString()); // Sync this in as dummy data
+			var sqlCommand = "";
+
+			// Transaction is used associated to IDENTITY INSERT query
+			using (var transaction = await DBContext.Database.BeginTransactionAsync())
+			{
+				foreach (var item in data)
+				{
+					try
+					{
+						subjectcode = await DBContext.Schedule.FirstOrDefaultAsync(s => s.EDPCode.ToString() == item.EDPCode.ToString());
+
+						// Define the SQL command with a parameter placeholder
+						sqlCommand = "INSERT INTO EnrollmentDetail VALUES ({0}, {1}, {2})";
+
+						// Execute the command with the specified parameter value
+						await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, Convert.ToInt32(idnumber), item.EDPCode, subjectcode.SubjCode);
+					}
+					catch (Exception ex)
+					{
+						await transaction.RollbackAsync();
+						throw;
+					}
+				}
+
+				await DBContext.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT EnrollmentHeader ON");
+
+				sqlCommand = "INSERT INTO EnrollmentHeader (ID, DateEnroll, SchoolYear, TotalUnits, Status) VALUES ({0}, {1}, {2}, {3}, {4})";
+				await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, Convert.ToInt32(idnumber), DateOnly.FromDateTime(DateTime.UtcNow), "A.Y. 2024-2025", units, "AC");
+
+				await DBContext.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT EnrollmentHeader OFF");
+
+				await transaction.CommitAsync();
+			}
+			return RedirectToAction("Index", "Home");
 		}
 	}
 }
