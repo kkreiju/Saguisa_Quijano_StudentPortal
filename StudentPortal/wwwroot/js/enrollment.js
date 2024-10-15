@@ -210,10 +210,19 @@ function enrollStudent() {
 
         // Iterate through each row
         for (let i = 1; i < rows.length - 1; i++) {
-            var rowData = {
-                edpCode: rows[i].cells[0].textContent,
-            };
-            data.push(rowData);
+            if (scheduleOpen(rows[i].cells[0].textContent)) {
+                var rowData = {
+                    edpCode: rows[i].cells[0].textContent,
+                };
+                data.push(rowData);
+            }
+            else {
+                document.getElementById("prompt").style = 'display: block;'
+                document.getElementById("prompt").className = "alert alert-danger mt-2";
+                document.getElementById("prompttext").innerHTML = "EDP Code " + rows[i].cells[0].textContent + " is closed."
+                highlightBorder('prompt');
+                return;
+            }
         }
 
         // Send data to the server
@@ -225,12 +234,43 @@ function enrollStudent() {
             body: JSON.stringify(data)
         })
             .then(response => response.text())
-            .then(() => { window.location.href = '/Enrollment/Entry'; document.getElementById("prompt").style = 'display: block;'; document.getElementById("prompttext").innerHTML = 'Successfully Enrolled.'; })
-            .then(() => alert('Successfully Enrolled.'))
+            .then(() => {
+                document.getElementById("prompt").style = 'display: block;';
+                document.getElementById("prompt").className = "alert alert-success mt-2";
+                document.getElementById("prompttext").innerHTML = 'Successfully Enrolled.';
+                highlightBorder('prompt');
+            })
             .catch((error) => alert('Error, please try again.'));
     }
     else {
-        alert("Student is already enrolled!");
+        document.getElementById("prompt").style = 'display: block;'
+        document.getElementById("prompt").className = "alert alert-danger mt-2";
+        document.getElementById("prompttext").innerHTML = 'Student already Enrolled.'
+        highlightBorder('prompt');
         return;
+    }
+}
+
+function scheduleOpen(edpCode) {
+    const sched = schedules.find(e => e.edpCode == edpCode);
+
+    if (sched.status == "AC")
+        return true;
+    else
+        return false;
+}
+
+// Function to add the border class and remove it after 2 seconds
+function highlightBorder(elementId) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.classList.add('border', 'border-warning', 'border-3', 'border-transition', 'border-fade');
+
+        setTimeout(() => {
+            element.classList.remove('border-fade');
+            setTimeout(() => {
+                element.classList.remove('border', 'border-warning', 'border-3');
+            }, 500); // Wait for the fade-out transition to complete
+        }, 2000); // 2000 milliseconds = 2 seconds
     }
 }

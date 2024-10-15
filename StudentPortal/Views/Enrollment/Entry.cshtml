@@ -25,10 +25,6 @@
 			<p class="my-0">@ViewBag.Message</p>
 		</div>
 	}
-
-	<div id="prompt" style="display: none;"class="alert alert-success mt-2">
-		<p id="prompttext" class="my-0"></p>
-	</div>
 </div>
 
 @if (Model is not null)
@@ -75,6 +71,10 @@
 		</form>
 	</div>
 
+	<div id="prompt" style="display: none;" class="alert alert-success mt-2">
+		<p id="prompttext" class="my-0"></p>
+	</div>
+
 	<form id="enrollForm">
 		<div class="mt-3">
 			<table class="table table-responsive table-bordered table-light shadow-lg mt-3" id="enrollmenttable">
@@ -109,7 +109,7 @@
 			<button type="submit" id="enrollmentbutton" onclick="enrollStudent()" class="btn btn-primary">Enroll</button>
 		</div>
 	</form>
-	
+
 }
 
 @section Scripts {
@@ -118,9 +118,9 @@
 		let subjectscount = 0;
 		let unitscount = 0;
 		// Serializing C# list to JSON and passing it to JavaScript
-		const schedules = @Html.Raw(Json.Serialize(Model?.Schedules));
-		const subjects = @Html.Raw(Json.Serialize(Model?.Subjects));
-		const enrollees = @Html.Raw(Json.Serialize(Model?.EnrollmentHeaders));
+		let schedules = @Html.Raw(Json.Serialize(Model?.Schedules));
+		let subjects = @Html.Raw(Json.Serialize(Model?.Subjects));
+		let enrollees = @Html.Raw(Json.Serialize(Model?.EnrollmentHeaders));
 
 		document.getElementById("enrollmentbutton").disabled = true;
 

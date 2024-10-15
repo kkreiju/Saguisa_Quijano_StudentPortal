@@ -34,3 +34,11 @@ h1 {
 .bg-color4 {
     background-color: #0F67B1;
 }
+
+.border-transition {
+    transition: opacity 1s ease-in-out;
+}
+
+.border-fade{
+    opacity: 1;
+}
