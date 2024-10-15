@@ -40,6 +40,7 @@ function addNewRow(schedule) {
     // Add click event to the button
     button.addEventListener('click', function () {
         const rowIndex = newRow.rowIndex - 1; // Adjust for header row
+        console.log(edpCodes.pop(edpCode));
         newRow.remove();
         subjectscount--;
         unitscount -= units;
@@ -92,6 +93,13 @@ function updateCount() {
         firstRow.removeChild(firstRow.children[7]);
         footer.colSpan = 7; 
     }
+
+    if (unitscount == 0) {
+        document.getElementById("enrollmentbutton").disabled = true;
+    }
+    else {
+        document.getElementById("enrollmentbutton").disabled = false;
+    }
 }
 
 function checkDuplicateEDP(schedule, EDPCode) {
@@ -111,7 +119,45 @@ function checkDuplicateEDP(schedule, EDPCode) {
         return;
     }
     else {
-        addNewRow(schedule);
-        edpCodes.push(EDPCode);
+        if (!checkConflictTime(schedule)) {
+            addNewRow(schedule);
+            edpCodes.push(EDPCode);
+        }
     }
+}
+
+function checkConflictTime(schedule) {
+    // Get all the table rows
+    let rows = document.querySelectorAll("table tr");
+
+    // Get the time of the schedule to be added
+    const startTime = schedule.startTime;
+    const endTime = schedule.endTime;
+
+    // Iterate through each row
+    for (let i = 1; i < rows.length; i++) {
+
+        // Get the time of the schedule in the row
+        const rowSchedule = schedules.find(schedule => schedule.edpCode == rows[1].cells[0].textContent);
+        const rowStartTime = rowSchedule.startTime;
+        const rowEndTime = rowSchedule.endTime;
+
+        // Convert the time values to hours
+        const startTimeHours = convertToHours(startTime);
+        const endTimeHours = convertToHours(endTime);
+        const rowStartTimeHours = convertToHours(rowStartTime);
+        const rowEndTimeHours = convertToHours(rowEndTime);
+
+        // Check if the time of the schedule to be added conflicts with the time of the schedule in the row
+        if (startTime >= rowStartTime && startTime <= rowEndTime || endTime >= rowStartTime && endTime <= rowEndTime) {
+            alert("Schedule with EDP Code: " + rows[i].cells[0].textContent);
+            return true;
+        }
+    }
+    return false;
+}
+
+function convertToHours(time)
+    const [hours, minutes] = time.split(':');
+    return parseInt(hours) + parseInt(minutes) / 60;
 }

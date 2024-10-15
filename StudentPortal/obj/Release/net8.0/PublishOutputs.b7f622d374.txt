@@ -1,6 +1,7 @@
 C:\Users\arjay\Documents\Github\Saguisa_Quijano_StudentPortal\StudentPortal\obj\Release\net8.0\PubTmp\Out\StudentPortal.exe
 C:\Users\arjay\Documents\Github\Saguisa_Quijano_StudentPortal\StudentPortal\obj\Release\net8.0\PubTmp\Out\appsettings.Development.json
 C:\Users\arjay\Documents\Github\Saguisa_Quijano_StudentPortal\StudentPortal\obj\Release\net8.0\PubTmp\Out\appsettings.json
+C:\Users\arjay\Documents\Github\Saguisa_Quijano_StudentPortal\StudentPortal\obj\Release\net8.0\PubTmp\Out\wwwroot\js\enrollment.js
 C:\Users\arjay\Documents\Github\Saguisa_Quijano_StudentPortal\StudentPortal\obj\Release\net8.0\PubTmp\Out\StudentPortal.dll
 C:\Users\arjay\Documents\Github\Saguisa_Quijano_StudentPortal\StudentPortal\obj\Release\net8.0\PubTmp\Out\StudentPortal.runtimeconfig.json
 C:\Users\arjay\Documents\Github\Saguisa_Quijano_StudentPortal\StudentPortal\obj\Release\net8.0\PubTmp\Out\StudentPortal.pdb

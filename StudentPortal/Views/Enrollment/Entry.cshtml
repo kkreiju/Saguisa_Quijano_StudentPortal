@@ -95,7 +95,7 @@
 		</div>
 
 		<div class="mt-3">
-			<button type="submit" class="btn btn-primary">Enroll</button>
+			<button type="submit" id="enrollmentbutton" class="btn btn-primary">Enroll</button>
 		</div>
 	</form>
 	
@@ -109,6 +109,8 @@
 		// Serializing C# list to JSON and passing it to JavaScript
 		const schedules = @Html.Raw(Json.Serialize(Model?.Schedules));
 		const subjects = @Html.Raw(Json.Serialize(Model?.Subjects));
+
+		document.getElementById("enrollmentbutton").disabled = true;
 
 		document.getElementById('searchForm').addEventListener('submit', function (event) {
 			event.preventDefault(); // Prevent the form from submitting and refreshing the page
