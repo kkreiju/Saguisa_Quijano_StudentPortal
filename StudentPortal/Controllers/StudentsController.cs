@@ -115,8 +115,9 @@ namespace StudentPortal.Controllers
 		public async Task<IActionResult> Edit(Students viewModel, string idnumber1, string idnumber2)
 		{
 			var student = await DBContext.Student.FindAsync(Convert.ToInt32(idnumber1));
+			var studentduplicate = await DBContext.Student.FindAsync(Convert.ToInt32(idnumber2));
 
-			if(idnumber1.Trim().ToUpper().Equals(idnumber2.Trim().ToUpper()) && student is not null)
+			if (idnumber1.Trim().ToUpper().Equals(idnumber2.Trim().ToUpper()) && student is not null)
 			{
 				student.StudLName = viewModel.StudLName.ToUpper();
 				student.StudFName = viewModel.StudFName.ToUpper();
@@ -131,6 +132,11 @@ namespace StudentPortal.Controllers
 			}
 			else
 			{
+				if (studentduplicate is not null)
+				{
+					ViewBag.Message = "ID is Already Registered.";
+					return View();
+				}
 				// Transaction is used associated to IDENTITY INSERT query
 				using (var transaction = await DBContext.Database.BeginTransactionAsync())
 				{
@@ -176,7 +182,7 @@ namespace StudentPortal.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Delete (int? idnumber1)
+		public async Task<IActionResult> Delete(int? idnumber1)
 		{
 			if (idnumber1 == null)
 			{
@@ -202,20 +208,20 @@ namespace StudentPortal.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Delete(Students viewModel, string idnumber2)
 		{
-            // Define the SQL command with a parameter placeholder
-            var sqlCommand = "DELETE FROM Student WHERE StudID = {0}";
+			// Define the SQL command with a parameter placeholder
+			var sqlCommand = "DELETE FROM Student WHERE StudID = {0}";
 
-            // Execute the command with the specified parameter value
-            int affectedRows = await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, idnumber2);
+			// Execute the command with the specified parameter value
+			int affectedRows = await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, idnumber2);
 
-            if (affectedRows > 0)
-            {
-                return RedirectToAction("List", "Students");
-            }
-            else
-            {
-                return NotFound();
-            }
+			if (affectedRows > 0)
+			{
+				return RedirectToAction("List", "Students");
+			}
+			else
+			{
+				return NotFound();
+			}
 		}
 	}
 }

@@ -199,7 +199,8 @@ function convertToHours(time) {
 
 
 function enrollStudent() {
-    const idnumber = document.getElementById('idnumber').value;
+    const idnumber = studentid;
+    document.getElementById('idnumber').value = idnumber;
 
     const student = enrollees.find(e => e.id == idnumber);
 
@@ -254,7 +255,7 @@ function enrollStudent() {
 function scheduleOpen(edpCode) {
     const sched = schedules.find(e => e.edpCode == edpCode);
 
-    if (sched.status == "AC")
+    if (sched.status == "AC" && (sched.classSize < sched.maxSize))
         return true;
     else
         return false;

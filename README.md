@@ -26,15 +26,6 @@ An enrollment system with basic features.
 
 ### Fix Plans
 
-**Bugs**
- - Enrollment.js notifying functionality thru DOM Element not working
-
-**Enrollment**
- - Incrementation of Schedule Class Size when adding a student successfully 
-
-**Enrollment Header**
- - Continuation of EnrollStudent in EnrollmentController
-
 **Database**
  - Subjects and Students Table Change Name
 

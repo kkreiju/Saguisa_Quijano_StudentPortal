@@ -164,6 +164,7 @@ namespace StudentPortal.Controllers
 		{
 			ViewBag.EDP = edpc;
 			var edp = await DBContext.Schedule.FindAsync(edpc);
+			var edpduplicate = await DBContext.Schedule.FindAsync(edpcode);
 
 			var subjectandcourse = await DBContext.Subject
 			   .Where(s => s.SubjCode == subjectcode && s.SubjCourseCode == course)
@@ -200,6 +201,11 @@ namespace StudentPortal.Controllers
 			}
 			else
 			{
+				if (edpduplicate is not null)
+				{
+					ViewBag.Message = "EDP Code is Already Registered.";
+					return View();
+				}
 				// Transaction is used associated to IDENTITY INSERT query
 				using (var transaction = await DBContext.Database.BeginTransactionAsync())
 				{

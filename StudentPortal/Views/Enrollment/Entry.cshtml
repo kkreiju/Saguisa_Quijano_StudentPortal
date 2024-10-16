@@ -121,6 +121,7 @@
 		let schedules = @Html.Raw(Json.Serialize(Model?.Schedules));
 		let subjects = @Html.Raw(Json.Serialize(Model?.Subjects));
 		let enrollees = @Html.Raw(Json.Serialize(Model?.EnrollmentHeaders));
+		let studentid = document.getElementById('idnumber').value;
 
 		document.getElementById("enrollmentbutton").disabled = true;
 

@@ -8,7 +8,7 @@
 
 @if (Model is null)
 {
-	@if (ViewBag.Message == "ID Not Found." && ViewBag.Search == true)
+	@if (ViewBag.Message == "ID Not Found." && ViewBag.Search == true || (ViewBag.Message == "ID is Already Registered."))
 	{
 		<div class="alert alert-danger mt-2">
 			<p class="my-0">@ViewBag.Message</p>

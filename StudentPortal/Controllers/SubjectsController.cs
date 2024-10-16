@@ -137,6 +137,10 @@ namespace StudentPortal.Controllers
 			   .Where(s => s.SubjCode == subject && s.SubjCourseCode == course)
 			   .FirstOrDefaultAsync();
 
+			var subjectandcoursecodeduplicate = await DBContext.Subject
+			   .Where(s => s.SubjCode == subjectcode && s.SubjCourseCode == coursecode)
+			   .FirstOrDefaultAsync();
+
 			var requisite = await DBContext.Subject
 			   .Where(s => s.SubjCode == subjrequisite && s.SubjCourseCode == coursecode)
 			   .FirstOrDefaultAsync();
@@ -162,6 +166,11 @@ namespace StudentPortal.Controllers
 			}
 			else
 			{
+				if (subjectandcoursecodeduplicate is not null)
+				{
+					ViewBag.Message = "Subject Code is Already Registered on " + coursecode + ".";
+					return View();
+				}
 				using (var transaction = await DBContext.Database.BeginTransactionAsync())
 				{
 					try

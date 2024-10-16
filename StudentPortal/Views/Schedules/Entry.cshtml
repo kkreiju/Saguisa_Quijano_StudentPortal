@@ -11,7 +11,7 @@
 
 		however, idk yet how to retrieve the other model
 -->
-@if (ViewBag.Message != null && (ViewBag.Message.Contains("registered") || ViewBag.Message.Contains("schedule") || ViewBag.Message.Contains("Invalid")))
+@if (ViewBag.Message != null && (ViewBag.Message.Contains("registered") || ViewBag.Message.Contains("schedule") || ViewBag.Message.Contains("Invalid") || ViewBag.Message.Contains("EDP")))
 {
 	<div class="alert alert-danger mt-3">
 		<p class="my-0">@ViewBag.Message</p>

@@ -83,6 +83,15 @@ namespace StudentPortal.Controllers
 
 						// Execute the command with the specified parameter value
 						await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, Convert.ToInt32(idnumber), item.EDPCode, subjectcode.SubjCode);
+
+						sqlCommand = "UPDATE Schedule SET ClassSize = {0} WHERE EDPCode = {1}";
+						await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, subjectcode.ClassSize + 1, subjectcode.EDPCode);
+
+						if(subjectcode.ClassSize + 1 == subjectcode.MaxSize)
+						{
+							sqlCommand = "UPDATE Schedule SET Status = {0} WHERE EDPCode = {1}";
+							await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, "IN", subjectcode.EDPCode);
+						}
 					}
 					catch (Exception ex)
 					{
@@ -101,6 +110,58 @@ namespace StudentPortal.Controllers
 				await transaction.CommitAsync();
 			}
 			return RedirectToAction("Index", "Home");
+		}
+
+		[HttpGet]
+		public IActionResult StudyLoad()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> StudyLoad(string idnumber)
+		{
+			// Search for the student using the provided ID number
+			var studentenrolled = await DBContext.EnrollmentHeader.FirstOrDefaultAsync(s => s.ID.ToString() == idnumber);
+			var student = await DBContext.Student.FirstOrDefaultAsync(s => s.StudID.ToString() == idnumber);
+
+			if (studentenrolled == null && student != null)
+			{
+				// Optionally return an error or notification to the user
+				ViewBag.Message = "Student not enrolled.";
+				ViewBag.ID = idnumber;
+				return View();
+			}
+			else if(studentenrolled == null && student == null)
+			{
+				// Optionally return an error or notification to the user
+				ViewBag.Message = "Student not found.";
+				ViewBag.ID = idnumber;
+				return View();
+			}
+			else
+			{
+				ViewBag.Message = "Student found.";
+				ViewBag.ID = idnumber;
+
+				// Initialize a list to store the table lists
+				var schedules = await DBContext.Schedule.ToListAsync();
+				var subjects = await DBContext.Subject.ToListAsync();
+				var enrollmenth = await DBContext.EnrollmentHeader.ToListAsync();
+				var enrollmentd = await DBContext.EnrollmentDetail.ToListAsync();
+
+				// Create the view model with datas
+				var viewModel = new EnrollmentViewModel
+				{
+					Students = student,
+					Schedules = schedules,
+					Subjects = subjects,
+					EnrollmentHeaders = enrollmenth,
+					EnrollmentDetails = enrollmentd,
+				};
+
+				return View(viewModel);
+			}
 		}
 	}
 }
