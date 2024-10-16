@@ -87,4 +87,15 @@ else if (ViewBag.Message == "Student added.")
 
 		}
 	});
+
+	const idlimit = document.getElementById('idnumber');
+
+	idlimit.addEventListener('input', function () {
+		if (idlimit.value.length > 9) {
+			idlimit.value = idlimit.value.slice(0, 9)
+		}
+		if (idlimit.value < 1) {
+			idlimit.value = ''
+		}
+	});
 </script>

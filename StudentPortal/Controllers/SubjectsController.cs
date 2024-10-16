@@ -163,6 +163,7 @@ namespace StudentPortal.Controllers
 				DBContext.Subject.Update(subjectandcoursecode);
 
 				await DBContext.SaveChangesAsync();
+				await unitschanged();
 			}
 			else
 			{
@@ -190,6 +191,7 @@ namespace StudentPortal.Controllers
 
 						await DBContext.Subject.AddAsync(newsubject);
 						await DBContext.SaveChangesAsync();
+						await unitschanged();
 
 						ViewBag.Message = "Subject added.";
 
@@ -259,6 +261,34 @@ namespace StudentPortal.Controllers
 			{
 				return NotFound();
 			}
+		}
+
+		public async Task unitschanged()
+		{
+			var sqlCommand = @"
+                -- Step 1: Calculate the total units for all enrolled EDP codes for the specific student
+                WITH TotalUnitsPerStudent AS (
+                    SELECT 
+                        ED.ID,
+                        SUM(S.SubjUnits) AS TotalUnits
+                    FROM 
+                        EnrollmentDetail ED
+                    JOIN 
+                        Schedule SC ON ED.EDPCode = SC.EDPCode
+                    JOIN 
+                        Subject S ON SC.SubjCode = S.SubjCode
+                    GROUP BY 
+                        ED.ID
+                )
+
+                -- Step 2: Update the EnrollmentHeader.TotalUnits for the specific student
+                UPDATE EH
+                SET EH.TotalUnits = TU.TotalUnits
+                FROM EnrollmentHeader EH
+                JOIN TotalUnitsPerStudent TU ON EH.ID = TU.ID
+            ";
+
+			await DBContext.Database.ExecuteSqlRawAsync(sqlCommand);
 		}
 	}
 }

@@ -89,7 +89,7 @@
 									<td>@schedule.Room</td>
 									@for(int i = 0; i < Model.Subjects.Count; i++)
 									{
-										if (schedule.EDPCode == enrollmentDetail.EDPCode)
+										if (schedule.EDPCode == enrollmentDetail.EDPCode && schedule.SubjCode == Model.Subjects[i].SubjCode && schedule.Course == Model.Subjects[i].SubjCourseCode)
 										{
 											<td>@Model.Subjects[i].SubjCategory</td>
 											<td>@Model.Subjects[i].SubjUnits</td>

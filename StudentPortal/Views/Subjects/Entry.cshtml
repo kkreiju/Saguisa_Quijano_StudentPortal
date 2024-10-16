@@ -6,7 +6,7 @@
 
 <h1>Subject Entry</h1>
 
-@if (ViewBag.Message != null && (ViewBag.Message.Contains("registered") || ViewBag.Message.Contains("Subject Code")))
+@if (ViewBag.Message != null && (ViewBag.Message.Contains("registered")))
 {
 	<div class="alert alert-danger mt-3">
 		<p class="my-0">@ViewBag.Message</p>
