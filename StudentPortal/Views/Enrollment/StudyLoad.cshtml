@@ -1,0 +1,119 @@
+﻿@{
+	ViewData["Title"] = "Study Load";
+}
+
+@model StudentPortal.Models.EnrollmentViewModel
+
+<h1>Study Load</h1>
+
+<div class="mt-2">
+	<form action="/Enrollment/StudyLoad" method="post" id="form">
+		<label class="form-label">ID Number</label>
+		<input type="number" class="form-control shadow-lg" id="idnumber" name="idnumber" value="@ViewBag.ID" required />
+		<button type="submit" class="btn btn-primary mt-2">Search</button>
+	</form>
+
+	@if (ViewBag.Message == "Student not enrolled." || ViewBag.Message == "Student not found.")
+	{
+		<div class="alert alert-danger mt-2">
+			<p class="my-0">@ViewBag.Message</p>
+		</div>
+	}
+	else if (ViewBag.Message == "Student found.")
+	{
+		<div class="alert alert-success mt-2">
+			<p class="my-0">@ViewBag.Message</p>
+		</div>
+	}
+</div>
+
+@if (Model is not null)
+{
+	var name = Model.Students.StudLName + ", " + Model.Students.StudFName;
+	if (Model.Students.StudMName is not null)
+	{
+		name += " " + Model.Students.StudMName.ToString().ElementAt(0) + ".";
+	}
+
+	<div class="row mt-3">
+		<div class="col">
+			<fieldset>
+				<label class="form-label" for="readOnlyInput">Name</label>
+				<input class="form-control" id="name" type="text" placeholder="@name" readonly="">
+			</fieldset>
+		</div>
+
+		<div class="col">
+			<fieldset>
+				<label class="form-label" for="readOnlyInput">Course</label>
+				<input class="form-control" id="course" type="text" placeholder="@Model.Students.StudCourse" readonly="">
+			</fieldset>
+		</div>
+
+		<div class="col">
+			<fieldset>
+				<label class="form-label" for="readOnlyInput">Year</label>
+				<input class="form-control" id="year" type="text" placeholder="@Model.Students.StudYear" readonly="">
+			</fieldset>
+		</div>
+	</div>
+
+	<div class="mt-3">
+		<table class="table table-responsive table-bordered table-light shadow-lg mt-3" id="enrollmenttable">
+			<thead>
+				<tr>
+					<th scope="col">EDP Code</th>
+					<th scope="col">Subject Code</th>
+					<th scope="col">Time</th>
+					<th scope="col">Days</th>
+					<th scope="col">Room</th>
+					<th scope="col">Category</th> <!-- From Subject Table-->
+					<th scope="col">Units</th> <!-- From Subject Table-->
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var enrollmentDetail in Model.EnrollmentDetails)
+				{
+					if (enrollmentDetail.ID == Model.Students.StudID)
+					{
+						<tr>
+							<td>@enrollmentDetail.EDPCode</td>
+							<td>@enrollmentDetail.SubjCode</td>
+							@foreach (var schedule in Model.Schedules)
+							{
+								var time = schedule.StartTime + " - " + schedule.EndTime;
+								if (schedule.EDPCode == enrollmentDetail.EDPCode)
+								{
+									<td>@time</td>
+									<td>@schedule.Days</td>
+									<td>@schedule.Room</td>
+									@for(int i = 0; i < Model.Subjects.Count; i++)
+									{
+										if (schedule.EDPCode == enrollmentDetail.EDPCode && schedule.SubjCode == Model.Subjects[i].SubjCode && schedule.Course == Model.Subjects[i].SubjCourseCode)
+										{
+											<td>@Model.Subjects[i].SubjCategory</td>
+											<td>@Model.Subjects[i].SubjUnits</td>
+											break;
+										}
+									}
+									break;
+								}
+							}
+						</tr>
+					}
+				}
+			</tbody>
+			<tfoot>
+				<tr>
+					@foreach (var enrollmentHeader in Model.EnrollmentHeaders)
+					{
+						if (enrollmentHeader.ID == Model.Students.StudID)
+						{
+							<th style="text-align: right;" colspan="7" id="totalunits">Total Units: @enrollmentHeader.TotalUnits</th>
+						}
+					}
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+}

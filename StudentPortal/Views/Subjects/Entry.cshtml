@@ -2,11 +2,11 @@
 	ViewData["Title"] = "Subject Entry";
 }
 
-@model StudentPortal.Models.SubjectsViewModel
+@model StudentPortal.Models.Entities.Subjects
 
 <h1>Subject Entry</h1>
 
-@if (ViewBag.Message != null && ViewBag.Message.Contains("registered"))
+@if (ViewBag.Message != null && (ViewBag.Message.Contains("registered")))
 {
 	<div class="alert alert-danger mt-3">
 		<p class="my-0">@ViewBag.Message</p>

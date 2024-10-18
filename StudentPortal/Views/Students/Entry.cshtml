@@ -2,7 +2,7 @@
 	ViewData["Title"] = "Student Entry";
 }
 
-@model StudentPortal.Models.StudentsViewModel
+@model StudentPortal.Models.Entities.Students
 
 <h1>Student Entry</h1>
 
@@ -85,6 +85,17 @@ else if (ViewBag.Message == "Student added.")
 		if (input.value < 1 || input.value > 5) {
 			input.value = ''
 
+		}
+	});
+
+	const idlimit = document.getElementById('idnumber');
+
+	idlimit.addEventListener('input', function () {
+		if (idlimit.value.length > 9) {
+			idlimit.value = idlimit.value.slice(0, 9)
+		}
+		if (idlimit.value < 1) {
+			idlimit.value = ''
 		}
 	});
 </script>

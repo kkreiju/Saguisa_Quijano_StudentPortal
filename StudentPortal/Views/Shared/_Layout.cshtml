@@ -10,9 +10,9 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Autour+One&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Ysabeau+SC:wght@1..1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Neucha&display=swap" rel="stylesheet">
+
+    <!--BOOTSTRAP ICONS-->
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
@@ -85,8 +85,16 @@
                                 </a>
                             </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Enrollment" asp-action="Entry">Enrollment</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Enrollment</a>
+                            <div class="dropdown-menu bg-color1">
+                                <a class="dropdown-item" asp-controller="Enrollment" asp-action="Entry">
+                                    <i class="bi bi-card-text me-2"></i>Enroll
+                                </a>
+                                <a class="dropdown-item" asp-controller="Enrollment" asp-action="StudyLoad">
+                                    <i class="bi bi-backpack me-2"></i>Study Load
+                                </a>
+                            </div>
                         </li>
                     </ul>
                 </div>

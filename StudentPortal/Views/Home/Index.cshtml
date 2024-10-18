@@ -4,14 +4,41 @@
 
 @model StudentPortal.Models.IndexViewModel
 
-<div class="text-center">
-	<h1 class="display-4 border-bottom mb-3">Welcome to UCB!</h1>
-	<img class="img-fluid" style="height: auto; max-width: 100%;" src="~/pics/cinnamorollwelcome.gif" />
+@{
+	var browser = Context.Request.Headers["User-Agent"].ToString().ToLower();
+	var isMobile = browser.Contains("android") || browser.Contains("iphone") || browser.Contains("ipad");
+}
 
+@if (!isMobile)
+{
+	<div class="row">
+		<div class="col text-center">
+			<h1 class="display-4 mb-3">Welcome to UCB!</h1>
+			<img class="img-fluid" style="height: auto; max-width: 100%;" src="~/pics/cinnamorollwelcome.gif" />
+		</div>
+		<div class="col text-center align-content-center">
+			<p>The University of Cebu - Banilad Campus, located along Gov. Cuenco Avenue in Cebu City, is a thriving institution dedicated to academic excellence and holistic development. It offers a wide range of programs that equip students with practical skills and knowledge to succeed in today’s competitive world. With modern facilities, experienced faculty, and a strong commitment to student success, UC Banilad provides a dynamic learning environment where individuals can grow, innovate, and excel.</p>
+			<a href="/Home/Privacy" class="btn btn-primary btn-lg">Enroll Now</a>
+		</div>
+	</div>
+}
+else
+{
+	<div class="text-center">
+		<h1 class="display-4 mb-3">Welcome to UCB!</h1>
+		<img class="img-fluid" style="height: auto; max-width: 100%;" src="~/pics/cinnamorollwelcome.gif" />
+	</div>
+	<div class="text-center align-content-center">
+		<p>The University of Cebu - Banilad Campus, located along Gov. Cuenco Avenue in Cebu City, is a thriving institution dedicated to academic excellence and holistic development. It offers a wide range of programs that equip students with practical skills and knowledge to succeed in today’s competitive world. With modern facilities, experienced faculty, and a strong commitment to student success, UC Banilad provides a dynamic learning environment where individuals can grow, innovate, and excel.</p>
+        <a href="/Home/Privacy" class="btn btn-primary btn-lg">Enroll Now</a>
+	</div>
+}
+
+<div class="text-center">
 	<table class="table bg-color1 table-responsive mt-3">
 		<thead>
 			<tr>
-				@if(Model.Students.Count == 1)
+				@if (Model.Students.Count == 1)
 				{
 					<th>@Model.Students.Count Student</th>
 				}

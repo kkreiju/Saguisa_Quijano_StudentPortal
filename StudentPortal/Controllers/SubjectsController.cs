@@ -24,7 +24,7 @@ namespace StudentPortal.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Entry(SubjectsViewModel viewModel, string subjectcode, string coursecode, string subjrequisite)
+		public async Task<IActionResult> Entry(Subjects viewModel, string subjectcode, string coursecode, string subjrequisite)
 		{
 			var subjCode = await DBContext.Subject.FirstOrDefaultAsync(s => s.SubjCode.ToString() == subjectcode);
 			var primarykey1 = string.Empty;
@@ -44,12 +44,12 @@ namespace StudentPortal.Controllers
 			if (primarykey1.Equals(subjectcode) && primarykey2.Equals(coursecode))
 			{
 				// Optionally return an error or notification to the user
-				ViewBag.Message = subjectcode + " is already registered on course " + coursecode + ".";
+				ViewBag.Message = subjectcode.ToUpper() + " is already registered on course " + coursecode + ".";
 				return View();
 			}
 			else if (requisite is null && subjrequisite is not null)
 			{
-				ViewBag.Message = subjrequisite + " is not registered on subjects and must be on the same course.";
+				ViewBag.Message = subjrequisite.ToUpper() + " is not registered on subjects and must be on the same course.";
 				return View();
 			}
 			else
@@ -80,12 +80,12 @@ namespace StudentPortal.Controllers
 
 
 						ModelState.Clear();
-						return View(new SubjectsViewModel());
+						return View(new Subjects());
 					}
 					catch (Exception ex)
 					{
 						transaction.Rollback();
-						return View(new SubjectsViewModel());
+						return View(new Subjects());
 					}
 				}
 			}
@@ -137,6 +137,10 @@ namespace StudentPortal.Controllers
 			   .Where(s => s.SubjCode == subject && s.SubjCourseCode == course)
 			   .FirstOrDefaultAsync();
 
+			var subjectandcoursecodeduplicate = await DBContext.Subject
+			   .Where(s => s.SubjCode == subjectcode && s.SubjCourseCode == coursecode)
+			   .FirstOrDefaultAsync();
+
 			var requisite = await DBContext.Subject
 			   .Where(s => s.SubjCode == subjrequisite && s.SubjCourseCode == coursecode)
 			   .FirstOrDefaultAsync();
@@ -159,9 +163,15 @@ namespace StudentPortal.Controllers
 				DBContext.Subject.Update(subjectandcoursecode);
 
 				await DBContext.SaveChangesAsync();
+				await unitschanged();
 			}
 			else
 			{
+				if (subjectandcoursecodeduplicate is not null)
+				{
+					ViewBag.Message = "Subject Code is Already Registered on " + coursecode + ".";
+					return View();
+				}
 				using (var transaction = await DBContext.Database.BeginTransactionAsync())
 				{
 					try
@@ -181,6 +191,7 @@ namespace StudentPortal.Controllers
 
 						await DBContext.Subject.AddAsync(newsubject);
 						await DBContext.SaveChangesAsync();
+						await unitschanged();
 
 						ViewBag.Message = "Subject added.";
 
@@ -250,6 +261,34 @@ namespace StudentPortal.Controllers
 			{
 				return NotFound();
 			}
+		}
+
+		public async Task unitschanged()
+		{
+			var sqlCommand = @"
+                -- Step 1: Calculate the total units for all enrolled EDP codes for the specific student
+                WITH TotalUnitsPerStudent AS (
+                    SELECT 
+                        ED.ID,
+                        SUM(S.SubjUnits) AS TotalUnits
+                    FROM 
+                        EnrollmentDetail ED
+                    JOIN 
+                        Schedule SC ON ED.EDPCode = SC.EDPCode
+                    JOIN 
+                        Subject S ON SC.SubjCode = S.SubjCode
+                    GROUP BY 
+                        ED.ID
+                )
+
+                -- Step 2: Update the EnrollmentHeader.TotalUnits for the specific student
+                UPDATE EH
+                SET EH.TotalUnits = TU.TotalUnits
+                FROM EnrollmentHeader EH
+                JOIN TotalUnitsPerStudent TU ON EH.ID = TU.ID
+            ";
+
+			await DBContext.Database.ExecuteSqlRawAsync(sqlCommand);
 		}
 	}
 }

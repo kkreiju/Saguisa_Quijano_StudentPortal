@@ -9,7 +9,7 @@
 <div class="mt-2">
 	<form action="/Enrollment/Entry" method="post" id="form">
 		<label class="form-label">ID Number</label>
-		<input type="number" class="form-control shadow-lg" name="idnumber" value="@ViewBag.ID" required />
+		<input type="number" class="form-control shadow-lg" id="idnumber" name="idnumber" value="@ViewBag.ID" required />
 		<button type="submit" class="btn btn-primary mt-2">Search</button>
 	</form>
 
@@ -35,25 +35,27 @@
 		name += " " + Model.Students.StudMName.ToString().ElementAt(0) + ".";
 	}
 
-	<div class="mt-auto">
-		<fieldset>
-			<label class="form-label mt-1" for="readOnlyInput">Name</label>
-			<input class="form-control" id="name" type="text" placeholder="@name" readonly="">
-		</fieldset>
-	</div>
+	<div class="row mt-3">
+		<div class="col">
+			<fieldset>
+				<label class="form-label" for="readOnlyInput">Name</label>
+				<input class="form-control" id="name" type="text" placeholder="@name" readonly="">
+			</fieldset>
+		</div>
 
-	<div class="mt-auto">
-		<fieldset>
-			<label class="form-label mt-3" for="readOnlyInput">Course</label>
-			<input class="form-control" id="course" type="text" placeholder="@Model.Students.StudCourse" readonly="">
-		</fieldset>
-	</div>
+		<div class="col">
+			<fieldset>
+				<label class="form-label" for="readOnlyInput">Course</label>
+				<input class="form-control" id="course" type="text" placeholder="@Model.Students.StudCourse" readonly="">
+			</fieldset>
+		</div>
 
-	<div class="mt-auto">
-		<fieldset>
-			<label class="form-label mt-3" for="readOnlyInput">Year</label>
-			<input class="form-control" id="year" type="text" placeholder="@Model.Students.StudYear" readonly="">
-		</fieldset>
+		<div class="col">
+			<fieldset>
+				<label class="form-label" for="readOnlyInput">Year</label>
+				<input class="form-control" id="year" type="text" placeholder="@Model.Students.StudYear" readonly="">
+			</fieldset>
+		</div>
 	</div>
 
 	<div class="row align-items-center mt-3">
@@ -69,7 +71,11 @@
 		</form>
 	</div>
 
-	<form asp-action="EnrollStudent" asp-controller="Enrollment">
+	<div id="prompt" style="display: none;" class="alert alert-success mt-2">
+		<p id="prompttext" class="my-0"></p>
+	</div>
+
+	<form id="enrollForm">
 		<div class="mt-3">
 			<table class="table table-responsive table-bordered table-light shadow-lg mt-3" id="enrollmenttable">
 				<thead>
@@ -95,10 +101,15 @@
 		</div>
 
 		<div class="mt-3">
-			<button type="submit" id="enrollmentbutton" class="btn btn-primary">Enroll</button>
+			<label class="form-label">Encoder (No DB yet)</label>
+			<input type="text" class="form-control" id="encoder" />
+		</div>
+
+		<div class="mt-3">
+			<button type="submit" id="enrollmentbutton" onclick="enrollStudent()" class="btn btn-primary">Enroll</button>
 		</div>
 	</form>
-	
+
 }
 
 @section Scripts {
@@ -107,12 +118,18 @@
 		let subjectscount = 0;
 		let unitscount = 0;
 		// Serializing C# list to JSON and passing it to JavaScript
-		const schedules = @Html.Raw(Json.Serialize(Model?.Schedules));
-		const subjects = @Html.Raw(Json.Serialize(Model?.Subjects));
+		let schedules = @Html.Raw(Json.Serialize(Model?.Schedules));
+		let subjects = @Html.Raw(Json.Serialize(Model?.Subjects));
+		let enrollees = @Html.Raw(Json.Serialize(Model?.EnrollmentHeaders));
+		let studentid = document.getElementById('idnumber').value;
 
 		document.getElementById("enrollmentbutton").disabled = true;
 
 		document.getElementById('searchForm').addEventListener('submit', function (event) {
+			event.preventDefault(); // Prevent the form from submitting and refreshing the page
+		});
+
+		document.getElementById('enrollForm').addEventListener('submit', function (event) {
 			event.preventDefault(); // Prevent the form from submitting and refreshing the page
 		});
 	</script>

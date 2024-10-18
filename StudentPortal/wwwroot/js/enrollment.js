@@ -39,8 +39,14 @@ function addNewRow(schedule) {
 
     // Add click event to the button
     button.addEventListener('click', function () {
-        const rowIndex = newRow.rowIndex - 1; // Adjust for header row
-        console.log(edpCodes.pop(edpCode));
+        // Find the index of the matched value in the array
+        const index = edpCodes.indexOf(edpCode.toString());
+
+        // Remove the matched value from the array
+        if (index > -1) {
+          edpCodes.splice(index, 1);
+        }
+
         newRow.remove();
         subjectscount--;
         unitscount -= units;
@@ -119,12 +125,20 @@ function checkDuplicateEDP(schedule, EDPCode) {
         return;
     }
     else {
-        if (!checkConflictTime(schedule)) {
+        checkConflictTime(schedule);
+
+        if (!conflict) {
             addNewRow(schedule);
             edpCodes.push(EDPCode);
         }
+        else {
+            alert("Schedule Conflict with EDP Code " + conflictEDPCode.toString());
+        }
     }
 }
+
+let conflict = false;
+let conflictEDPCode;
 
 function checkConflictTime(schedule) {
     // Get all the table rows
@@ -150,14 +164,114 @@ function checkConflictTime(schedule) {
 
         // Check if the time of the schedule to be added conflicts with the time of the schedule in the row
         if (startTime >= rowStartTime && startTime <= rowEndTime || endTime >= rowStartTime && endTime <= rowEndTime) {
-            alert("Schedule with EDP Code: " + rows[i].cells[0].textContent);
-            return true;
+            conflict = true;
+            checkConflictDay(schedule, rowSchedule);
+            return;
         }
     }
-    return false;
+    conflict = false;
 }
 
-function convertToHours(time)
+function checkConflictDay(schedule, rowSchedule) {
+    let scheduleDays = [];
+    let rowScheduleDays = [];
+    scheduleDays = getSelectedDays(schedule.days).split(",");
+    rowScheduleDays = getSelectedDays(rowSchedule.days).split(",");
+
+    // Removes the extra value whitespace [""]
+    scheduleDays.pop();
+    rowScheduleDays.pop();
+
+    for (let day of scheduleDays) {
+        if (rowScheduleDays.includes(day)) {
+            conflict = true;
+            conflictEDPCode = rowSchedule.edpCode;
+            return;
+        }
+    }
+    conflict = false;
+}
+
+function convertToHours(time) {
     const [hours, minutes] = time.split(':');
     return parseInt(hours) + parseInt(minutes) / 60;
+}
+
+
+function enrollStudent() {
+    const idnumber = studentid;
+    document.getElementById('idnumber').value = idnumber;
+
+    const student = enrollees.find(e => e.id == idnumber);
+
+    if (student == null) {
+        // Get all the table rows
+        let rows = document.querySelectorAll("table tr");
+        let data = [];
+
+        // Iterate through each row
+        for (let i = 1; i < rows.length - 1; i++) {
+            if (scheduleOpen(rows[i].cells[0].textContent)) {
+                var rowData = {
+                    edpCode: rows[i].cells[0].textContent,
+                };
+                data.push(rowData);
+            }
+            else {
+                document.getElementById("prompt").style = 'display: block;'
+                document.getElementById("prompt").className = "alert alert-danger mt-2";
+                document.getElementById("prompttext").innerHTML = "EDP Code " + rows[i].cells[0].textContent + " is closed."
+                highlightBorder('prompt');
+                return;
+            }
+        }
+
+        // Send data to the server
+        fetch('/Enrollment/EnrollStudent?idnumber=' + idnumber + '&units=' + unitscount, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.text())
+            .then(() => {
+                document.getElementById("prompt").style = 'display: block;';
+                document.getElementById("prompt").className = "alert alert-success mt-2";
+                document.getElementById("prompttext").innerHTML = 'Successfully Enrolled.';
+                highlightBorder('prompt');
+            })
+            .catch((error) => alert('Error, please try again.'));
+    }
+    else {
+        document.getElementById("prompt").style = 'display: block;'
+        document.getElementById("prompt").className = "alert alert-danger mt-2";
+        document.getElementById("prompttext").innerHTML = 'Student already Enrolled.'
+        highlightBorder('prompt');
+        return;
+    }
+}
+
+function scheduleOpen(edpCode) {
+    const sched = schedules.find(e => e.edpCode == edpCode);
+
+    if (sched.status == "AC" && (sched.classSize < sched.maxSize))
+        return true;
+    else
+        return false;
+}
+
+// Function to add the border class and remove it after 2 seconds
+function highlightBorder(elementId) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.classList.add('border', 'border-warning', 'border-3', 'border-transition', 'border-fade');
+
+        setTimeout(() => {
+            element.classList.remove('border-fade');
+            setTimeout(() => {
+                element.classList.remove('border', 'border-warning', 'border-3');
+            }, 500); // Wait for the fade-out transition to complete
+        }, 2000); // 2000 milliseconds = 2 seconds
+    }
 }

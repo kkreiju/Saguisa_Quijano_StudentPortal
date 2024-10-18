@@ -25,7 +25,7 @@ namespace StudentPortal.Controllers
         }
 
 		[HttpPost]
-		public async Task<IActionResult> Entry(SchedulesViewModel viewModel, string edpcode, string subjectcode, string course)
+		public async Task<IActionResult> Entry(Schedules viewModel, string edpcode, string subjectcode, string course)
 		{
 
 			// Search for the student using the provided Edp code
@@ -89,7 +89,7 @@ namespace StudentPortal.Controllers
 
 						ModelState.Clear();
 						ViewBag.Message = "Schedule added.";
-						return View(new SchedulesViewModel());
+						return View(new Schedules());
 
 					}
 					catch (Exception ex)
@@ -164,6 +164,7 @@ namespace StudentPortal.Controllers
 		{
 			ViewBag.EDP = edpc;
 			var edp = await DBContext.Schedule.FindAsync(edpc);
+			var edpduplicate = await DBContext.Schedule.FindAsync(edpcode);
 
 			var subjectandcourse = await DBContext.Subject
 			   .Where(s => s.SubjCode == subjectcode && s.SubjCourseCode == course)
@@ -200,6 +201,11 @@ namespace StudentPortal.Controllers
 			}
 			else
 			{
+				if (edpduplicate is not null)
+				{
+					ViewBag.Message = "EDP Code is Already Registered.";
+					return View();
+				}
 				// Transaction is used associated to IDENTITY INSERT query
 				using (var transaction = await DBContext.Database.BeginTransactionAsync())
 				{

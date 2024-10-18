@@ -2,15 +2,10 @@
 	ViewData["Title"] = "Schedule Entry";
 }
 
-@model StudentPortal.Models.SchedulesViewModel
+@model StudentPortal.Models.Entities.Schedules
 
 <h1>Schedule Entry</h1>
 
-<!-- 
-		remove category in the database if i proceed to implement to get subject db
-
-		however, idk yet how to retrieve the other model
--->
 @if (ViewBag.Message != null && (ViewBag.Message.Contains("registered") || ViewBag.Message.Contains("schedule") || ViewBag.Message.Contains("Invalid")))
 {
 	<div class="alert alert-danger mt-3">
@@ -27,7 +22,7 @@ else if (ViewBag.Message == "Schedule added.")
 <form method="post" id="form">
 	<div class="mt-3">
 		<label class="form-label">EDP Code</label>
-		<input type="number" class="form-control shadow-lg" name="edpcode" asp-for="EDPCode" required />
+		<input type="number" class="form-control shadow-lg" id="edpcode" name="edpcode" asp-for="EDPCode" required />
 	</div>
 
 	<div class="mt-3">
@@ -125,4 +120,15 @@ else if (ViewBag.Message == "Schedule added.")
 	function clearForm() {
 		document.getElementById("form").reset();
 	}
+
+	const edplimit = document.getElementById('edpcode');
+
+	edplimit.addEventListener('input', function () {
+		if (edplimit.value.length > 9) {
+			edplimit.value = edplimit.value.slice(0, 9)
+		}
+		if (edplimit.value < 1) {
+			edplimit.value = ''
+		}
+	});
 </script>
