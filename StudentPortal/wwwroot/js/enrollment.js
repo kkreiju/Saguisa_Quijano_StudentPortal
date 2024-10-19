@@ -44,7 +44,7 @@ function addNewRow(schedule) {
 
         // Remove the matched value from the array
         if (index > -1) {
-          edpCodes.splice(index, 1);
+            edpCodes.splice(index, 1);
         }
 
         newRow.remove();
@@ -97,7 +97,7 @@ function updateCount() {
         // Removes "Options" when there is no schedules listed
         search = false;
         firstRow.removeChild(firstRow.children[7]);
-        footer.colSpan = 7; 
+        footer.colSpan = 7;
     }
 
     if (unitscount == 0) {
@@ -199,56 +199,59 @@ function convertToHours(time) {
 
 
 function enrollStudent() {
-    const idnumber = studentid;
-    document.getElementById('idnumber').value = idnumber;
+    if (!document.getElementById('encoder').value == "") {
+        const idnumber = studentid;
+        document.getElementById('idnumber').value = idnumber;
+        encoder = document.getElementById('encoder').value;
 
-    const student = enrollees.find(e => e.id == idnumber);
+        const student = enrollees.find(e => e.id == idnumber);
 
-    if (student == null) {
-        // Get all the table rows
-        let rows = document.querySelectorAll("table tr");
-        let data = [];
+        if (student == null) {
+            // Get all the table rows
+            let rows = document.querySelectorAll("table tr");
+            let data = [];
 
-        // Iterate through each row
-        for (let i = 1; i < rows.length - 1; i++) {
-            if (scheduleOpen(rows[i].cells[0].textContent)) {
-                var rowData = {
-                    edpCode: rows[i].cells[0].textContent,
-                };
-                data.push(rowData);
+            // Iterate through each row
+            for (let i = 1; i < rows.length - 1; i++) {
+                if (scheduleOpen(rows[i].cells[0].textContent)) {
+                    var rowData = {
+                        edpCode: rows[i].cells[0].textContent,
+                    };
+                    data.push(rowData);
+                }
+                else {
+                    document.getElementById("prompt").style = 'display: block;'
+                    document.getElementById("prompt").className = "alert alert-danger mt-2";
+                    document.getElementById("prompttext").innerHTML = "EDP Code " + rows[i].cells[0].textContent + " is closed."
+                    highlightBorder('prompt');
+                    return;
+                }
             }
-            else {
-                document.getElementById("prompt").style = 'display: block;'
-                document.getElementById("prompt").className = "alert alert-danger mt-2";
-                document.getElementById("prompttext").innerHTML = "EDP Code " + rows[i].cells[0].textContent + " is closed."
-                highlightBorder('prompt');
-                return;
-            }
-        }
 
-        // Send data to the server
-        fetch('/Enrollment/EnrollStudent?idnumber=' + idnumber + '&units=' + unitscount, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => response.text())
-            .then(() => {
-                document.getElementById("prompt").style = 'display: block;';
-                document.getElementById("prompt").className = "alert alert-success mt-2";
-                document.getElementById("prompttext").innerHTML = 'Successfully Enrolled.';
-                highlightBorder('prompt');
+            // Send data to the server
+            fetch('/Enrollment/EnrollStudent?idnumber=' + idnumber + '&units=' + unitscount + '&encoder=' + encoder, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
             })
-            .catch((error) => alert('Error, please try again.'));
-    }
-    else {
-        document.getElementById("prompt").style = 'display: block;'
-        document.getElementById("prompt").className = "alert alert-danger mt-2";
-        document.getElementById("prompttext").innerHTML = 'Student already Enrolled.'
-        highlightBorder('prompt');
-        return;
+                .then(response => response.text())
+                .then(() => {
+                    document.getElementById("prompt").style = 'display: block;';
+                    document.getElementById("prompt").className = "alert alert-success mt-2";
+                    document.getElementById("prompttext").innerHTML = 'Successfully Enrolled.';
+                    highlightBorder('prompt');
+                })
+                .catch((error) => alert('Error, please try again.'));
+        }
+        else {
+            document.getElementById("prompt").style = 'display: block;'
+            document.getElementById("prompt").className = "alert alert-danger mt-2";
+            document.getElementById("prompttext").innerHTML = 'Student already Enrolled.'
+            highlightBorder('prompt');
+            return;
+        }
     }
 }
 

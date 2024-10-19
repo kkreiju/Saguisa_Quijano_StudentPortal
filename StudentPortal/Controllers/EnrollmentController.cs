@@ -63,7 +63,7 @@ namespace StudentPortal.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> EnrollStudent([FromBody] List<EnrollmentDetails> data, string idnumber, int units)
+		public async Task<IActionResult> EnrollStudent([FromBody] List<EnrollmentDetails> data, string idnumber, int units, string encoder)
 		{
 			// Search for the student using the provided ID number
 			var subjectcode = await DBContext.Schedule.FirstOrDefaultAsync(s => s.EDPCode.ToString() == 0.ToString()); // Sync this in as dummy data
@@ -102,8 +102,8 @@ namespace StudentPortal.Controllers
 
 				await DBContext.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT EnrollmentHeader ON");
 
-				sqlCommand = "INSERT INTO EnrollmentHeader (ID, DateEnroll, SchoolYear, TotalUnits, Status) VALUES ({0}, {1}, {2}, {3}, {4})";
-				await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, Convert.ToInt32(idnumber), DateOnly.FromDateTime(DateTime.UtcNow), "A.Y. 2024-2025", units, "AC");
+				sqlCommand = "INSERT INTO EnrollmentHeader (ID, DateEnroll, SchoolYear, Encoder, TotalUnits, Status) VALUES ({0}, {1}, {2}, {3}, {4}, {5})";
+				await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, Convert.ToInt32(idnumber), DateOnly.FromDateTime(DateTime.UtcNow), "A.Y. 2024-2025", encoder, units, "AC");
 
 				await DBContext.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT EnrollmentHeader OFF");
 
