@@ -105,13 +105,14 @@ namespace StudentPortal.Controllers
 		public async Task<IActionResult> List()
 		{
             // Retrieve the list of schedules
-            var schedules = await DBContext.Schedule.ToListAsync();
+            var schedulelist = await DBContext.Schedule.ToListAsync();
 
             // Initialize a list to store the subjects
             var subjects = new List<Subjects>();
+			var schedules = new List<Schedules>();
 
-            // Loop through each schedule and retrieve the corresponding subject
-            foreach (var schedule in schedules)
+			// Loop through each schedule and retrieve the corresponding subject
+			foreach (var schedule in schedulelist)
             {
 				// Retrieves the subject table values of the corresponding schedule row
                 var subject = await DBContext.Subject
@@ -121,6 +122,7 @@ namespace StudentPortal.Controllers
                 if (subject != null)
                 {
                     subjects.Add(subject);
+					schedules.Add(schedule);
                 }
             }
 

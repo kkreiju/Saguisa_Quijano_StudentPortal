@@ -74,6 +74,7 @@
 			<tbody>
 				@foreach (var enrollmentDetail in Model.EnrollmentDetails)
 				{
+					var found = false;
 					if (enrollmentDetail.ID == Model.Students.StudID)
 					{
 						<tr>
@@ -93,8 +94,14 @@
 										{
 											<td>@Model.Subjects[i].SubjCategory</td>
 											<td>@Model.Subjects[i].SubjUnits</td>
+											found = true;
 											break;
 										}
+									}
+									if (!found)
+									{
+										<td class="bg-danger">NOT FOUND</td>
+										<td class="bg-danger">SUBJECT NOT AVAILABLE</td>
 									}
 									break;
 								}

@@ -163,7 +163,7 @@ function checkConflictTime(schedule) {
         const rowEndTimeHours = convertToHours(rowEndTime);
 
         // Check if the time of the schedule to be added conflicts with the time of the schedule in the row
-        if (startTime >= rowStartTime && startTime <= rowEndTime || endTime >= rowStartTime && endTime <= rowEndTime) {
+        if (startTimeHours < rowEndTimeHours && endTimeHours > rowStartTimeHours) {
             conflict = true;
             checkConflictDay(schedule, rowSchedule);
             return;
