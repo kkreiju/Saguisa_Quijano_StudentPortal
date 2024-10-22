@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center"> ELDNET 1 Final Project </h1>
-<p align="center"><i >Updated as of October 16, 2024.</i></p><br>
+<p align="center"><i >Updated as of October 22, 2024.</i></p><br>
 An enrollment system with basic features.
 
 ## Tech Stack
@@ -18,14 +18,12 @@ An enrollment system with basic features.
 ### To be implemented
 
  - Frontend Designs
+ - Login with Administator and Student
 
 ### Fix Plans
 
 **Database**
  - Subjects and Students Table Change Name
 
-**Schedule Entry & Schedule Edit**
- - Change "Days" text size
-
-**UI**
- - Fonts
+**General**
+ - Find Bugs

@@ -11,6 +11,8 @@ namespace StudentPortal.Models.Entities
 
 		public string SchoolYear { get; set; }
 
+		public string Encoder { get; set; }
+
 		public int TotalUnits { get; set; }
 
 		[StringLength(2)]

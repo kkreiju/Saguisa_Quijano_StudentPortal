@@ -24,7 +24,7 @@ namespace StudentPortal.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Entry(SubjectsViewModel viewModel, string subjectcode, string coursecode, string subjrequisite)
+		public async Task<IActionResult> Entry(Subjects viewModel, string subjectcode, string coursecode, string subjrequisite)
 		{
 			var subjCode = await DBContext.Subject.FirstOrDefaultAsync(s => s.SubjCode.ToString() == subjectcode);
 			var primarykey1 = string.Empty;
@@ -44,12 +44,12 @@ namespace StudentPortal.Controllers
 			if (primarykey1.Equals(subjectcode) && primarykey2.Equals(coursecode))
 			{
 				// Optionally return an error or notification to the user
-				ViewBag.Message = subjectcode + " is already registered on course " + coursecode + ".";
+				ViewBag.Message = subjectcode.ToUpper() + " is already registered on course " + coursecode + ".";
 				return View();
 			}
 			else if (requisite is null && subjrequisite is not null)
 			{
-				ViewBag.Message = subjrequisite + " is not registered on subjects and must be on the same course.";
+				ViewBag.Message = subjrequisite.ToUpper() + " is not registered on subjects and must be on the same course.";
 				return View();
 			}
 			else
@@ -76,16 +76,18 @@ namespace StudentPortal.Controllers
 
 						await transaction.CommitAsync();
 
+						await unitschanged();
+
 						ViewBag.Message = "Subject added.";
 
 
 						ModelState.Clear();
-						return View(new SubjectsViewModel());
+						return View(new Subjects());
 					}
 					catch (Exception ex)
 					{
 						transaction.Rollback();
-						return View(new SubjectsViewModel());
+						return View(new Subjects());
 					}
 				}
 			}
@@ -247,14 +249,55 @@ namespace StudentPortal.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Delete(Subjects viewModel, string subjectcode, string coursecode)
 		{
-			// Define the SQL command with a parameter placeholder
-			var sqlCommand = "DELETE FROM Subject WHERE SubjCode = {0} AND SubjCourseCode = {1}";
+			// Updates the Enrolled Students of the Affected Deleted Subject to Schedule
+			var sqlCommand = @"
+				-- Step 1: Calculate the total units for each student based on their enrollment details and the affected subject
+				WITH TotalUnitsPerStudent AS (
+					SELECT 
+						ED.ID, 
+						SUM(S.SubjUnits) AS TotalUnits -- Sum of all units the student is enrolled in
+					FROM 
+						EnrollmentDetail ED
+					JOIN 
+						Schedule SC ON ED.EDPCode = SC.EDPCode
+					JOIN 
+						Subject S ON SC.SubjCode = S.SubjCode
+					WHERE 
+						SC.SubjCode = {0} AND S.SubjCourseCode = {1} -- Affected subject
+					GROUP BY 
+						ED.ID
+				),
+
+				-- Step 2: Adjust the total units by subtracting the affected subject's units (e.g., PE 101)
+				AdjustedUnits AS (
+					SELECT
+						TU.ID,
+						(EH.TotalUnits - TU.TotalUnits) AS AdjustedTotalUnits
+					FROM 
+						TotalUnitsPerStudent TU
+					JOIN 
+						EnrollmentHeader EH ON TU.ID = EH.ID
+				)
+
+				-- Step 3: Update the EnrollmentHeader with the adjusted total units
+				UPDATE EH
+				SET 
+					EH.TotalUnits = AU.AdjustedTotalUnits
+				FROM 
+					EnrollmentHeader EH
+				JOIN 
+					AdjustedUnits AU ON EH.ID = AU.ID
+	
+				-- Step 4: Delete the Subject Code and Subject Course Code
+				DELETE FROM Subject WHERE SubjCode = {0} AND SubjCourseCode = {1}
+			";
 
 			// Execute the command with the specified parameter value
 			int affectedRows = await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, subjectcode, coursecode);
 
 			if (affectedRows > 0)
 			{
+				await unitschanged();
 				return RedirectToAction("List", "Subjects");
 			}
 			else

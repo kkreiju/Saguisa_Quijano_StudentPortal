@@ -128,9 +128,39 @@ function getSelectedDays(days) {
 
     // Handle TH (Thursday) separately since it's 2 characters
     let thursdayremover = days;
-    if (days.includes('TH')) {
+    
+    if(days.includes('THU')) {
+        dayAbbreviations.push('TH');
+        thursdayremover = thursdayremover.replace('THU', '');
+    }
+    else if (days.includes('TH')) {
         dayAbbreviations.push('TH');
         thursdayremover = thursdayremover.replace('TH', '');
+    }
+
+    if (days.includes('MON')) {
+        dayAbbreviations.push('M');
+        thursdayremover = thursdayremover.replace('MON', '');
+    }
+
+    if (days.includes('TUE')) {
+        dayAbbreviations.push('T');
+        thursdayremover = thursdayremover.replace('TUE', '');
+    }
+
+    if (days.includes('WED')) {
+        dayAbbreviations.push('W');
+        thursdayremover = thursdayremover.replace('WED', '');
+    }
+
+    if (days.includes('FRI')) {
+        dayAbbreviations.push('F');
+        thursdayremover = thursdayremover.replace('FRI', '');
+    }
+
+    if (days.includes('SAT')) {
+        dayAbbreviations.push('S');
+        thursdayremover = thursdayremover.replace('SAT', '');
     }
 
     // Handle the rest of the characters (M, T, W, F, S)

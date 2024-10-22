@@ -23,7 +23,7 @@ namespace StudentPortal.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Entry(StudentsViewModel viewModel, string idnumber)
+		public async Task<IActionResult> Entry(Students viewModel, string idnumber)
 		{
 
 			// Search for the student using the provided ID number
@@ -66,7 +66,7 @@ namespace StudentPortal.Controllers
 
 						ModelState.Clear();
 						ViewBag.Message = "Student added.";
-						return View(new StudentsViewModel());
+						return View(new Students());
 
 					}
 					catch (Exception ex)

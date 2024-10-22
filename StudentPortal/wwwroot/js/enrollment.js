@@ -44,7 +44,7 @@ function addNewRow(schedule) {
 
         // Remove the matched value from the array
         if (index > -1) {
-          edpCodes.splice(index, 1);
+            edpCodes.splice(index, 1);
         }
 
         newRow.remove();
@@ -97,7 +97,7 @@ function updateCount() {
         // Removes "Options" when there is no schedules listed
         search = false;
         firstRow.removeChild(firstRow.children[7]);
-        footer.colSpan = 7; 
+        footer.colSpan = 7;
     }
 
     if (unitscount == 0) {
@@ -149,10 +149,10 @@ function checkConflictTime(schedule) {
     const endTime = schedule.endTime;
 
     // Iterate through each row
-    for (let i = 1; i < rows.length; i++) {
+    for (let i = 1; i < rows.length - 1; i++) {
 
         // Get the time of the schedule in the row
-        const rowSchedule = schedules.find(schedule => schedule.edpCode == rows[1].cells[0].textContent);
+        const rowSchedule = schedules.find(schedule => schedule.edpCode == rows[i].cells[0].textContent);
         const rowStartTime = rowSchedule.startTime;
         const rowEndTime = rowSchedule.endTime;
 
@@ -163,12 +163,21 @@ function checkConflictTime(schedule) {
         const rowEndTimeHours = convertToHours(rowEndTime);
 
         // Check if the time of the schedule to be added conflicts with the time of the schedule in the row
-        if (startTime >= rowStartTime && startTime <= rowEndTime || endTime >= rowStartTime && endTime <= rowEndTime) {
+        console.log("Start Time: " + startTimeHours.toString())
+        console.log("End Time: " + endTimeHours.toString())
+        console.log("Row Start Time: " + rowStartTimeHours.toString())
+        console.log("Row End Time: " + rowEndTimeHours.toString())
+        if (rowStartTimeHours < endTimeHours && rowEndTimeHours > endTimeHours ||
+            startTimeHours < rowEndTimeHours && endTimeHours > rowEndTimeHours ||
+            startTimeHours > rowStartTimeHours && endTimeHours < rowEndTimeHours
+        ) {
+            console.log("Time Conflict");
             conflict = true;
             checkConflictDay(schedule, rowSchedule);
             return;
         }
     }
+    console.log("Time Not Conflict");
     conflict = false;
 }
 
@@ -199,56 +208,59 @@ function convertToHours(time) {
 
 
 function enrollStudent() {
-    const idnumber = studentid;
-    document.getElementById('idnumber').value = idnumber;
+    if (!document.getElementById('encoder').value == "") {
+        const idnumber = studentid;
+        document.getElementById('idnumber').value = idnumber;
+        encoder = document.getElementById('encoder').value;
 
-    const student = enrollees.find(e => e.id == idnumber);
+        const student = enrollees.find(e => e.id == idnumber);
 
-    if (student == null) {
-        // Get all the table rows
-        let rows = document.querySelectorAll("table tr");
-        let data = [];
+        if (student == null) {
+            // Get all the table rows
+            let rows = document.querySelectorAll("table tr");
+            let data = [];
 
-        // Iterate through each row
-        for (let i = 1; i < rows.length - 1; i++) {
-            if (scheduleOpen(rows[i].cells[0].textContent)) {
-                var rowData = {
-                    edpCode: rows[i].cells[0].textContent,
-                };
-                data.push(rowData);
+            // Iterate through each row
+            for (let i = 1; i < rows.length - 1; i++) {
+                if (scheduleOpen(rows[i].cells[0].textContent)) {
+                    var rowData = {
+                        edpCode: rows[i].cells[0].textContent,
+                    };
+                    data.push(rowData);
+                }
+                else {
+                    document.getElementById("prompt").style = 'display: block;'
+                    document.getElementById("prompt").className = "alert alert-danger mt-2";
+                    document.getElementById("prompttext").innerHTML = "EDP Code " + rows[i].cells[0].textContent + " is closed."
+                    highlightBorder('prompt');
+                    return;
+                }
             }
-            else {
-                document.getElementById("prompt").style = 'display: block;'
-                document.getElementById("prompt").className = "alert alert-danger mt-2";
-                document.getElementById("prompttext").innerHTML = "EDP Code " + rows[i].cells[0].textContent + " is closed."
-                highlightBorder('prompt');
-                return;
-            }
-        }
 
-        // Send data to the server
-        fetch('/Enrollment/EnrollStudent?idnumber=' + idnumber + '&units=' + unitscount, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => response.text())
-            .then(() => {
-                document.getElementById("prompt").style = 'display: block;';
-                document.getElementById("prompt").className = "alert alert-success mt-2";
-                document.getElementById("prompttext").innerHTML = 'Successfully Enrolled.';
-                highlightBorder('prompt');
+            // Send data to the server
+            fetch('/Enrollment/EnrollStudent?idnumber=' + idnumber + '&units=' + unitscount + '&encoder=' + encoder, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
             })
-            .catch((error) => alert('Error, please try again.'));
-    }
-    else {
-        document.getElementById("prompt").style = 'display: block;'
-        document.getElementById("prompt").className = "alert alert-danger mt-2";
-        document.getElementById("prompttext").innerHTML = 'Student already Enrolled.'
-        highlightBorder('prompt');
-        return;
+                .then(response => response.text())
+                .then(() => {
+                    document.getElementById("prompt").style = 'display: block;';
+                    document.getElementById("prompt").className = "alert alert-success mt-2";
+                    document.getElementById("prompttext").innerHTML = 'Successfully Enrolled.';
+                    highlightBorder('prompt');
+                })
+                .catch((error) => alert('Error, please try again.'));
+        }
+        else {
+            document.getElementById("prompt").style = 'display: block;'
+            document.getElementById("prompt").className = "alert alert-danger mt-2";
+            document.getElementById("prompttext").innerHTML = 'Student already Enrolled.'
+            highlightBorder('prompt');
+            return;
+        }
     }
 }
 
