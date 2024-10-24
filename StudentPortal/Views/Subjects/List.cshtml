@@ -12,7 +12,7 @@
 }
 else
 {
-    <table class="table table-responsive table-bordered table-light shadow-lg mt-3">
+    <table id="subjects" class="table table-responsive table-bordered table-light shadow-lg mt-3">
         <thead>
             <tr>
                 <th scope="col">Subject Code</th>
@@ -26,7 +26,7 @@ else
             @foreach (var subject in Model)
             {
                 <tr>
-                    <th scope="row">@subject.SubjCode</th>
+                    <td scope="row">@subject.SubjCode</td>
                     <td>@subject.SubjDesc</td>
                     <td>@subject.SubjUnits</td>
                     <td>@subject.SubjCourseCode</td>

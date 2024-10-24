@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using StudentPortal.Data;
 using StudentPortal.Models;
@@ -205,6 +206,10 @@ namespace StudentPortal.Controllers
 
 						//Update affected rows from schedule if the Subject Code is Updated
 						sqlCommand = "UPDATE Schedule SET SubjCode = {0} WHERE SubjCode = {1} AND Course = {2}";
+						await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, subjectcode, subject, course);
+
+						//Update affected rows from schedule if the Subject Requisite is Updated
+						sqlCommand = "UPDATE Subject SET SubjRequisite = {0} WHERE SubjRequisite = {1} AND SubjCourseCode = {2}";
 						await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, subjectcode, subject, course);
 
 						await transaction.CommitAsync();
