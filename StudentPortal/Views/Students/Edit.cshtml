@@ -17,7 +17,7 @@
 	<form action="/Students/Edit" method="get" id="search">
 		<label class="form-label">ID Number</label>
 		<input type="number" class="form-control shadow-lg" name="idnumber" id="idnumber" required />
-		<button onclick="search()" class="btn btn-primary mt-2">Search</button>
+		<button onclick="search()" class="btn btn-primary mt-2" id="searchbutton">Search</button>
 	</form>
 }
 else
@@ -34,28 +34,32 @@ else
 		<div class="row">
 			<div class="col mt-3">
 				<label class="form-label">First Name</label>
-				<input type="text" style="text-transform: uppercase;" class="form-control shadow-lg" asp-for="StudFName" />
+				<input type="text" style="text-transform: uppercase;" class="form-control shadow-lg" asp-for="StudFName" id="firstname" />
 			</div>
 
 			<div class="col mt-3">
 				<label class="form-label">Middle Name</label>
-				<input type="text" style="text-transform: uppercase;" class="form-control shadow-lg" asp-for="StudMName" />
+				<input type="text" style="text-transform: uppercase;" class="form-control shadow-lg" asp-for="StudMName" id="middlename" />
 			</div>
 
 			<div class="col mt-3">
 				<label class="form-label">Last Name</label>
-				<input type="text" style="text-transform: uppercase;" class="form-control shadow-lg" asp-for="StudLName" />
+				<input type="text" style="text-transform: uppercase;" class="form-control shadow-lg" asp-for="StudLName" id="lastname" />
 			</div>
 		</div>
 
 		<div class="mt-3">
 			<label class="form-label">Course</label>
-			<input type="text" style="text-transform: uppercase;" class="form-control shadow-lg" asp-for="StudCourse" />
+			<select id="course" class="form-select" asp-for="StudCourse">
+				<option value="BSIT">BSIT</option>
+				<option value="BSIS">BSIS</option>
+				<option value="BSN">BSN</option>
+			</select>
 		</div>
 
 		<div class="mt-3">
 			<label class="form-label">Year</label>
-			<input type="text" style="text-transform: uppercase;" class="form-control shadow-lg" asp-for="StudYear" />
+			<input type="text" style="text-transform: uppercase;" class="form-control shadow-lg" asp-for="StudYear" id="year" />
 		</div>
 
 		<div class="mt-3">
@@ -71,10 +75,14 @@ else
 		</div>
 
 		<div class="mt-3">
-			<button type="submit" class="btn btn-primary">Save</button>
+			<button type="submit" class="btn btn-primary" id="savebutton">Save</button>
 		</div>
 
 	</form>
+}
+
+@section Scripts{
+	<script src="~/js/edit.js"></script>
 }
 
 <script>
@@ -85,25 +93,4 @@ else
 			this.action = "/Students/Edit/" + encodeURIComponent(idnumber);
 		});
 	}
-
-	const idlimit = document.getElementById('idnumber');
-	const idlimit2 = document.getElementById('idnumber2');
-
-	idlimit.addEventListener('input', function () {
-		if (idlimit.value.length > 9) {
-			idlimit.value = idlimit.value.slice(0, 9)
-		}
-		if (idlimit.value < 1) {
-			idlimit.value = ''
-		}
-	});
-
-	idlimit2.addEventListener('input', function () {
-		if (idlimit2.value.length > 9) {
-			idlimit2.value = idlimit2.value.slice(0, 9)
-		}
-		if (idlimit2.value < 1) {
-			idlimit2.value = ''
-		}
-	});
 </script>

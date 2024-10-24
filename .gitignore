@@ -3,5 +3,8 @@
 ################################################################################
 
 /StudentPortal/Migrations
-/.vs
+.vs
+/StudentPortal/Properties
+/StudentPortal/bin
+/StudentPortal/obj
 /.vs

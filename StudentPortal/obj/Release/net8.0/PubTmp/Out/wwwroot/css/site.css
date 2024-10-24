@@ -2,8 +2,15 @@ html {
     font-size: 14px;
 }
 
+legend {
+    font-size: 14px;
+}
+
 @media (min-width: 768px) {
     html {
+        font-size: 16px;
+    }
+    legend {
         font-size: 16px;
     }
 }
@@ -19,18 +26,26 @@ html {
 
 body {
     margin-bottom: 60px;
-    font-family: 'Ysabeau SC', sans-serif;
+    font-family: 'Afacad Flux', sans-serif;
 }
 
 h1 {
-    font-family: 'Autour One', sans-serif;
+    font-family: 'Neucha', sans-serif;
 }
 
 /* custom css*/
 .bg-color1 {
-    background-color: #FAFFAF;
+    background-color: #ECDFCC;
 }
 
 .bg-color4 {
-    background-color: #0F67B1;
+    background-color: #181C14;
+}
+
+.border-transition {
+    transition: opacity 1s ease-in-out;
+}
+
+.border-fade{
+    opacity: 1;
 }
