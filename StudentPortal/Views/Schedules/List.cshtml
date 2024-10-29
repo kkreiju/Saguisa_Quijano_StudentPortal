@@ -12,7 +12,7 @@
 }
 else
 {
-    <table class="table table-responsive table-bordered table-light shadow-lg mt-3">
+    <table id="schedules" class="table table-responsive table-bordered table-light shadow-lg mt-3">
         <thead>
             <tr>
                 <th scope="col">EDP Code</th>
@@ -35,7 +35,7 @@ else
                 var time = schedule.StartTime + " - " + schedule.EndTime;
                 var status = schedule.Status;
                 <tr>
-                    <th scope="row">@schedule.EDPCode</th>
+                    <td>@schedule.EDPCode</td>
                     <td>@subject.SubjCode</td> <!-- Subject Code from Subjects -->
                     <td>@time</td>
                     <td>@schedule.Days</td>

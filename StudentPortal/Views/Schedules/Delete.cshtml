@@ -17,7 +17,7 @@
 	<form action="/Schedules/Delete" method="get" id="search">
 		<label class="form-label">EDP Code</label>
 		<input type="text" class="form-control shadow-lg" name="edpcode" id="edpcode" required />
-		<button onclick="search()" class="btn btn-primary mt-2">Search</button>
+		<button onclick="search()" id="searchbutton" class="btn btn-primary mt-2">Search</button>
 	</form>
 }
 else
@@ -79,7 +79,7 @@ else
 		</div>
 
 		<div class="mt-3">
-			<button type="submit" class="btn btn-danger">Delete</button>
+			<button type="submit" id="deletebutton" class="btn btn-danger">Delete</button>
 		</div>
 	</form>
 }
