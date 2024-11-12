@@ -214,7 +214,12 @@ namespace StudentPortal.Controllers
 			// Execute the command with the specified parameter value
 			int affectedRows = await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, idnumber2);
 
-			if (affectedRows > 0)
+			sqlCommand = "DELETE FROM EnrollmentHeader WHERE ID = {0}";
+            await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, idnumber2);
+            sqlCommand = "DELETE FROM EnrollmentDetail WHERE ID = {0}";
+            await DBContext.Database.ExecuteSqlRawAsync(sqlCommand, idnumber2);
+
+            if (affectedRows > 0)
 			{
 				return RedirectToAction("List", "Students");
 			}

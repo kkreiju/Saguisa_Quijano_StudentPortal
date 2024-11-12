@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center"> ELDNET 1 Final Project </h1>
-<p align="center"><i >Updated as of October 22, 2024.</i></p><br>
+<p align="center"><i >Updated as of November 12, 2024.</i></p><br>
 An enrollment system with basic features.
 
 ## Tech Stack
@@ -13,17 +13,6 @@ An enrollment system with basic features.
 **Arjay Nino Saguisa - Backend**<br>
 **John Reddick Quijano - Frontend**
 
-#### **Please migrate database when pulling a new commit**
+<hr>
 
-### To be implemented
-
- - Frontend Designs
- - Login with Administator and Student
-
-### Fix Plans
-
-**Database**
- - Subjects and Students Table Change Name
-
-**General**
- - Find Bugs
+Please migrate database when pulling a new commit.

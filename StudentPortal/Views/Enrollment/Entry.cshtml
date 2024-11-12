@@ -10,7 +10,7 @@
 	<form action="/Enrollment/Entry" method="post" id="form">
 		<label class="form-label">ID Number</label>
 		<input type="number" class="form-control shadow-lg" id="idnumber" name="idnumber" value="@ViewBag.ID" required />
-		<button type="submit" class="btn btn-primary mt-2">Search</button>
+		<button type="submit" id="searchbutton" class="btn btn-primary mt-2">Search</button>
 	</form>
 
 	@if (ViewBag.Message == "Student not found.")
@@ -66,7 +66,7 @@
 			</div>
 
 			<div class="col-md-3 text-start">
-				<button type="submit" class="btn btn-primary" onclick="searchSchedules()">Search</button>
+				<button type="submit" class="btn btn-primary" id="searchschedules" onclick="searchSchedules()">Search</button>
 			</div>
 		</form>
 	</div>

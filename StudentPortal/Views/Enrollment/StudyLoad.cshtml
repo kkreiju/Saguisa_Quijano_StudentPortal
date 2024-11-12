@@ -10,7 +10,7 @@
 	<form action="/Enrollment/StudyLoad" method="post" id="form">
 		<label class="form-label">ID Number</label>
 		<input type="number" class="form-control shadow-lg" id="idnumber" name="idnumber" value="@ViewBag.ID" required />
-		<button type="submit" class="btn btn-primary mt-2">Search</button>
+		<button type="submit" class="btn btn-primary mt-2" id="searchbutton">Search</button>
 	</form>
 
 	@if (ViewBag.Message == "Student not enrolled." || ViewBag.Message == "Student not found.")
@@ -129,7 +129,7 @@
 			{
 				<div class="mt-3">
 					<label class="form-label">Encoder</label>
-					<input type="text" class="form-control" type="text" placeholder="@enrollmentHeader.Encoder" readonly="" />
+					<input type="text" id="encoder" class="form-control" placeholder="@enrollmentHeader.Encoder" readonly="" />
 				</div>
 			}
 		}
