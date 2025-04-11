@@ -2,7 +2,7 @@
   <img src="assets/cinnamoroll.png" alt="Cinnamoroll">
 </p>
 
-<h1 align="center"> ELDNET 1 Final Project</h1>
+<h1 align="center"> IT-ELDNET1 Final Project</h1>
 
 <!-- Tech Stack Badges -->
 <p align="center">
