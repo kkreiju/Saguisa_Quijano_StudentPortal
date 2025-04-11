@@ -18,11 +18,14 @@
 
 ## 📚 Project Overview
 
-**StudentPortal** is a web-based enrollment system developed as the final project for ELDNET 1.  
+**StudentPortal** is a web-based enrollment system developed as the final project for IT-ELDNET1.  
 It implements basic features essential for managing students, subjects, schedules, and enrollments in an educational institution.
 
 Visit the live project here:  
 🔗 [http://saguisaquijano.somee.com](http://saguisaquijano.somee.com)
+
+Visit the automation project here:  
+🔗 [https://github.com/kkreiju/TestquaAutomation](https://github.com/kkreiju/TestquaAutomation)
 
 ---
 
